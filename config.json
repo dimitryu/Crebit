@@ -1,0 +1,29 @@
+{
+  "parentPasswordHash": "d896af65d5b6b01300e22d3778efe9dc777fcde29ff9a6f2dd04242a7b0367ac",
+  "children": [
+    {
+      "id": "leon",
+      "name": "לאון",
+      "emoji": "🦁",
+      "color": "#E87D3E",
+      "dark": "#B85A1A",
+      "pinHash": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4"
+    },
+    {
+      "id": "angelina",
+      "name": "אנגלינה",
+      "emoji": "🌸",
+      "color": "#D946A0",
+      "dark": "#A01470",
+      "pinHash": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4"
+    },
+    {
+      "id": "evelyn",
+      "name": "אוולין",
+      "emoji": "⭐",
+      "color": "#7C3AED",
+      "dark": "#4C1D95",
+      "pinHash": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4"
+    }
+  ]
+}
