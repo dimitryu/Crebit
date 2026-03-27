@@ -5,5 +5,12 @@
     "amount": 200,
     "date": "2026-03-27",
     "description": "הכנסה לכרדיטכארד"
+  },
+  {
+    "id": "mn8xigz7ocpbls",
+    "type": "i",
+    "amount": 300,
+    "date": "2026-03-27",
+    "description": "מכולט"
   }
 ]
