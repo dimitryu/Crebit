@@ -1,1 +1,1368 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="כסף משפחתי">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>💰 כסף משפחתי</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
+    <style>
+        /* ─── RESET & ROOT ─────────────────────────────── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #F5F0EB;
+            --card: #FFFFFF;
+            --text: #1C1917;
+            --text2: #78716C;
+            --border: #E7E5E4;
+            --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+            --shadow: 0 4px 16px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+            --r: 18px;
+            --r-sm: 10px;
+            --income: #16A34A;
+            --expense: #DC2626;
+            --income-bg: #DCFCE7;
+            --expense-bg: #FEE2E2;
+
+            /* Child colors */
+            --leon: #E87D3E;
+            --leon-dark: #B85A1A;
+            --angelina: #D946A0;
+            --angelina-dark: #A01470;
+            --evelyn: #7C3AED;
+            --evelyn-dark: #4C1D95;
+
+            --parent: #1D4ED8;
+            --parent-dark: #1E3A8A;
+
+            /* Active child */
+            --accent: #1D4ED8;
+            --accent-dark: #1E3A8A;
+        }
+
+        body {
+            font-family: 'Rubik', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            direction: rtl;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ─── SCREENS ────────────────────────────────────── */
+        .screen { display: none; min-height: 100dvh; flex-direction: column; }
+        .screen.active { display: flex; }
+
+        /* ─── HEADER ─────────────────────────────────────── */
+        .hdr {
+            position: sticky; top: 0; z-index: 20;
+            padding: 14px 18px;
+            display: flex; align-items: center; justify-content: space-between;
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+        }
+        .hdr.colored {
+            background: var(--accent);
+            border-bottom: none;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+        }
+        .hdr.colored h1 { color: #fff; }
+        .hdr h1 { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.3px; }
+        .hdr-btn {
+            background: rgba(0,0,0,0.06);
+            border: none; border-radius: 20px;
+            padding: 7px 15px; font-size: 0.82rem; font-weight: 600;
+            cursor: pointer; font-family: inherit; color: var(--text2);
+            transition: background 0.15s;
+        }
+        .hdr.colored .hdr-btn {
+            background: rgba(255,255,255,0.2); color: #fff;
+        }
+        .hdr-btn:hover { background: rgba(0,0,0,0.10); }
+        .hdr.colored .hdr-btn:hover { background: rgba(255,255,255,0.3); }
+        .hdr-gap { width: 72px; }
+
+        /* ─── SCROLLABLE CONTENT ─────────────────────────── */
+        .content { flex: 1; overflow-y: auto; padding: 18px 16px 100px; }
+
+        /* ─── LOADING ─────────────────────────────────────── */
+        .loading-overlay {
+            position: fixed; inset: 0; z-index: 999;
+            background: rgba(245,240,235,0.92);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            gap: 14px;
+            backdrop-filter: blur(4px);
+        }
+        .spinner {
+            width: 40px; height: 40px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-text { font-size: 0.88rem; color: var(--text2); font-weight: 500; }
+
+        /* ─── TOAST ──────────────────────────────────────── */
+        .toast {
+            position: fixed; bottom: 80px; left: 50%;
+            transform: translateX(-50%) translateY(16px);
+            background: #1C1917; color: #fff;
+            padding: 10px 20px; border-radius: 24px;
+            font-size: 0.88rem; font-weight: 500;
+            opacity: 0; transition: all 0.25s;
+            z-index: 997; white-space: nowrap; pointer-events: none;
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* ─── BUTTON ─────────────────────────────────────── */
+        .btn {
+            width: 100%; padding: 14px;
+            border: none; border-radius: var(--r);
+            font-size: 0.95rem; font-weight: 700;
+            cursor: pointer; font-family: inherit;
+            transition: transform 0.1s, opacity 0.15s;
+            letter-spacing: -0.2px;
+        }
+        .btn:active { transform: scale(0.97); opacity: 0.85; }
+        .btn-primary { background: var(--accent); color: #fff; }
+        .btn-ghost {
+            background: transparent; color: var(--text2);
+            border: 1.5px solid var(--border);
+        }
+        .btn-danger { background: #FEE2E2; color: var(--expense); }
+
+        /* ─── FORM ───────────────────────────────────────── */
+        .fgroup { margin-bottom: 14px; }
+        .flabel { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text2); margin-bottom: 6px; letter-spacing: 0.3px; text-transform: uppercase; }
+        .finput {
+            width: 100%; padding: 12px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--r-sm);
+            font-size: 0.95rem; font-family: inherit;
+            color: var(--text); background: var(--bg);
+            outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .finput:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(29,78,216,0.1);
+            background: #fff;
+        }
+        .finput-hint { font-size: 0.76rem; color: var(--text2); margin-top: 5px; line-height: 1.4; }
+
+        /* ════════════════════════════════════════════════════
+           SCREEN: SETUP
+        ════════════════════════════════════════════════════ */
+        .setup-content { flex: 1; overflow-y: auto; padding: 20px 16px 40px; }
+        .setup-hero {
+            text-align: center; margin-bottom: 24px; padding: 24px 16px;
+            background: linear-gradient(135deg, var(--parent), var(--parent-dark));
+            border-radius: 20px; color: #fff;
+        }
+        .setup-hero .big-icon { font-size: 3rem; margin-bottom: 10px; }
+        .setup-hero h2 { font-size: 1.4rem; font-weight: 800; }
+        .setup-hero p { font-size: 0.85rem; opacity: 0.8; margin-top: 5px; }
+
+        .setup-card {
+            background: var(--card); border-radius: var(--r);
+            padding: 18px; margin-bottom: 14px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+        }
+        .setup-card-title {
+            font-size: 0.78rem; font-weight: 700; color: var(--text2);
+            text-transform: uppercase; letter-spacing: 0.5px;
+            margin-bottom: 16px; padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        .kid-pin-row {
+            display: flex; align-items: center; gap: 12px; margin-bottom: 12px;
+        }
+        .kid-pin-emoji { font-size: 1.8rem; flex-shrink: 0; }
+        .kid-pin-name { font-size: 0.88rem; font-weight: 600; margin-bottom: 5px; }
+
+        /* ════════════════════════════════════════════════════
+           SCREEN: LOGIN
+        ════════════════════════════════════════════════════ */
+        .login-page {
+            flex: 1; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 28px 20px;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 60%, #F5F0EB 60%);
+            min-height: 100dvh;
+        }
+        .login-logo-area { text-align: center; color: #fff; margin-bottom: 32px; }
+        .login-main-icon {
+            font-size: 3.5rem; display: block; margin-bottom: 10px;
+            filter: drop-shadow(0 4px 16px rgba(0,0,0,0.3));
+        }
+        .login-app-name {
+            font-size: 1.8rem; font-weight: 900; letter-spacing: -1px;
+        }
+        .login-app-sub { font-size: 0.85rem; opacity: 0.6; margin-top: 3px; }
+
+        .login-panel {
+            background: var(--card);
+            border-radius: 24px;
+            padding: 24px 20px;
+            width: 100%; max-width: 380px;
+            box-shadow: var(--shadow-lg);
+        }
+        .login-panel-title {
+            font-size: 0.78rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.5px;
+            color: var(--text2); margin-bottom: 16px; text-align: center;
+        }
+        .login-grid {
+            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;
+        }
+        .login-cell {
+            background: var(--bg); border-radius: 16px;
+            padding: 14px 6px;
+            text-align: center; cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.18s; display: flex;
+            flex-direction: column; align-items: center; gap: 6px;
+        }
+        .login-cell:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+        .login-cell:active { transform: scale(0.96); }
+        .login-cell .icon { font-size: 2rem; }
+        .login-cell .name { font-size: 0.82rem; font-weight: 700; }
+
+        .parent-cell {
+            grid-column: 1/-1;
+            flex-direction: row; justify-content: center; gap: 10px;
+            background: linear-gradient(135deg, var(--parent), var(--parent-dark));
+            color: #fff; padding: 14px 20px;
+        }
+        .parent-cell .name { font-size: 0.95rem; }
+
+        .login-footer { margin-top: 16px; text-align: center; }
+        .login-settings-btn {
+            background: none; border: none; font-size: 0.8rem;
+            color: var(--text2); cursor: pointer; font-family: inherit;
+            padding: 6px 12px; border-radius: 8px;
+        }
+        .login-settings-btn:hover { background: var(--bg); }
+
+        /* ════════════════════════════════════════════════════
+           SCREEN: PIN ENTRY
+        ════════════════════════════════════════════════════ */
+        .pin-page {
+            flex: 1; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 24px; gap: 18px;
+        }
+        .pin-avatar { font-size: 4.5rem; line-height: 1; }
+        .pin-child-name { font-size: 1.5rem; font-weight: 800; }
+        .pin-hint { font-size: 0.88rem; color: var(--text2); }
+        .pin-dots { display: flex; gap: 14px; margin: 4px 0; }
+        .dot {
+            width: 15px; height: 15px; border-radius: 50%;
+            background: var(--border);
+            transition: background 0.15s, transform 0.15s;
+        }
+        .dot.on { background: var(--accent); transform: scale(1.25); }
+        .pin-err { font-size: 0.84rem; color: var(--expense); min-height: 20px; font-weight: 500; }
+
+        .numpad {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 10px; width: 100%; max-width: 268px;
+        }
+        .nk {
+            background: var(--card);
+            border: none; border-radius: 14px;
+            padding: 16px; font-size: 1.3rem; font-weight: 700;
+            cursor: pointer; font-family: inherit; color: var(--text);
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.08s, background 0.1s;
+        }
+        .nk:active { transform: scale(0.92); background: var(--accent); color: #fff; }
+        .nk.del { font-size: 1rem; color: var(--text2); font-weight: 500; }
+        .nk.ok { background: var(--accent); color: #fff; font-size: 0.9rem; font-weight: 700; }
+
+        /* ════════════════════════════════════════════════════
+           SCREEN: PARENT LOGIN
+        ════════════════════════════════════════════════════ */
+        .parlogin-page {
+            flex: 1; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 28px; gap: 20px;
+        }
+        .parlogin-icon { font-size: 4rem; }
+        .parlogin-title { font-size: 1.4rem; font-weight: 800; }
+        .parlogin-box { width: 100%; max-width: 300px; display: flex; flex-direction: column; gap: 10px; }
+        .par-err { font-size: 0.84rem; color: var(--expense); font-weight: 500; min-height: 18px; text-align: center; }
+
+        /* ════════════════════════════════════════════════════
+           BALANCE CARD
+        ════════════════════════════════════════════════════ */
+        .bal-card {
+            border-radius: 22px;
+            padding: 22px 20px;
+            margin-bottom: 20px;
+            color: #fff;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            box-shadow: 0 6px 24px rgba(0,0,0,0.15);
+            position: relative; overflow: hidden;
+        }
+        .bal-card::after {
+            content: '';
+            position: absolute; top: -30px; right: -30px;
+            width: 120px; height: 120px; border-radius: 50%;
+            background: rgba(255,255,255,0.07);
+        }
+        .bal-card::before {
+            content: '';
+            position: absolute; bottom: -50px; left: -20px;
+            width: 160px; height: 160px; border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+        }
+        .bal-label { font-size: 0.78rem; opacity: 0.8; font-weight: 600; letter-spacing: 0.3px; margin-bottom: 6px; }
+        .bal-amount {
+            font-size: 2.8rem; font-weight: 900;
+            direction: ltr; text-align: right;
+            letter-spacing: -1.5px; line-height: 1;
+            margin-bottom: 18px;
+        }
+        .bal-row { display: flex; gap: 10px; }
+        .bal-box {
+            flex: 1; background: rgba(255,255,255,0.15);
+            border-radius: 12px; padding: 10px 12px;
+            backdrop-filter: blur(4px);
+        }
+        .bal-box-label { font-size: 0.72rem; opacity: 0.75; margin-bottom: 3px; font-weight: 500; }
+        .bal-box-val { font-size: 1.05rem; font-weight: 800; direction: ltr; }
+
+        /* ════════════════════════════════════════════════════
+           SECTION
+        ════════════════════════════════════════════════════ */
+        .sec-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+        .sec-title { font-size: 0.95rem; font-weight: 700; }
+        .sec-count { font-size: 0.8rem; color: var(--text2); background: var(--bg); padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+
+        /* Month filter */
+        .month-bar {
+            display: flex; gap: 7px; overflow-x: auto;
+            padding-bottom: 4px; margin-bottom: 14px;
+            -webkit-overflow-scrolling: touch; scrollbar-width: none;
+        }
+        .month-bar::-webkit-scrollbar { display: none; }
+        .mchip {
+            border: 1.5px solid var(--border);
+            border-radius: 20px; padding: 5px 14px;
+            font-size: 0.8rem; font-weight: 600;
+            cursor: pointer; white-space: nowrap;
+            font-family: inherit; background: var(--card);
+            color: var(--text2); transition: all 0.15s;
+        }
+        .mchip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+        /* ════════════════════════════════════════════════════
+           TRANSACTION CARDS
+        ════════════════════════════════════════════════════ */
+        .tx-list { display: flex; flex-direction: column; gap: 8px; }
+        .tx {
+            background: var(--card);
+            border-radius: 14px;
+            padding: 12px 14px;
+            display: flex; align-items: center; gap: 12px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            transition: box-shadow 0.15s;
+        }
+        .tx:hover { box-shadow: var(--shadow); }
+        .tx-icon {
+            width: 44px; height: 44px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem; flex-shrink: 0;
+        }
+        .tx-icon.i { background: var(--income-bg); }
+        .tx-icon.e { background: var(--expense-bg); }
+        .tx-body { flex: 1; min-width: 0; }
+        .tx-desc { font-size: 0.9rem; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .tx-date { font-size: 0.75rem; color: var(--text2); margin-top: 2px; font-weight: 500; }
+        .tx-amount { font-size: 1rem; font-weight: 800; flex-shrink: 0; direction: ltr; letter-spacing: -0.5px; }
+        .tx-amount.i { color: var(--income); }
+        .tx-amount.e { color: var(--expense); }
+        .tx-acts { display: flex; gap: 3px; flex-shrink: 0; }
+        .icon-btn {
+            background: none; border: none; cursor: pointer;
+            font-size: 1rem; padding: 5px 7px; border-radius: 8px;
+            transition: background 0.1s; line-height: 1;
+        }
+        .icon-btn:hover { background: var(--bg); }
+
+        /* Empty */
+        .empty { text-align: center; padding: 48px 20px; color: var(--text2); }
+        .empty .ei { font-size: 3rem; margin-bottom: 10px; opacity: 0.5; }
+        .empty p { font-size: 0.9rem; font-weight: 500; }
+
+        /* ════════════════════════════════════════════════════
+           CHILD TABS (parent view)
+        ════════════════════════════════════════════════════ */
+        .child-tabs {
+            display: flex; gap: 8px; overflow-x: auto;
+            margin-bottom: 18px; padding-bottom: 4px;
+            -webkit-overflow-scrolling: touch; scrollbar-width: none;
+        }
+        .child-tabs::-webkit-scrollbar { display: none; }
+        .ctab {
+            display: flex; align-items: center; gap: 7px;
+            padding: 9px 18px; border-radius: 24px;
+            font-size: 0.85rem; font-weight: 700;
+            border: 2px solid var(--border);
+            background: var(--card); color: var(--text2);
+            cursor: pointer; white-space: nowrap;
+            font-family: inherit; transition: all 0.15s;
+        }
+        .ctab.on { color: #fff; border-color: transparent; }
+
+        /* FAB */
+        .fab {
+            position: fixed; bottom: 26px; left: 20px;
+            width: 58px; height: 58px; border-radius: 50%;
+            background: var(--accent); color: #fff; border: none;
+            font-size: 1.6rem; cursor: pointer;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.2);
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 0.15s, box-shadow 0.15s; z-index: 50;
+        }
+        .fab:hover { transform: scale(1.08); }
+        .fab:active { transform: scale(0.96); }
+
+        /* Refresh btn */
+        .refresh-btn {
+            display: flex; align-items: center; gap: 6px;
+            background: var(--card); border: 1.5px solid var(--border);
+            border-radius: 12px; padding: 8px 14px;
+            font-size: 0.82rem; font-weight: 600; color: var(--text2);
+            cursor: pointer; font-family: inherit; margin-bottom: 18px;
+            transition: background 0.15s;
+        }
+        .refresh-btn:hover { background: var(--bg); }
+
+        /* ════════════════════════════════════════════════════
+           MODAL
+        ════════════════════════════════════════════════════ */
+        .overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.4);
+            display: flex; align-items: flex-end; justify-content: center;
+            z-index: 100; opacity: 0; pointer-events: none;
+            transition: opacity 0.2s;
+            backdrop-filter: blur(2px);
+        }
+        .overlay.on { opacity: 1; pointer-events: all; }
+        .modal {
+            background: var(--card);
+            border-radius: 24px 24px 0 0;
+            padding: 20px; width: 100%; max-width: 500px;
+            transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.32,0.72,0,1);
+            max-height: 92dvh; overflow-y: auto;
+        }
+        .overlay.on .modal { transform: translateY(0); }
+        .modal-handle { width: 36px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 20px; }
+        .modal-title { font-size: 1.15rem; font-weight: 800; margin-bottom: 18px; letter-spacing: -0.3px; }
+        .type-row { display: flex; background: var(--bg); border-radius: var(--r-sm); padding: 4px; gap: 4px; margin-bottom: 0; }
+        .type-btn {
+            flex: 1; padding: 10px; border: none;
+            border-radius: 8px; font-size: 0.88rem; font-weight: 700;
+            cursor: pointer; font-family: inherit;
+            color: var(--text2); background: transparent; transition: all 0.15s;
+        }
+        .type-btn.on-i { background: var(--income); color: #fff; }
+        .type-btn.on-e { background: var(--expense); color: #fff; }
+        .modal-btns { display: flex; gap: 8px; margin-top: 20px; }
+
+        /* Child selector inside modal */
+        .modal-child-sel {
+            display: flex; gap: 8px; flex-wrap: wrap;
+            background: var(--bg); border-radius: var(--r-sm);
+            padding: 6px;
+        }
+        .modal-kid-btn {
+            flex: 1; min-width: 80px;
+            background: var(--card); border: 2px solid var(--border);
+            border-radius: 10px; padding: 8px 6px;
+            font-family: inherit; cursor: pointer;
+            text-align: center; font-size: 0.8rem; font-weight: 700;
+            color: var(--text2); transition: all 0.12s;
+        }
+        .modal-kid-btn .mke { font-size: 1.4rem; display: block; margin-bottom: 3px; }
+        .modal-kid-btn.on { color: #fff; border-color: transparent; }
+
+        /* ════════════════════════════════════════════════════
+           RESPONSIVE
+        ════════════════════════════════════════════════════ */
+        @media (min-width: 600px) {
+            .content { max-width: 600px; margin: 0 auto; }
+            .login-grid { grid-template-columns: 1fr 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ─── LOADING OVERLAY ─────────────────────────────────── -->
+<div class="loading-overlay" id="loading">
+    <div class="spinner" id="spinner"></div>
+    <div class="loading-text" id="loadingText">טוען...</div>
+</div>
+
+<!-- ─── TOAST ────────────────────────────────────────────── -->
+<div class="toast" id="toast"></div>
+
+<!-- ════════════════════════════════════════════════════════
+     SCREEN: SETUP
+════════════════════════════════════════════════════════ -->
+<div class="screen" id="sSetup">
+    <div class="hdr" style="background:var(--parent);border-bottom:none">
+        <div class="hdr-gap"></div>
+        <h1 style="color:#fff">⚙️ הגדרה ראשונית</h1>
+        <div class="hdr-gap"></div>
+    </div>
+    <div class="setup-content">
+
+        <div class="setup-hero">
+            <div class="big-icon">💰</div>
+            <h2>ברוכים הבאים!</h2>
+            <p>הגדר פעם אחת ותתחיל לנהל את כסף הילדים</p>
+        </div>
+
+        <div class="setup-card">
+            <div class="setup-card-title">🐙 GitHub Repository</div>
+            <div class="fgroup">
+                <label class="flabel">שם משתמש GitHub</label>
+                <input class="finput" id="sOwner" dir="ltr" placeholder="your-username" autocomplete="off">
+            </div>
+            <div class="fgroup">
+                <label class="flabel">שם ה-Repository</label>
+                <input class="finput" id="sRepo" dir="ltr" placeholder="family-money" autocomplete="off">
+            </div>
+            <div class="fgroup">
+                <label class="flabel">Branch</label>
+                <input class="finput" id="sBranch" dir="ltr" value="main" autocomplete="off">
+            </div>
+            <div class="fgroup">
+                <label class="flabel">Personal Access Token</label>
+                <input class="finput" id="sToken" type="password" dir="ltr" placeholder="ghp_..." autocomplete="off">
+                <div class="finput-hint">
+                    ⚠️ צור repo ריק ב-GitHub לפני הגדרה<br>
+                    📖 GitHub → Settings → Developer settings → Personal access tokens → Generate (Classic) → הרשאת <strong>repo</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="setup-card">
+            <div class="setup-card-title">🔐 סיסמת הורה</div>
+            <div class="fgroup">
+                <label class="flabel">סיסמה</label>
+                <input class="finput" id="sParPw" type="password" placeholder="הכנס סיסמה">
+            </div>
+            <div class="fgroup">
+                <label class="flabel">אימות סיסמה</label>
+                <input class="finput" id="sParPw2" type="password" placeholder="הכנס שוב">
+            </div>
+        </div>
+
+        <div class="setup-card">
+            <div class="setup-card-title">👶 קוד PIN לכל ילד (4 ספרות)</div>
+            <div id="pinSetupRows"></div>
+        </div>
+
+        <button class="btn btn-primary" onclick="doSetup()" style="margin-bottom:40px">
+            ✅ שמור והתחל
+        </button>
+
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     SCREEN: LOGIN
+════════════════════════════════════════════════════════ -->
+<div class="screen" id="sLogin">
+    <div class="login-page">
+        <div class="login-logo-area">
+            <span class="login-main-icon">💰</span>
+            <div class="login-app-name">כסף משפחתי</div>
+            <div class="login-app-sub">ניהול כסף לילדים</div>
+        </div>
+
+        <div class="login-panel">
+            <div class="login-panel-title">מי נכנס עכשיו?</div>
+            <div class="login-grid" id="loginGrid"></div>
+            <div class="login-footer">
+                <button class="login-settings-btn" onclick="openSetup()">⚙️ הגדרות</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     SCREEN: PIN
+════════════════════════════════════════════════════════ -->
+<div class="screen" id="sPin">
+    <div class="hdr colored" id="pinHdr">
+        <button class="hdr-btn" onclick="go('sLogin')">← חזור</button>
+        <h1 id="pinHdrTitle">כניסה</h1>
+        <div class="hdr-gap"></div>
+    </div>
+    <div class="pin-page">
+        <div class="pin-avatar" id="pinEmoji"></div>
+        <div class="pin-child-name" id="pinName"></div>
+        <div class="pin-hint">הכנס קוד PIN</div>
+        <div class="pin-dots" id="pinDots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="pin-err" id="pinErr"></div>
+        <div class="numpad">
+            <button class="nk" onclick="pd('1')">1</button>
+            <button class="nk" onclick="pd('2')">2</button>
+            <button class="nk" onclick="pd('3')">3</button>
+            <button class="nk" onclick="pd('4')">4</button>
+            <button class="nk" onclick="pd('5')">5</button>
+            <button class="nk" onclick="pd('6')">6</button>
+            <button class="nk" onclick="pd('7')">7</button>
+            <button class="nk" onclick="pd('8')">8</button>
+            <button class="nk" onclick="pd('9')">9</button>
+            <button class="nk del" onclick="pdel()">⌫</button>
+            <button class="nk" onclick="pd('0')">0</button>
+            <button class="nk ok" onclick="pconfirm()">✓</button>
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     SCREEN: PARENT LOGIN
+════════════════════════════════════════════════════════ -->
+<div class="screen" id="sParLogin">
+    <div class="hdr colored" style="--accent:var(--parent);--accent-dark:var(--parent-dark)">
+        <button class="hdr-btn" onclick="go('sLogin')">← חזור</button>
+        <h1>כניסת הורה</h1>
+        <div class="hdr-gap"></div>
+    </div>
+    <div class="parlogin-page">
+        <div class="parlogin-icon">👨‍👩‍👧‍👦</div>
+        <div class="parlogin-title">מסך הורה</div>
+        <div class="parlogin-box">
+            <input class="finput" type="password" id="parPw" placeholder="הכנס סיסמה"
+                   onkeydown="if(event.key==='Enter')parLogin()">
+            <div class="par-err" id="parErr"></div>
+            <button class="btn btn-primary" onclick="parLogin()">כניסה</button>
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     SCREEN: CHILD DASHBOARD
+════════════════════════════════════════════════════════ -->
+<div class="screen" id="sChild">
+    <div class="hdr colored" id="childHdr">
+        <button class="hdr-btn" onclick="logout()">יציאה</button>
+        <h1 id="childHdrName"></h1>
+        <button class="hdr-btn" onclick="refreshChild()" title="רענן">🔄</button>
+    </div>
+    <div class="content">
+        <div class="bal-card" id="childBalCard">
+            <div class="bal-label">💰 יתרה נוכחית</div>
+            <div class="bal-amount" id="childBal">₪0</div>
+            <div class="bal-row">
+                <div class="bal-box">
+                    <div class="bal-box-label">📈 הכנסות</div>
+                    <div class="bal-box-val" id="childInc">₪0</div>
+                </div>
+                <div class="bal-box">
+                    <div class="bal-box-label">📉 הוצאות</div>
+                    <div class="bal-box-val" id="childExp">₪0</div>
+                </div>
+            </div>
+        </div>
+        <div class="sec-hdr">
+            <div class="sec-title">תנועות כספיות</div>
+            <div class="sec-count" id="childCnt">0</div>
+        </div>
+        <div class="month-bar" id="childMBar"></div>
+        <div class="tx-list" id="childTxList"></div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     SCREEN: PARENT DASHBOARD
+════════════════════════════════════════════════════════ -->
+<div class="screen" id="sParent">
+    <div class="hdr colored" style="background:var(--parent)">
+        <button class="hdr-btn" onclick="logout()">יציאה</button>
+        <h1>👨‍👩‍👧‍👦 מסך הורה</h1>
+        <button class="hdr-btn" onclick="refreshParent()" title="רענן">🔄</button>
+    </div>
+    <div class="content">
+        <div class="child-tabs" id="childTabs"></div>
+        <div class="bal-card" id="parBalCard">
+            <div class="bal-label">💰 יתרה נוכחית</div>
+            <div class="bal-amount" id="parBal">₪0</div>
+            <div class="bal-row">
+                <div class="bal-box">
+                    <div class="bal-box-label">📈 הכנסות</div>
+                    <div class="bal-box-val" id="parInc">₪0</div>
+                </div>
+                <div class="bal-box">
+                    <div class="bal-box-label">📉 הוצאות</div>
+                    <div class="bal-box-val" id="parExp">₪0</div>
+                </div>
+            </div>
+        </div>
+        <div class="sec-hdr">
+            <div class="sec-title">תנועות כספיות</div>
+            <div class="sec-count" id="parCnt">0</div>
+        </div>
+        <div class="month-bar" id="parMBar"></div>
+        <div class="tx-list" id="parTxList"></div>
+    </div>
+    <button class="fab" id="parFab" onclick="openAdd()">＋</button>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     MODAL: ADD / EDIT TRANSACTION
+════════════════════════════════════════════════════════ -->
+<div class="overlay" id="overlay" onclick="maybClose(event)">
+    <div class="modal">
+        <div class="modal-handle"></div>
+        <div class="modal-title" id="modalTitle">הוספת תנועה</div>
+
+        <!-- Child selector (in modal, if needed) -->
+        <div class="fgroup" id="modalKidGroup" style="display:none">
+            <label class="flabel">ילד</label>
+            <div class="modal-child-sel" id="modalKidSel"></div>
+        </div>
+
+        <div class="fgroup">
+            <label class="flabel">סוג תנועה</label>
+            <div class="type-row">
+                <button class="type-btn on-i" id="btnI" onclick="setTtype('i')">📈 הכנסה</button>
+                <button class="type-btn" id="btnE" onclick="setTtype('e')">📉 הוצאה</button>
+            </div>
+        </div>
+        <div class="fgroup">
+            <label class="flabel">סכום (₪)</label>
+            <input class="finput" type="number" id="mAmt" min="0.01" step="0.01" dir="ltr" placeholder="0.00">
+        </div>
+        <div class="fgroup">
+            <label class="flabel">תאריך</label>
+            <input class="finput" type="date" id="mDate" dir="ltr">
+        </div>
+        <div class="fgroup">
+            <label class="flabel">תיאור</label>
+            <input class="finput" id="mDesc" placeholder="לדוגמה: כסף מסבא, ממתקים...">
+        </div>
+        <div class="modal-btns">
+            <button class="btn btn-ghost" style="flex:1" onclick="closeModal()">ביטול</button>
+            <button class="btn btn-primary" style="flex:2" onclick="saveTx()">💾 שמור</button>
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     SCRIPT
+════════════════════════════════════════════════════════ -->
+<script>
+/* ──────────────────────────────────────────────
+   CONSTANTS
+────────────────────────────────────────────── */
+const KIDS = [
+    {id:'leon',     name:'לאון',    emoji:'🦁', color:'#E87D3E', dark:'#B85A1A'},
+    {id:'angelina', name:'אנגלינה', emoji:'🌸', color:'#D946A0', dark:'#A01470'},
+    {id:'evelyn',   name:'אוולין',  emoji:'⭐', color:'#7C3AED', dark:'#4C1D95'}
+];
+const HE_MONTHS = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני',
+                   'יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
+
+/* ──────────────────────────────────────────────
+   STATE
+────────────────────────────────────────────── */
+let ghCfg = null;      // {owner, repo, branch, token}
+let cfg   = null;      // config.json content from GitHub
+let data  = {};        // {kidId: [{id,type,amount,date,description}]}
+let shas  = {};        // {kidId: sha, 'config': sha}
+let me    = null;      // 'parent' | kid.id
+let selKid= null;      // active child in parent view
+let selMon= null;      // selected month filter
+let pinBuf= '';        // PIN entry buffer
+let pinKid= null;      // kid being PIN-unlocked
+let txType= 'i';       // modal tx type
+let editId= null;      // id of tx being edited
+let modalKidSel = null;// kid selected in modal (when adding from parent)
+
+/* ──────────────────────────────────────────────
+   INIT
+────────────────────────────────────────────── */
+window.addEventListener('load', async () => {
+    const stored = localStorage.getItem('ghCfg');
+    if (!stored) { buildPinRows(); go('sSetup'); hide(); return; }
+    ghCfg = JSON.parse(stored);
+    try {
+        await loadCfg();
+        buildLoginGrid();
+        go('sLogin');
+    } catch(e) {
+        toast('⚠️ שגיאה בטעינה — בדוק הגדרות');
+        buildPinRows();
+        go('sSetup');
+    }
+    hide();
+});
+
+/* ──────────────────────────────────────────────
+   GITHUB API
+────────────────────────────────────────────── */
+async function ghGet(path) {
+    const {owner, repo, branch, token} = ghCfg;
+    const res = await fetch(
+        `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}&_=${Date.now()}`,
+        { headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' } }
+    );
+    if (res.status === 404) return null;
+    if (!res.ok) throw new Error(`GitHub ${res.status}`);
+    const j = await res.json();
+    return { content: JSON.parse(b64d(j.content)), sha: j.sha };
+}
+
+async function ghPut(path, content, sha) {
+    const {owner, repo, branch, token} = ghCfg;
+    const res = await fetch(
+        `https://api.github.com/repos/${owner}/${repo}/contents/${path}`,
+        {
+            method: 'PUT',
+            headers: {
+                Authorization: `token ${token}`,
+                'Content-Type': 'application/json',
+                Accept: 'application/vnd.github.v3+json'
+            },
+            body: JSON.stringify({
+                message: `update ${path}`,
+                content: b64e(JSON.stringify(content, null, 2)),
+                branch,
+                ...(sha ? {sha} : {})
+            })
+        }
+    );
+    if (!res.ok) {
+        const txt = await res.text();
+        throw new Error(`GitHub PUT ${res.status}: ${txt}`);
+    }
+    const j = await res.json();
+    return j.content.sha;
+}
+
+function b64e(s) { return btoa(unescape(encodeURIComponent(s))); }
+function b64d(s) { return decodeURIComponent(escape(atob(s.replace(/\s/g,'')))); }
+
+/* ──────────────────────────────────────────────
+   CRYPTO
+────────────────────────────────────────────── */
+async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,8); }
+
+/* ──────────────────────────────────────────────
+   SETUP
+────────────────────────────────────────────── */
+function buildPinRows() {
+    g('pinSetupRows').innerHTML = KIDS.map(k=>`
+        <div class="kid-pin-row">
+            <div class="kid-pin-emoji">${k.emoji}</div>
+            <div style="flex:1">
+                <div class="kid-pin-name">${k.name}</div>
+                <input class="finput" type="number" id="pin_${k.id}"
+                       placeholder="4 ספרות" min="1000" max="9999" dir="ltr">
+            </div>
+        </div>
+    `).join('');
+    if (ghCfg) {
+        g('sOwner').value  = ghCfg.owner  || '';
+        g('sRepo').value   = ghCfg.repo   || '';
+        g('sBranch').value = ghCfg.branch || 'main';
+        g('sToken').value  = ghCfg.token  || '';
+    }
+}
+
+async function doSetup() {
+    const owner  = g('sOwner').value.trim();
+    const repo   = g('sRepo').value.trim();
+    const branch = g('sBranch').value.trim() || 'main';
+    const token  = g('sToken').value.trim();
+    const pw1    = g('sParPw').value;
+    const pw2    = g('sParPw2').value;
+
+    if (!owner||!repo||!token) return toast('❌ מלא את כל פרטי GitHub');
+    if (!pw1) return toast('❌ הכנס סיסמת הורה');
+    if (pw1 !== pw2) return toast('❌ הסיסמאות לא תואמות');
+
+    const pins = {};
+    for (const k of KIDS) {
+        const p = (g('pin_'+k.id).value||'').toString().trim();
+        if (p.length !== 4 || !/^\d{4}$/.test(p)) return toast(`❌ הכנס PIN תקין ל${k.name}`);
+        pins[k.id] = p;
+    }
+
+    show('שומר הגדרות...');
+    try {
+        ghCfg = {owner, repo, branch, token};
+
+        const hashes = await Promise.all([
+            sha256(pw1),
+            ...KIDS.map(k => sha256(pins[k.id]))
+        ]);
+        const [parHash, ...kidHashes] = hashes;
+
+        const newCfg = {
+            parentPasswordHash: parHash,
+            children: KIDS.map((k,i) => ({...k, pinHash: kidHashes[i]}))
+        };
+
+        const existingCfg = await ghGet('config.json');
+        shas.config = await ghPut('config.json', newCfg, existingCfg?.sha || null);
+
+        for (const k of KIDS) {
+            const ex = await ghGet(`data/${k.id}.json`);
+            if (!ex) await ghPut(`data/${k.id}.json`, [], null);
+        }
+
+        localStorage.setItem('ghCfg', JSON.stringify(ghCfg));
+        cfg = newCfg;
+        buildLoginGrid();
+        go('sLogin');
+        toast('✅ הגדרות נשמרו בהצלחה!');
+    } catch(e) {
+        toast('❌ שגיאה: ' + e.message);
+        console.error(e);
+    }
+    hide();
+}
+
+function openSetup() { buildPinRows(); go('sSetup'); }
+
+/* ──────────────────────────────────────────────
+   LOAD DATA
+────────────────────────────────────────────── */
+async function loadCfg() {
+    const r = await ghGet('config.json');
+    if (!r) throw new Error('config.json לא נמצא');
+    cfg = r.content;
+    shas.config = r.sha;
+}
+
+async function loadKidData(kidId) {
+    const r = await ghGet(`data/${kidId}.json`);
+    data[kidId] = r ? r.content : [];
+    shas[kidId] = r ? r.sha : null;
+}
+
+async function loadAllData() {
+    await Promise.all((cfg.children || KIDS).map(k => loadKidData(k.id)));
+}
+
+/* ──────────────────────────────────────────────
+   LOGIN GRID
+────────────────────────────────────────────── */
+function buildLoginGrid() {
+    const kids = cfg?.children || KIDS;
+    g('loginGrid').innerHTML = `
+        <div class="login-cell parent-cell" onclick="go('sParLogin')">
+            <div class="icon">👨‍👩‍👧‍👦</div>
+            <div class="name">הורה</div>
+        </div>
+        ${kids.map(k=>`
+            <div class="login-cell" onclick="startPin('${k.id}')"
+                 style="border-color:${k.color}40">
+                <div class="icon">${k.emoji}</div>
+                <div class="name">${k.name}</div>
+            </div>
+        `).join('')}
+    `;
+}
+
+/* ──────────────────────────────────────────────
+   PIN
+────────────────────────────────────────────── */
+function startPin(kidId) {
+    const kid = getKid(kidId);
+    pinKid = kidId; pinBuf = '';
+    g('pinEmoji').textContent = kid.emoji;
+    g('pinName').textContent  = kid.name;
+    g('pinHdrTitle').textContent = `כניסה — ${kid.name}`;
+    g('pinHdr').style.background = kid.color;
+    g('pinErr').textContent = '';
+    dots();
+    go('sPin');
+}
+
+function pd(d) {
+    if (pinBuf.length >= 4) return;
+    pinBuf += d; dots();
+    if (pinBuf.length === 4) setTimeout(pconfirm, 160);
+}
+function pdel() { pinBuf = pinBuf.slice(0,-1); dots(); }
+function dots() {
+    document.querySelectorAll('#pinDots .dot').forEach((el,i) => el.classList.toggle('on', i < pinBuf.length));
+}
+async function pconfirm() {
+    if (pinBuf.length < 4) return;
+    const kid = getKid(pinKid);
+    const h = await sha256(pinBuf);
+    if (h === kid.pinHash) {
+        me = kid.id;
+        show('טוען נתונים...');
+        try {
+            await loadKidData(kid.id);
+            selMon = null;
+            setupChildScreen(kid);
+            renderChildTxs();
+            go('sChild');
+        } catch(e) { toast('❌ שגיאה בטעינה'); }
+        hide();
+    } else {
+        g('pinErr').textContent = '❌ קוד שגוי, נסה שוב';
+        pinBuf = ''; dots();
+    }
+}
+
+/* ──────────────────────────────────────────────
+   PARENT LOGIN
+────────────────────────────────────────────── */
+async function parLogin() {
+    const pw = g('parPw').value;
+    g('parErr').textContent = '';
+    const h = await sha256(pw);
+    if (h === cfg.parentPasswordHash) {
+        me = 'parent';
+        show('טוען נתונים...');
+        try {
+            await loadAllData();
+            selKid = (cfg.children || KIDS)[0].id;
+            selMon = null;
+            buildChildTabs();
+            renderParentDash();
+            go('sParent');
+        } catch(e) { toast('❌ שגיאה: '+e.message); }
+        hide();
+    } else {
+        g('parErr').textContent = '❌ סיסמה שגויה';
+    }
+}
+
+/* ──────────────────────────────────────────────
+   CHILD DASHBOARD
+────────────────────────────────────────────── */
+function setupChildScreen(kid) {
+    g('childHdr').style.background = kid.color;
+    g('childHdrName').textContent = `${kid.emoji} ${kid.name}`;
+    g('childBalCard').style.background = `linear-gradient(135deg, ${kid.color}, ${kid.dark})`;
+}
+
+function renderChildTxs() {
+    const txs = data[me] || [];
+    renderMonthBar('childMBar', txs, 'c');
+    const filtered = byMonth(txs);
+    renderStats(filtered, 'childBal','childInc','childExp');
+    g('childCnt').textContent = filtered.length;
+    g('childTxList').innerHTML = buildTxCards(filtered, false);
+}
+
+async function refreshChild() {
+    show('מרענן...');
+    try {
+        await loadKidData(me);
+        renderChildTxs();
+        toast('🔄 עודכן');
+    } catch(e) { toast('❌ שגיאה'); }
+    hide();
+}
+
+/* ──────────────────────────────────────────────
+   PARENT DASHBOARD
+────────────────────────────────────────────── */
+function buildChildTabs() {
+    const kids = cfg.children || KIDS;
+    g('childTabs').innerHTML = kids.map(k=>`
+        <button class="ctab ${k.id===selKid?'on':''}"
+                id="ctab_${k.id}"
+                style="${k.id===selKid?`background:${k.color};border-color:${k.color}`:''}">
+            ${k.emoji} ${k.name}
+        </button>
+    `).join('');
+    kids.forEach(k => {
+        g('ctab_'+k.id).onclick = () => {
+            selKid = k.id; selMon = null;
+            buildChildTabs();
+            renderParentDash();
+        };
+    });
+}
+
+function renderParentDash() {
+    const kid = getKid(selKid);
+    g('parBalCard').style.background = `linear-gradient(135deg, ${kid.color}, ${kid.dark})`;
+    const txs = data[selKid] || [];
+    renderMonthBar('parMBar', txs, 'p');
+    const filtered = byMonth(txs);
+    renderStats(filtered, 'parBal','parInc','parExp');
+    g('parCnt').textContent = filtered.length;
+    g('parTxList').innerHTML = buildTxCards(filtered, true);
+}
+
+async function refreshParent() {
+    show('מרענן...');
+    try {
+        await loadAllData();
+        buildChildTabs();
+        renderParentDash();
+        toast('🔄 עודכן');
+    } catch(e) { toast('❌ שגיאה'); }
+    hide();
+}
+
+/* ──────────────────────────────────────────────
+   RENDER HELPERS
+────────────────────────────────────────────── */
+function renderStats(txs, balId, incId, expId) {
+    let inc = 0, exp = 0;
+    txs.forEach(t => { if(t.type==='i') inc += +t.amount; else exp += +t.amount; });
+    const bal = inc - exp;
+    g(balId).textContent = fmtN(bal);
+    g(incId).textContent = fmtN(inc);
+    g(expId).textContent = fmtN(exp);
+}
+
+function buildTxCards(txs, editable) {
+    if (!txs.length) return `
+        <div class="empty">
+            <div class="ei">💸</div>
+            <p>אין תנועות${selMon ? ' בחודש זה' : ' עדיין'}</p>
+        </div>`;
+    return [...txs]
+        .sort((a,b) => b.date.localeCompare(a.date))
+        .map(t => `
+            <div class="tx">
+                <div class="tx-icon ${t.type}">${t.type==='i' ? '📈' : '📉'}</div>
+                <div class="tx-body">
+                    <div class="tx-desc">${esc(t.description || 'ללא תיאור')}</div>
+                    <div class="tx-date">${fmtDate(t.date)}</div>
+                </div>
+                <div class="tx-amount ${t.type}">${t.type==='i'?'+':'-'}${fmtN(t.amount)}</div>
+                ${editable ? `
+                <div class="tx-acts">
+                    <button class="icon-btn" onclick="openEdit('${t.id}')">✏️</button>
+                    <button class="icon-btn" onclick="delTx('${t.id}')">🗑️</button>
+                </div>` : ''}
+            </div>
+        `).join('');
+}
+
+function renderMonthBar(cid, txs, ctx) {
+    const months = [...new Set(txs.map(t=>t.date.slice(0,7)))].sort().reverse();
+    g(cid).innerHTML =
+        `<button class="mchip ${!selMon?'on':''}" onclick="pickMon(null,'${ctx}')">כל הזמן</button>` +
+        months.map(m =>
+            `<button class="mchip ${selMon===m?'on':''}" onclick="pickMon('${m}','${ctx}')">${fmtMon(m)}</button>`
+        ).join('');
+}
+
+function pickMon(m, ctx) {
+    selMon = m;
+    if (ctx==='p') renderParentDash();
+    else renderChildTxs();
+}
+
+function byMonth(txs) {
+    return selMon ? txs.filter(t => t.date.startsWith(selMon)) : txs;
+}
+
+/* ──────────────────────────────────────────────
+   MODAL
+────────────────────────────────────────────── */
+function openAdd() {
+    editId = null;
+    txType = 'i';
+    g('modalTitle').textContent = 'הוספת תנועה';
+    g('mAmt').value  = '';
+    g('mDate').value = today();
+    g('mDesc').value = '';
+    // Show child selector if parent
+    g('modalKidGroup').style.display = 'block';
+    modalKidSel = selKid;
+    const kids = cfg?.children || KIDS;
+    g('modalKidSel').innerHTML = kids.map(k=>`
+        <button class="modal-kid-btn ${k.id===modalKidSel?'on':''}"
+                id="mkbtn_${k.id}"
+                style="${k.id===modalKidSel?`background:${k.color};border-color:${k.color};`:''}">
+            <span class="mke">${k.emoji}</span>${k.name}
+        </button>
+    `).join('');
+    kids.forEach(k => {
+        g('mkbtn_'+k.id).onclick = () => {
+            modalKidSel = k.id;
+            kids.forEach(kk => {
+                const b = g('mkbtn_'+kk.id);
+                if (kk.id === k.id) {
+                    b.classList.add('on');
+                    b.style.background = kk.color;
+                    b.style.borderColor = kk.color;
+                } else {
+                    b.classList.remove('on');
+                    b.style.background = '';
+                    b.style.borderColor = '';
+                }
+            });
+        };
+    });
+    refreshTypeUI();
+    g('overlay').classList.add('on');
+}
+
+function openEdit(id) {
+    const tx = (data[selKid]||[]).find(t=>t.id===id);
+    if (!tx) return;
+    editId = id;
+    txType = tx.type;
+    g('modalTitle').textContent = 'עריכת תנועה';
+    g('mAmt').value  = tx.amount;
+    g('mDate').value = tx.date;
+    g('mDesc').value = tx.description;
+    g('modalKidGroup').style.display = 'none';
+    refreshTypeUI();
+    g('overlay').classList.add('on');
+}
+
+function maybClose(e) { if (e.target===g('overlay')) closeModal(); }
+function closeModal() { g('overlay').classList.remove('on'); }
+function setTtype(t) { txType = t; refreshTypeUI(); }
+function refreshTypeUI() {
+    g('btnI').className = 'type-btn' + (txType==='i' ? ' on-i' : '');
+    g('btnE').className = 'type-btn' + (txType==='e' ? ' on-e' : '');
+}
+
+async function saveTx() {
+    const amount = parseFloat(g('mAmt').value);
+    const date   = g('mDate').value;
+    const desc   = g('mDesc').value.trim();
+
+    if (!amount || amount <= 0) return toast('❌ הכנס סכום תקין');
+    if (!date)   return toast('❌ הכנס תאריך');
+    if (!desc)   return toast('❌ הכנס תיאור');
+
+    // Determine target kid
+    const targetKid = editId ? selKid : (modalKidSel || selKid);
+
+    closeModal();
+    show('שומר...');
+    try {
+        const arr = [...(data[targetKid] || [])];
+        if (editId) {
+            const idx = arr.findIndex(t=>t.id===editId);
+            if (idx >= 0) arr[idx] = {...arr[idx], type:txType, amount, date, description:desc};
+        } else {
+            arr.push({id:uid(), type:txType, amount, date, description:desc});
+        }
+        data[targetKid] = arr;
+        shas[targetKid] = await ghPut(`data/${targetKid}.json`, arr, shas[targetKid]||null);
+
+        // If we added to a different child than currently viewed, switch to that child
+        if (!editId && targetKid !== selKid) {
+            selKid = targetKid;
+            selMon = null;
+            buildChildTabs();
+        }
+        renderParentDash();
+        toast(editId ? '✅ עודכן בהצלחה' : '✅ נוסף בהצלחה');
+    } catch(e) {
+        toast('❌ שגיאה בשמירה: ' + e.message);
+        console.error(e);
+    }
+    hide();
+}
+
+async function delTx(id) {
+    if (!confirm('❓ למחוק תנועה זו?')) return;
+    show('מוחק...');
+    try {
+        data[selKid] = (data[selKid]||[]).filter(t=>t.id!==id);
+        shas[selKid] = await ghPut(`data/${selKid}.json`, data[selKid], shas[selKid]||null);
+        renderParentDash();
+        toast('🗑️ נמחק');
+    } catch(e) { toast('❌ שגיאה: '+e.message); }
+    hide();
+}
+
+/* ──────────────────────────────────────────────
+   UTILS
+────────────────────────────────────────────── */
+function getKid(id) { return (cfg?.children||KIDS).find(k=>k.id===id) || KIDS[0]; }
+
+function logout() {
+    me = null; pinBuf = ''; selKid = null; selMon = null;
+    g('parPw').value = ''; g('parErr').textContent = '';
+    go('sLogin');
+}
+
+function go(id) {
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    g(id).classList.add('active');
+}
+
+function show(txt='טוען...') {
+    g('loadingText').textContent = txt;
+    g('loading').style.display = 'flex';
+}
+function hide() { g('loading').style.display = 'none'; }
+
+let toastTimer;
+function toast(msg) {
+    const el = g('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=>el.classList.remove('show'), 3200);
+}
+
+function g(id) { return document.getElementById(id); }
+
+function esc(s) {
+    return String(s)
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;');
+}
+
+function fmtN(n) {
+    const abs = Math.abs(+n||0);
+    return '₪' + abs.toLocaleString('he-IL', {minimumFractionDigits:0, maximumFractionDigits:2});
+}
+
+function fmtDate(d) {
+    if (!d) return '';
+    const [y,m,day] = d.split('-');
+    return `${day}/${m}/${y}`;
+}
+
+function fmtMon(m) {
+    const [y,mo] = m.split('-');
+    return `${HE_MONTHS[+mo-1]} ${y}`;
+}
+
+function today() { return new Date().toISOString().slice(0,10); }
+</script>
+</body>
+</html>
