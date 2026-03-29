@@ -61,5 +61,12 @@
     "amount": 10,
     "date": "2026-03-26",
     "description": "BIT משצים"
+  },
+  {
+    "id": "mnbofr260ufdw7",
+    "type": "i",
+    "amount": 52,
+    "date": "2026-03-11",
+    "description": "מכולת"
   }
 ]
