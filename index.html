@@ -290,7 +290,14 @@
 
 <!-- ══ PIN ══ -->
 <div class="screen" id="sPin">
-    <div class="hdr col" id="pinHdr"><button class="hbtn" onclick="go('sLogin')">← חזור</button><h1 id="pinTitle">כניסה</h1><div class="hgap"></div></div>
+    <div class="hdr col" id="pinHdr" style="flex-direction:column;align-items:stretch;gap:2px;padding-bottom:10px">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+            <button class="hbtn" onclick="go('sLogin')">← חזור</button>
+            <h1 id="pinTitle">כניסה</h1>
+            <div class="hgap"></div>
+        </div>
+        <div style="text-align:center"><span class="ver-badge" id="vPin"></span></div>
+    </div>
     <div class="pp">
         <div class="pav" id="pinEm"></div>
         <div class="pnm" id="pinNm"></div>
@@ -308,7 +315,14 @@
 
 <!-- ══ PAR LOGIN ══ -->
 <div class="screen" id="sParLogin">
-    <div class="hdr col" style="--acc:var(--par);--acc-dk:var(--par-dk)"><button class="hbtn" onclick="go('sLogin')">← חזור</button><h1>כניסת הורה</h1><div class="hgap"></div></div>
+    <div class="hdr col" style="--acc:var(--par);--acc-dk:var(--par-dk);flex-direction:column;align-items:stretch;gap:2px;padding-bottom:10px">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+            <button class="hbtn" onclick="go('sLogin')">← חזור</button>
+            <h1>כניסת הורה</h1>
+            <div class="hgap"></div>
+        </div>
+        <div style="text-align:center"><span class="ver-badge" id="vParLogin"></span></div>
+    </div>
     <div class="plp">
         <div class="plico">👨‍👩‍👧‍👦</div><div class="pltit">מסך הורה</div>
         <div class="plbox">
@@ -321,7 +335,14 @@
 
 <!-- ══ CHILD SCREEN ══ -->
 <div class="screen" id="sChild">
-    <div class="hdr col" id="childHdr"><button class="hbtn" onclick="logout()">יציאה</button><h1 id="childHdrNm"></h1><button class="hbtn" onclick="refreshChild()">🔄</button></div>
+    <div class="hdr col" id="childHdr" style="flex-direction:column;align-items:stretch;gap:0;padding-bottom:8px">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+            <button class="hbtn" onclick="logout()">יציאה</button>
+            <h1 id="childHdrNm"></h1>
+            <button class="hbtn" onclick="refreshChild()">🔄</button>
+        </div>
+        <div style="text-align:center"><span class="ver-badge" id="vChild"></span></div>
+    </div>
     <div class="content">
         <div class="bcard" id="childBcard">
             <div class="bl">💰 יתרה נוכחית</div>
@@ -354,7 +375,14 @@
 
 <!-- ══ PARENT SCREEN ══ -->
 <div class="screen" id="sParent">
-    <div class="hdr col" style="background:var(--par)"><button class="hbtn" onclick="logout()">יציאה</button><h1>👨‍👩‍👧‍👦 מסך הורה</h1><button class="hbtn" onclick="refreshParent()">🔄</button></div>
+    <div class="hdr col" style="background:var(--par);flex-direction:column;align-items:stretch;gap:0;padding-bottom:8px">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+            <button class="hbtn" onclick="logout()">יציאה</button>
+            <h1>👨‍👩‍👧‍👦 מסך הורה</h1>
+            <button class="hbtn" onclick="refreshParent()">🔄</button>
+        </div>
+        <div style="text-align:center"><span class="ver-badge" id="vParent"></span></div>
+    </div>
     <div class="content">
         <div class="ctabs" id="ctabs"></div>
         <div class="toolbar">
@@ -453,7 +481,7 @@
 
 <script>
 /* ══ VERSION ══ */
-const VER = 'v1.3.0';
+const VER = 'v1.3.1';
 const KIDS = [
     {id:'leon',     name:'לאון',    emoji:'🦁', color:'#E87D3E', dark:'#B85A1A'},
     {id:'angelina', name:'אנגלינה', emoji:'🌸', color:'#D946A0', dark:'#A01470'},
@@ -468,7 +496,7 @@ let ghCfg=null, cfg=null, data={}, shas={};
 let me=null, selKid=null, selMon=null;
 let pinBuf='', pinKid=null;
 let txType='i', editId=null, mKidSel=null;
-let descHist=[], ddTimer=null;
+let descHist=[], ddTimer=null, _ddItems=[];
 let goals={};
 let chartRes = {child:'w', par:'w'};  // resolution per view
 let childPrevSeen = 0;   // timestamp before current child session (for NEW badge)
@@ -476,8 +504,7 @@ let childPrevSeen = 0;   // timestamp before current child session (for NEW badg
 /* ══ INIT ══ */
 window.addEventListener('load', async ()=>{
     injectPWA();
-    g('vLogin').textContent = VER;
-    g('vSetup').textContent = VER;
+    ['vLogin','vSetup','vPin','vParLogin','vChild','vParent'].forEach(id=>{ const el=g(id); if(el) el.textContent=VER; });
     descHist = safeJ(DESC_K,[]);
     goals    = safeJ(GOAL_K,{});
     refreshDL();
@@ -526,17 +553,20 @@ function hideDD(){ ddTimer=setTimeout(()=>g('hdd').classList.remove('open'),150)
 function renderDD(f){
     const dd=g('hdd');
     const list=f?descHist.filter(d=>d.toLowerCase().includes(f)):descHist;
-    if(!list.length){
+    _ddItems=list.slice(0,8);
+    if(!_ddItems.length){
         dd.innerHTML=`<div class="hempty">${f?'אין תוצאות':'אין תיאורים שמורים עדיין'}</div>`;
     } else {
-        dd.innerHTML=list.slice(0,8).map(d=>`
-            <div class="hi" onmousedown="event.preventDefault();pickD(${JSON.stringify(d)})">
+        dd.innerHTML=_ddItems.map((d,i)=>`
+            <div class="hi" onmousedown="event.preventDefault();pickDI(${i})">
                 <span style="flex:1">${esc(d)}</span>
-                <button class="hdel" onmousedown="event.stopPropagation();event.preventDefault();removeDesc(${JSON.stringify(d)});renderDD('')">🗑️</button>
+                <button class="hdel" onmousedown="event.stopPropagation();event.preventDefault();removeDDI(${i})">🗑️</button>
             </div>`).join('');
     }
     dd.classList.add('open');
 }
+function pickDI(i){ if(_ddItems[i]!==undefined) pickD(_ddItems[i]); }
+function removeDDI(i){ if(_ddItems[i]!==undefined){ removeDesc(_ddItems[i]); renderDD(g('mDesc').value.toLowerCase()); } }
 function pickD(d){ g('mDesc').value=d; g('hdd').classList.remove('open'); clearTimeout(ddTimer); }
 function openManage(){ renderMngList(); g('ovlDesc').classList.add('on'); }
 function closeManage(){ g('ovlDesc').classList.remove('on'); }
