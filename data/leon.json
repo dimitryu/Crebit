@@ -90,5 +90,13 @@
     "date": "2026-03-29",
     "description": "מכולת",
     "createdAt": 1774787449034
+  },
+  {
+    "id": "mnbqt2fh3ssubm",
+    "type": "i",
+    "amount": 10,
+    "date": "2026-03-29",
+    "description": "טסט",
+    "createdAt": 1774787757965
   }
 ]
