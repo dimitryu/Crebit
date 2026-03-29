@@ -28,10 +28,10 @@
         /* HDR */
         .hdr { position:sticky; top:0; z-index:20; padding:14px 18px; display:flex; align-items:center; justify-content:space-between; background:var(--card); border-bottom:1px solid var(--border); }
         .hdr.col { background:var(--acc); border-bottom:none; box-shadow:0 2px 12px rgba(0,0,0,.15); }
-        .hdr.col h1 { color:#fff; }
+        .hdr.col h1, .hdr.col .hbtn { color:#fff; }
         .hdr h1 { font-size:1.05rem; font-weight:700; letter-spacing:-.3px; }
         .hbtn { background:rgba(0,0,0,.06); border:none; border-radius:20px; padding:7px 15px; font-size:.82rem; font-weight:600; cursor:pointer; font-family:inherit; color:var(--text2); transition:background .15s; white-space:nowrap; }
-        .hdr.col .hbtn { background:rgba(255,255,255,.2); color:#fff; }
+        .hdr.col .hbtn { background:rgba(255,255,255,.2); }
         .hbtn:hover { background:rgba(0,0,0,.1); }
         .hdr.col .hbtn:hover { background:rgba(255,255,255,.3); }
         .hgap { width:72px; }
@@ -50,7 +50,7 @@
         .toast.on { opacity:1; transform:translateX(-50%) translateY(0); }
 
         /* BUTTONS */
-        .btn { width:100%; padding:14px; border:none; border-radius:var(--r); font-size:.95rem; font-weight:700; cursor:pointer; font-family:inherit; transition:transform .1s,opacity .15s; letter-spacing:-.2px; }
+        .btn { width:100%; padding:14px; border:none; border-radius:var(--r); font-size:.95rem; font-weight:700; cursor:pointer; font-family:inherit; transition:transform .1s,opacity .15s; }
         .btn:active { transform:scale(.97); opacity:.85; }
         .btnp { background:var(--acc); color:#fff; }
         .btng { background:transparent; color:var(--text2); border:1.5px solid var(--border); }
@@ -66,16 +66,16 @@
         /* QUICK AMOUNTS */
         .qa-row { display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }
         .qa { background:var(--bg); border:1.5px solid var(--border); border-radius:20px; padding:5px 14px; font-size:.8rem; font-weight:700; color:var(--text2); cursor:pointer; font-family:inherit; transition:all .12s; }
-        .qa:hover, .qa:active { background:var(--acc); border-color:var(--acc); color:#fff; }
+        .qa:hover { background:var(--acc); border-color:var(--acc); color:#fff; }
 
-        /* DESC HISTORY */
+        /* DESC HISTORY DROPDOWN */
         .dw { position:relative; }
-        .hdd { position:absolute; top:calc(100% + 4px); right:0; left:0; background:var(--card); border:1.5px solid var(--border); border-radius:var(--rs); box-shadow:var(--sm); z-index:200; max-height:200px; overflow-y:auto; display:none; }
+        .hdd { position:absolute; top:calc(100% + 4px); right:0; left:0; background:var(--card); border:1.5px solid var(--border); border-radius:var(--rs); box-shadow:var(--sm); z-index:300; max-height:200px; overflow-y:auto; display:none; }
         .hdd.open { display:block; }
-        .hi { padding:11px 14px; font-size:.88rem; cursor:pointer; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border); transition:background .1s; user-select:none; }
+        .hi { padding:11px 14px; font-size:.9rem; cursor:pointer; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border); transition:background .1s; }
         .hi:last-child { border-bottom:none; }
-        .hi:hover { background:var(--bg); }
-        .hdel { background:none; border:none; cursor:pointer; font-size:.85rem; color:var(--text2); padding:2px 6px; border-radius:6px; line-height:1; }
+        .hi:hover, .hi:active { background:var(--bg); }
+        .hdel { background:none; border:none; cursor:pointer; font-size:.85rem; color:var(--text2); padding:3px 8px; border-radius:6px; line-height:1; flex-shrink:0; }
         .hdel:hover { background:var(--exp-bg); color:var(--exp); }
         .hempty { padding:14px; text-align:center; color:var(--text2); font-size:.82rem; }
         .hmi { display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--border); }
@@ -139,11 +139,11 @@
         .perr2 { font-size:.84rem; color:var(--exp); font-weight:500; min-height:18px; text-align:center; }
 
         /* BALANCE CARD */
-        .bcard { border-radius:22px; padding:22px 20px; margin-bottom:14px; color:#fff; box-shadow:0 6px 24px rgba(0,0,0,.15); position:relative; overflow:hidden; transition:background .3s; }
+        .bcard { border-radius:22px; padding:22px 20px; margin-bottom:14px; color:#fff; box-shadow:0 6px 24px rgba(0,0,0,.15); position:relative; overflow:hidden; }
         .bcard::after { content:''; position:absolute; top:-30px; right:-30px; width:120px; height:120px; border-radius:50%; background:rgba(255,255,255,.07); }
         .bcard::before { content:''; position:absolute; bottom:-50px; left:-20px; width:160px; height:160px; border-radius:50%; background:rgba(255,255,255,.05); }
         .bl { font-size:.78rem; opacity:.8; font-weight:600; letter-spacing:.3px; margin-bottom:6px; }
-        .bamt { font-size:2.8rem; font-weight:900; direction:ltr; text-align:right; letter-spacing:-1.5px; line-height:1; margin-bottom:18px; transition:color .3s; }
+        .bamt { font-size:2.8rem; font-weight:900; direction:ltr; text-align:right; letter-spacing:-1.5px; line-height:1; margin-bottom:18px; }
         .bamt.neg { color:#FFB3B3; }
         .bamt.pos { color:#A7F3D0; }
         .brow { display:flex; gap:10px; }
@@ -158,13 +158,16 @@
         .goal-nums { font-size:.78rem; color:var(--text2); font-weight:600; }
         .goal-bar-bg { background:var(--border); border-radius:20px; height:10px; overflow:hidden; }
         .goal-bar-fill { height:100%; border-radius:20px; transition:width .6s cubic-bezier(.4,0,.2,1); min-width:4px; }
-        .goal-edit-btn { background:none; border:1.5px solid var(--border); border-radius:8px; padding:4px 10px; font-size:.74rem; font-weight:700; color:var(--text2); cursor:pointer; font-family:inherit; }
-        .goal-edit-btn:hover { background:var(--bg); }
 
         /* CHART */
         .chart-card { background:var(--card); border-radius:16px; padding:16px; margin-bottom:14px; box-shadow:var(--ss); border:1px solid var(--border); }
-        .chart-title { font-size:.88rem; font-weight:700; margin-bottom:12px; display:flex; align-items:center; justify-content:space-between; }
-        .chart-toggle { background:none; border:none; font-size:.78rem; color:var(--text2); cursor:pointer; font-family:inherit; font-weight:600; }
+        .chart-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+        .chart-title-txt { font-size:.88rem; font-weight:700; }
+        .chart-controls { display:flex; align-items:center; gap:6px; }
+        .chart-toggle { background:none; border:none; font-size:.78rem; color:var(--text2); cursor:pointer; font-family:inherit; font-weight:600; padding:3px 6px; }
+        .res-row { display:flex; gap:0; background:var(--bg); border-radius:8px; overflow:hidden; border:1.5px solid var(--border); margin-bottom:10px; }
+        .res-btn { flex:1; padding:5px 0; border:none; background:transparent; font-size:.78rem; font-weight:700; color:var(--text2); cursor:pointer; font-family:inherit; transition:all .12s; }
+        .res-btn.on { background:var(--acc); color:#fff; }
         .chart-wrap { overflow:hidden; transition:max-height .3s; max-height:200px; }
         .chart-wrap.closed { max-height:0; }
         svg.chart { width:100%; display:block; direction:ltr; }
@@ -173,7 +176,6 @@
         .toolbar { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
         .tb-btn { display:flex; align-items:center; gap:5px; background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:8px 13px; font-size:.8rem; font-weight:700; color:var(--text2); cursor:pointer; font-family:inherit; transition:background .15s,color .15s; white-space:nowrap; }
         .tb-btn:hover { background:var(--acc); border-color:var(--acc); color:#fff; }
-        .tb-btn.active-notif { background:var(--inc-bg); border-color:var(--inc); color:var(--inc); }
 
         /* SECTIONS */
         .shdr { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
@@ -189,13 +191,15 @@
         /* TX */
         .txl { display:flex; flex-direction:column; gap:8px; }
         .tx { background:var(--card); border-radius:14px; padding:12px 14px; display:flex; align-items:center; gap:12px; box-shadow:var(--ss); border:1px solid var(--border); transition:box-shadow .15s; }
+        .tx.is-new { border-color:#FCD34D; background:#FFFBEB; }
         .tx:hover { box-shadow:var(--sm); }
         .txico { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.25rem; flex-shrink:0; }
         .txico.i { background:var(--inc-bg); }
         .txico.e { background:var(--exp-bg); }
         .txb { flex:1; min-width:0; }
         .txd { font-size:.9rem; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-        .txdt { font-size:.75rem; color:var(--text2); margin-top:2px; font-weight:500; }
+        .txdt { font-size:.75rem; color:var(--text2); margin-top:2px; font-weight:500; display:flex; align-items:center; gap:5px; }
+        .new-badge { background:#F59E0B; color:#fff; font-size:.62rem; font-weight:800; padding:1px 7px; border-radius:8px; letter-spacing:.4px; text-transform:uppercase; flex-shrink:0; }
         .txa { font-size:1rem; font-weight:800; flex-shrink:0; direction:ltr; letter-spacing:-.5px; }
         .txa.i { color:var(--inc); }
         .txa.e { color:var(--exp); }
@@ -286,18 +290,12 @@
 
 <!-- ══ PIN ══ -->
 <div class="screen" id="sPin">
-    <div class="hdr col" id="pinHdr">
-        <button class="hbtn" onclick="go('sLogin')">← חזור</button>
-        <h1 id="pinTitle">כניסה</h1>
-        <div class="hgap"></div>
-    </div>
+    <div class="hdr col" id="pinHdr"><button class="hbtn" onclick="go('sLogin')">← חזור</button><h1 id="pinTitle">כניסה</h1><div class="hgap"></div></div>
     <div class="pp">
         <div class="pav" id="pinEm"></div>
         <div class="pnm" id="pinNm"></div>
         <div class="ph">הכנס קוד PIN</div>
-        <div class="dots" id="pinDots">
-            <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
-        </div>
+        <div class="dots" id="pinDots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
         <div class="perr" id="pinErr"></div>
         <div class="np">
             <button class="nk" onclick="pd('1')">1</button><button class="nk" onclick="pd('2')">2</button><button class="nk" onclick="pd('3')">3</button>
@@ -310,14 +308,9 @@
 
 <!-- ══ PAR LOGIN ══ -->
 <div class="screen" id="sParLogin">
-    <div class="hdr col" style="--acc:var(--par);--acc-dk:var(--par-dk)">
-        <button class="hbtn" onclick="go('sLogin')">← חזור</button>
-        <h1>כניסת הורה</h1>
-        <div class="hgap"></div>
-    </div>
+    <div class="hdr col" style="--acc:var(--par);--acc-dk:var(--par-dk)"><button class="hbtn" onclick="go('sLogin')">← חזור</button><h1>כניסת הורה</h1><div class="hgap"></div></div>
     <div class="plp">
-        <div class="plico">👨‍👩‍👧‍👦</div>
-        <div class="pltit">מסך הורה</div>
+        <div class="plico">👨‍👩‍👧‍👦</div><div class="pltit">מסך הורה</div>
         <div class="plbox">
             <input class="fi" type="password" id="parPw" placeholder="הכנס סיסמה" onkeydown="if(event.key==='Enter')parLogin()">
             <div class="perr2" id="parErr"></div>
@@ -328,11 +321,7 @@
 
 <!-- ══ CHILD SCREEN ══ -->
 <div class="screen" id="sChild">
-    <div class="hdr col" id="childHdr">
-        <button class="hbtn" onclick="logout()">יציאה</button>
-        <h1 id="childHdrNm"></h1>
-        <button class="hbtn" onclick="refreshChild()">🔄</button>
-    </div>
+    <div class="hdr col" id="childHdr"><button class="hbtn" onclick="logout()">יציאה</button><h1 id="childHdrNm"></h1><button class="hbtn" onclick="refreshChild()">🔄</button></div>
     <div class="content">
         <div class="bcard" id="childBcard">
             <div class="bl">💰 יתרה נוכחית</div>
@@ -344,11 +333,18 @@
         </div>
         <div id="childGoal"></div>
         <div class="chart-card">
-            <div class="chart-title">
-                <span>📊 גרף חודשי</span>
-                <button class="chart-toggle" onclick="toggleChart('childChart')">הסתר ▲</button>
+            <div class="chart-header">
+                <span class="chart-title-txt">📊 גרף תנועות</span>
+                <div class="chart-controls">
+                    <button class="chart-toggle" onclick="toggleChart('cCW')">הסתר ▲</button>
+                </div>
             </div>
-            <div class="chart-wrap" id="childChart"><svg class="chart" height="140" id="childChartSVG"></svg></div>
+            <div class="res-row" id="cResRow">
+                <button class="res-btn" onclick="setRes('child','d')">יום</button>
+                <button class="res-btn on" onclick="setRes('child','w')">שבוע</button>
+                <button class="res-btn" onclick="setRes('child','m')">חודש</button>
+            </div>
+            <div class="chart-wrap" id="cCW"><svg class="chart" height="150" id="cChartSVG"></svg></div>
         </div>
         <div class="shdr"><div class="stit">תנועות כספיות</div><div class="scnt" id="childCnt">0</div></div>
         <div class="mbar" id="childMbar"></div>
@@ -358,17 +354,12 @@
 
 <!-- ══ PARENT SCREEN ══ -->
 <div class="screen" id="sParent">
-    <div class="hdr col" style="background:var(--par)">
-        <button class="hbtn" onclick="logout()">יציאה</button>
-        <h1>👨‍👩‍👧‍👦 מסך הורה</h1>
-        <button class="hbtn" onclick="refreshParent()">🔄</button>
-    </div>
+    <div class="hdr col" style="background:var(--par)"><button class="hbtn" onclick="logout()">יציאה</button><h1>👨‍👩‍👧‍👦 מסך הורה</h1><button class="hbtn" onclick="refreshParent()">🔄</button></div>
     <div class="content">
         <div class="ctabs" id="ctabs"></div>
         <div class="toolbar">
             <button class="tb-btn" onclick="exportExcel()">📥 Excel</button>
             <button class="tb-btn" onclick="setGoalModal()">🎯 יעד חיסכון</button>
-            <button class="tb-btn" id="notifBtn" onclick="toggleNotif()">🔔 תזכורת שבועית</button>
         </div>
         <div class="bcard" id="parBcard">
             <div class="bl">💰 יתרה נוכחית</div>
@@ -380,11 +371,16 @@
         </div>
         <div id="parGoal"></div>
         <div class="chart-card">
-            <div class="chart-title">
-                <span>📊 גרף חודשי</span>
-                <button class="chart-toggle" onclick="toggleChart('parChart')">הסתר ▲</button>
+            <div class="chart-header">
+                <span class="chart-title-txt">📊 גרף תנועות</span>
+                <button class="chart-toggle" onclick="toggleChart('pCW')">הסתר ▲</button>
             </div>
-            <div class="chart-wrap" id="parChart"><svg class="chart" height="140" id="parChartSVG"></svg></div>
+            <div class="res-row" id="pResRow">
+                <button class="res-btn" onclick="setRes('par','d')">יום</button>
+                <button class="res-btn on" onclick="setRes('par','w')">שבוע</button>
+                <button class="res-btn" onclick="setRes('par','m')">חודש</button>
+            </div>
+            <div class="chart-wrap" id="pCW"><svg class="chart" height="150" id="pChartSVG"></svg></div>
         </div>
         <div class="shdr"><div class="stit">תנועות כספיות</div><div class="scnt" id="parCnt">0</div></div>
         <div class="mbar" id="parMbar"></div>
@@ -398,32 +394,19 @@
     <div class="modal">
         <div class="mhdl"></div>
         <div class="mtit" id="mTitle">הוספת תנועה</div>
-        <div class="fg" id="mKidGrp" style="display:none">
-            <label class="fl">ילד</label>
-            <div class="mksel" id="mKidSel"></div>
-        </div>
+        <div class="fg" id="mKidGrp" style="display:none"><label class="fl">ילד</label><div class="mksel" id="mKidSel"></div></div>
         <div class="fg">
             <label class="fl">סוג תנועה</label>
-            <div class="trow">
-                <button class="tbtn oi" id="btnI" onclick="setTT('i')">📈 הכנסה</button>
-                <button class="tbtn" id="btnE" onclick="setTT('e')">📉 הוצאה</button>
-            </div>
+            <div class="trow"><button class="tbtn oi" id="btnI" onclick="setTT('i')">📈 הכנסה</button><button class="tbtn" id="btnE" onclick="setTT('e')">📉 הוצאה</button></div>
         </div>
         <div class="fg">
             <label class="fl">סכום (₪)</label>
             <input class="fi" type="number" id="mAmt" min="0.01" step="0.01" dir="ltr" placeholder="0.00">
             <div class="qa-row">
-                <button class="qa" onclick="setAmt(10)">₪10</button>
-                <button class="qa" onclick="setAmt(20)">₪20</button>
-                <button class="qa" onclick="setAmt(50)">₪50</button>
-                <button class="qa" onclick="setAmt(100)">₪100</button>
-                <button class="qa" onclick="setAmt(200)">₪200</button>
+                <button class="qa" onclick="setAmt(10)">₪10</button><button class="qa" onclick="setAmt(20)">₪20</button><button class="qa" onclick="setAmt(50)">₪50</button><button class="qa" onclick="setAmt(100)">₪100</button><button class="qa" onclick="setAmt(200)">₪200</button>
             </div>
         </div>
-        <div class="fg">
-            <label class="fl">תאריך</label>
-            <input class="fi" type="date" id="mDate" dir="ltr">
-        </div>
+        <div class="fg"><label class="fl">תאריך</label><input class="fi" type="date" id="mDate" dir="ltr"></div>
         <div class="fg">
             <label class="fl" style="display:flex;align-items:center;justify-content:space-between">
                 <span>תיאור</span>
@@ -447,10 +430,7 @@
 <div class="ovl" id="ovlDesc" onclick="if(event.target===this)closeManage()">
     <div class="modal">
         <div class="mhdl"></div>
-        <div class="mng-hdr">
-            <div class="mtit" style="margin-bottom:0">📋 תיאורים שמורים</div>
-            <button class="clr-btn" onclick="clearAllDesc()">🗑️ נקה הכל</button>
-        </div>
+        <div class="mng-hdr"><div class="mtit" style="margin-bottom:0">📋 תיאורים שמורים</div><button class="clr-btn" onclick="clearAllDesc()">🗑️ נקה הכל</button></div>
         <div id="mngList"></div>
         <div style="margin-top:16px"><button class="btn btng" onclick="closeManage()">סגור</button></div>
     </div>
@@ -461,7 +441,7 @@
     <div class="modal">
         <div class="mhdl"></div>
         <div class="mtit">🎯 יעד חיסכון</div>
-        <div class="fg"><label class="fl">ילד</label><div id="goalKidName" style="font-size:1rem;font-weight:700;padding:8px 0"></div></div>
+        <div class="fg"><label class="fl">ילד</label><div id="goalKidName" style="font-size:1rem;font-weight:700;padding:6px 0"></div></div>
         <div class="fg"><label class="fl">שם היעד (לדוגמה: אופניים, טיול)</label><input class="fi" id="gLabel" placeholder="מה רוצים לחסוך?"></div>
         <div class="fg"><label class="fl">סכום יעד (₪)</label><input class="fi" type="number" id="gTarget" min="1" dir="ltr" placeholder="500"></div>
         <div class="mbtns">
@@ -472,15 +452,16 @@
 </div>
 
 <script>
-/* ══ VERSION & CONSTS ══ */
-const VER = 'v1.2.0';
+/* ══ VERSION ══ */
+const VER = 'v1.3.0';
 const KIDS = [
     {id:'leon',     name:'לאון',    emoji:'🦁', color:'#E87D3E', dark:'#B85A1A'},
     {id:'angelina', name:'אנגלינה', emoji:'🌸', color:'#D946A0', dark:'#A01470'},
     {id:'evelyn',   name:'אוולין',  emoji:'⭐', color:'#7C3AED', dark:'#4C1D95'}
 ];
 const HM = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
-const DESC_K = 'dh_v1', GOAL_K = 'goals_v1', NOTIF_K = 'notifEnabled', LAST_K = 'lastParVisit';
+const DESC_K='dh_v1', GOAL_K='goals_v1';
+const SEEN_PFX = 'lastSeen_'; // + kidId = timestamp of last login
 
 /* ══ STATE ══ */
 let ghCfg=null, cfg=null, data={}, shas={};
@@ -489,164 +470,205 @@ let pinBuf='', pinKid=null;
 let txType='i', editId=null, mKidSel=null;
 let descHist=[], ddTimer=null;
 let goals={};
+let chartRes = {child:'w', par:'w'};  // resolution per view
+let childPrevSeen = 0;   // timestamp before current child session (for NEW badge)
 
 /* ══ INIT ══ */
 window.addEventListener('load', async ()=>{
     injectPWA();
     g('vLogin').textContent = VER;
     g('vSetup').textContent = VER;
-    descHist = safeJSON(DESC_K, []);
-    goals    = safeJSON(GOAL_K, {});
+    descHist = safeJ(DESC_K,[]);
+    goals    = safeJ(GOAL_K,{});
     refreshDL();
-    const s = localStorage.getItem('ghCfg');
-    if (!s) { buildPinRows(); go('sSetup'); hide(); return; }
+    const s=localStorage.getItem('ghCfg');
+    if(!s){ buildPinRows(); go('sSetup'); hide(); return; }
     ghCfg = JSON.parse(s);
-    try { await loadCfg(); buildLGrid(); go('sLogin'); }
-    catch(e) { toast('⚠️ שגיאה בטעינה — בדוק הגדרות'); buildPinRows(); go('sSetup'); }
+    try{ await loadCfg(); buildLGrid(); go('sLogin'); }
+    catch(e){ toast('⚠️ שגיאה — בדוק הגדרות'); buildPinRows(); go('sSetup'); }
     hide();
 });
 
 /* ══ PWA ══ */
-function injectPWA() {
-    try {
-        const cv = document.createElement('canvas'); cv.width = cv.height = 512;
-        const ctx = cv.getContext('2d');
-        const rd = 110;
-        ctx.fillStyle = '#1D4ED8';
-        ctx.beginPath();
-        ctx.moveTo(rd,0); ctx.lineTo(512-rd,0); ctx.quadraticCurveTo(512,0,512,rd);
-        ctx.lineTo(512,512-rd); ctx.quadraticCurveTo(512,512,512-rd,512);
-        ctx.lineTo(rd,512); ctx.quadraticCurveTo(0,512,0,512-rd);
-        ctx.lineTo(0,rd); ctx.quadraticCurveTo(0,0,rd,0);
-        ctx.closePath(); ctx.fill();
-        ctx.fillStyle='#fff'; ctx.font='bold 290px Arial';
-        ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('₪',256,272);
-        const png = cv.toDataURL('image/png');
+function injectPWA(){
+    try{
+        const cv=document.createElement('canvas'); cv.width=cv.height=512;
+        const cx=cv.getContext('2d');
+        cx.fillStyle='#1D4ED8';
+        cx.beginPath(); cx.moveTo(110,0); cx.lineTo(402,0); cx.quadraticCurveTo(512,0,512,110);
+        cx.lineTo(512,402); cx.quadraticCurveTo(512,512,402,512);
+        cx.lineTo(110,512); cx.quadraticCurveTo(0,512,0,402);
+        cx.lineTo(0,110); cx.quadraticCurveTo(0,0,110,0); cx.closePath(); cx.fill();
+        cx.fillStyle='#fff'; cx.font='bold 290px Arial'; cx.textAlign='center'; cx.textBaseline='middle'; cx.fillText('₪',256,272);
+        const png=cv.toDataURL('image/png');
         const al=document.createElement('link'); al.rel='apple-touch-icon'; al.href=png; document.head.appendChild(al);
         const fl=document.createElement('link'); fl.rel='icon'; fl.type='image/png'; fl.href=png; document.head.appendChild(fl);
         const mf={name:'כסף משפחתי',short_name:'כסף',description:'ניהול כסף לילדים',start_url:'./',display:'standalone',orientation:'portrait',background_color:'#1a1a2e',theme_color:'#1D4ED8',dir:'rtl',lang:'he',icons:[{src:png,sizes:'192x192',type:'image/png'},{src:png,sizes:'512x512',type:'image/png',purpose:'any maskable'}]};
         const ml=document.createElement('link'); ml.rel='manifest'; ml.href=URL.createObjectURL(new Blob([JSON.stringify(mf)],{type:'application/manifest+json'})); document.head.appendChild(ml);
-    } catch(e){ console.warn('PWA:',e); }
+    }catch(e){console.warn('PWA:',e);}
 }
 
 /* ══ DESC HISTORY ══ */
-function refreshDL() { g('descList').innerHTML = descHist.map(d=>`<option value="${esc(d)}">`).join(''); }
-function addDesc(d) {
-    if (!d||d.length<2) return;
-    descHist = [d,...descHist.filter(x=>x!==d)].slice(0,50);
-    localStorage.setItem(DESC_K, JSON.stringify(descHist)); refreshDL();
+function refreshDL(){ g('descList').innerHTML=descHist.map(d=>`<option value="${esc(d)}">`).join(''); }
+function addDesc(d){
+    if(!d||d.length<2)return;
+    descHist=[d,...descHist.filter(x=>x!==d)].slice(0,50);
+    localStorage.setItem(DESC_K,JSON.stringify(descHist)); refreshDL();
 }
-function removeDesc(d) { descHist=descHist.filter(x=>x!==d); localStorage.setItem(DESC_K,JSON.stringify(descHist)); refreshDL(); }
-function clearAllDesc() {
-    if (!confirm('למחוק את כל התיאורים השמורים?')) return;
+function removeDesc(d){ descHist=descHist.filter(x=>x!==d); localStorage.setItem(DESC_K,JSON.stringify(descHist)); refreshDL(); }
+function clearAllDesc(){
+    if(!confirm('למחוק את כל התיאורים?'))return;
     descHist=[]; localStorage.setItem(DESC_K,'[]'); refreshDL(); renderMngList(); toast('🗑️ רשימה נוקתה');
 }
-function onDI() { renderDD(g('mDesc').value.toLowerCase()); }
-function showDD() { renderDD(g('mDesc').value.toLowerCase()); }
-function hideDD() { ddTimer=setTimeout(()=>g('hdd').classList.remove('open'),150); }
-function renderDD(f) {
+function onDI(){ renderDD(g('mDesc').value.toLowerCase()); }
+function showDD(){ renderDD(g('mDesc').value.toLowerCase()); }
+function hideDD(){ ddTimer=setTimeout(()=>g('hdd').classList.remove('open'),150); }
+function renderDD(f){
     const dd=g('hdd');
-    const list = f ? descHist.filter(d=>d.toLowerCase().includes(f)) : descHist;
-    if (!list.length) { dd.innerHTML=`<div class="hempty">${f?'אין תוצאות':'אין תיאורים שמורים עדיין'}</div>`; }
-    else {
-        dd.innerHTML = list.slice(0,8).map(d=>`
+    const list=f?descHist.filter(d=>d.toLowerCase().includes(f)):descHist;
+    if(!list.length){
+        dd.innerHTML=`<div class="hempty">${f?'אין תוצאות':'אין תיאורים שמורים עדיין'}</div>`;
+    } else {
+        dd.innerHTML=list.slice(0,8).map(d=>`
             <div class="hi" onmousedown="event.preventDefault();pickD(${JSON.stringify(d)})">
-                <div style="flex:1">${esc(d)}</div>
+                <span style="flex:1">${esc(d)}</span>
                 <button class="hdel" onmousedown="event.stopPropagation();event.preventDefault();removeDesc(${JSON.stringify(d)});renderDD('')">🗑️</button>
             </div>`).join('');
     }
     dd.classList.add('open');
 }
-function pickD(d) { g('mDesc').value=d; g('hdd').classList.remove('open'); clearTimeout(ddTimer); }
-function openManage() { renderMngList(); g('ovlDesc').classList.add('on'); }
-function closeManage() { g('ovlDesc').classList.remove('on'); }
-function renderMngList() {
+function pickD(d){ g('mDesc').value=d; g('hdd').classList.remove('open'); clearTimeout(ddTimer); }
+function openManage(){ renderMngList(); g('ovlDesc').classList.add('on'); }
+function closeManage(){ g('ovlDesc').classList.remove('on'); }
+function renderMngList(){
     const el=g('mngList');
-    if (!descHist.length) { el.innerHTML='<div class="hempty" style="padding:24px 0">אין תיאורים שמורים</div>'; return; }
-    el.innerHTML = descHist.map(d=>`
+    if(!descHist.length){el.innerHTML='<div class="hempty" style="padding:24px 0">אין תיאורים שמורים</div>';return;}
+    el.innerHTML=descHist.map(d=>`
         <div class="hmi">
-            <div style="flex:1;font-size:.9rem;font-weight:500">${esc(d)}</div>
+            <span style="flex:1;font-size:.9rem;font-weight:500">${esc(d)}</span>
             <button class="ibtn" onclick="removeDesc(${JSON.stringify(d)});renderMngList()">🗑️</button>
         </div>`).join('');
 }
 
 /* ══ QUICK AMOUNTS ══ */
-function setAmt(n) { g('mAmt').value=n; }
+function setAmt(n){ g('mAmt').value=n; }
 
 /* ══ CHART ══ */
-function toggleChart(id) {
-    const w=g(id); const btn=w.previousElementSibling.querySelector('.chart-toggle');
-    const isOpen = !w.classList.contains('closed');
-    w.classList.toggle('closed', isOpen);
-    btn.textContent = isOpen ? 'הצג ▼' : 'הסתר ▲';
+function toggleChart(id){
+    const w=g(id), btn=w.closest('.chart-card').querySelector('.chart-toggle');
+    const isOpen=!w.classList.contains('closed');
+    w.classList.toggle('closed',isOpen);
+    btn.textContent=isOpen?'הצג ▼':'הסתר ▲';
 }
 
-function drawChart(kidId, svgId) {
-    const svg = g(svgId);
-    const txs = data[kidId] || [];
-    if (!txs.length) { svg.innerHTML='<text x="50%" y="70" text-anchor="middle" fill="#A8A29E" font-size="13" font-family="Rubik">אין נתונים</text>'; return; }
+function setRes(view,res){
+    chartRes[view]=res;
+    const rowId = view==='child'?'cResRow':'pResRow';
+    g(rowId).querySelectorAll('.res-btn').forEach(b=>b.classList.remove('on'));
+    g(rowId).querySelectorAll('.res-btn').forEach(b=>{
+        if((res==='d'&&b.textContent==='יום')||(res==='w'&&b.textContent==='שבוע')||(res==='m'&&b.textContent==='חודש'))
+            b.classList.add('on');
+    });
+    if(view==='child') drawChart(me,'cChartSVG','child');
+    else drawChart(selKid,'pChartSVG','par');
+}
 
-    // Build last 6 months
-    const now = new Date();
-    const months = [];
-    for (let i=5; i>=0; i--) {
-        const d = new Date(now.getFullYear(), now.getMonth()-i, 1);
-        months.push(`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`);
+function drawChart(kidId, svgId, view){
+    if(!kidId) return;
+    const svgEl=g(svgId); if(!svgEl) return;
+    const txs=data[kidId]||[];
+    const res=chartRes[view]||'w';
+    const now=new Date();
+
+    // Build periods
+    let periods=[];
+    if(res==='m'){
+        // Last 9 months
+        for(let i=8;i>=0;i--){
+            const d=new Date(now.getFullYear(),now.getMonth()-i,1);
+            const key=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+            const label=HM[d.getMonth()].slice(0,3);
+            periods.push({key,label,filter:t=>t.date.startsWith(key)});
+        }
+    } else if(res==='w'){
+        // Last 12 weeks
+        for(let i=11;i>=0;i--){
+            const start=new Date(now); start.setDate(now.getDate()-i*7-now.getDay());
+            const end=new Date(start); end.setDate(start.getDate()+6);
+            const sk=start.toISOString().slice(0,10);
+            const ek=end.toISOString().slice(0,10);
+            const d=start.getDate(), m=start.getMonth()+1;
+            const label=`${d}/${m}`;
+            periods.push({key:sk,label,filter:t=>t.date>=sk&&t.date<=ek});
+        }
+    } else {
+        // Last 21 days
+        for(let i=20;i>=0;i--){
+            const d=new Date(now); d.setDate(now.getDate()-i);
+            const key=d.toISOString().slice(0,10);
+            const label=`${d.getDate()}/${d.getMonth()+1}`;
+            periods.push({key,label,filter:t=>t.date===key});
+        }
     }
 
-    const stats = months.map(m => {
-        const mTxs = txs.filter(t=>t.date.startsWith(m));
-        const inc = mTxs.filter(t=>t.type==='i').reduce((s,t)=>s+(+t.amount),0);
-        const exp = mTxs.filter(t=>t.type==='e').reduce((s,t)=>s+(+t.amount),0);
-        return {m, inc, exp};
+    const stats=periods.map(p=>{
+        const pts=txs.filter(p.filter);
+        const inc=pts.filter(t=>t.type==='i').reduce((s,t)=>s+(+t.amount),0);
+        const exp=pts.filter(t=>t.type==='e').reduce((s,t)=>s+(+t.amount),0);
+        return{...p,inc,exp};
     });
 
-    const maxVal = Math.max(...stats.flatMap(s=>[s.inc,s.exp]), 1);
-    const W = 380, H = 130, PAD = 30, BAR = 22, GAP = 8, GRP = BAR*2+GAP+16;
-    const CHART_H = H - 30;
+    const maxVal=Math.max(...stats.flatMap(s=>[s.inc,s.exp]),1);
+    const nPeriods=periods.length;
+    // Layout: fit all bars
+    const BAR=res==='d'?7:res==='w'?11:16;
+    const GAP=res==='d'?2:4;
+    const GRP=BAR*2+GAP+2;
+    const PAD_L=12, PAD_R=60, PAD_T=20, PAD_B=28;
+    const W=Math.max(320, PAD_L + nPeriods*GRP + PAD_R);
+    const H=150;
+    const CH=H-PAD_T-PAD_B;
 
-    let html = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="direction:ltr;font-family:Rubik,Arial,sans-serif">`;
-    // Grid lines
-    for (let i=0; i<=4; i++) {
-        const y = PAD + (CHART_H/4)*i;
-        html += `<line x1="${PAD}" y1="${y}" x2="${W-10}" y2="${y}" stroke="#E7E5E4" stroke-width="1"/>`;
+    let html=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="direction:ltr;font-family:Rubik,Arial,sans-serif;min-width:${W}px">`;
+    // Grid
+    for(let i=0;i<=4;i++){
+        const y=PAD_T+(CH/4)*i;
+        html+=`<line x1="${PAD_L}" y1="${y}" x2="${W-PAD_R+30}" y2="${y}" stroke="#E7E5E4" stroke-width="1"/>`;
     }
-    stats.forEach((s,i) => {
-        const x = PAD + i*GRP + 8;
-        const incH = (s.inc/maxVal)*CHART_H;
-        const expH = (s.exp/maxVal)*CHART_H;
-        const incY = PAD + CHART_H - incH;
-        const expY = PAD + CHART_H - expH;
-
-        // Income bar
-        if (s.inc > 0) html += `<rect x="${x}" y="${incY}" width="${BAR}" height="${incH}" rx="4" fill="#16A34A" opacity=".85"/>`;
-        else html += `<rect x="${x}" y="${PAD+CHART_H-2}" width="${BAR}" height="2" rx="1" fill="#E7E5E4"/>`;
-        // Expense bar
-        if (s.exp > 0) html += `<rect x="${x+BAR+GAP}" y="${expY}" width="${BAR}" height="${expH}" rx="4" fill="#DC2626" opacity=".85"/>`;
-        else html += `<rect x="${x+BAR+GAP}" y="${PAD+CHART_H-2}" width="${BAR}" height="2" rx="1" fill="#E7E5E4"/>`;
-
-        // Month label
-        const mo = parseInt(s.m.split('-')[1]);
-        html += `<text x="${x+BAR}" y="${H-4}" text-anchor="middle" fill="#78716C" font-size="9">${HM[mo-1].slice(0,3)}</text>`;
+    stats.forEach((s,i)=>{
+        const x=PAD_L+i*GRP;
+        const iH=maxVal?(s.inc/maxVal)*CH:0;
+        const eH=maxVal?(s.exp/maxVal)*CH:0;
+        const iY=PAD_T+CH-iH, eY=PAD_T+CH-eH;
+        if(s.inc>0) html+=`<rect x="${x}" y="${iY}" width="${BAR}" height="${iH}" rx="3" fill="#16A34A" opacity=".85"/>`;
+        else html+=`<rect x="${x}" y="${PAD_T+CH-2}" width="${BAR}" height="2" rx="1" fill="#E7E5E4"/>`;
+        if(s.exp>0) html+=`<rect x="${x+BAR+GAP}" y="${eY}" width="${BAR}" height="${eH}" rx="3" fill="#DC2626" opacity=".85"/>`;
+        else html+=`<rect x="${x+BAR+GAP}" y="${PAD_T+CH-2}" width="${BAR}" height="2" rx="1" fill="#E7E5E4"/>`;
+        // Label every 2nd for day, every for others
+        const showL = res==='d'?(i%3===0):true;
+        if(showL) html+=`<text x="${x+BAR}" y="${H-4}" text-anchor="middle" fill="#78716C" font-size="${res==='d'?8:9}">${s.label}</text>`;
     });
-    // Legend
-    html += `<rect x="${W-90}" y="4" width="10" height="10" rx="2" fill="#16A34A" opacity=".85"/>`;
-    html += `<text x="${W-77}" y="13" fill="#78716C" font-size="9">הכנסה</text>`;
-    html += `<rect x="${W-90}" y="18" width="10" height="10" rx="2" fill="#DC2626" opacity=".85"/>`;
-    html += `<text x="${W-77}" y="27" fill="#78716C" font-size="9">הוצאה</text>`;
-    html += '</svg>';
-    svg.outerHTML = html.replace('<svg ', `<svg id="${svgId}" class="chart" `);
+    // Legend top-right
+    html+=`<rect x="${W-58}" y="4" width="9" height="9" rx="2" fill="#16A34A" opacity=".85"/><text x="${W-46}" y="12" fill="#78716C" font-size="9">הכנסה</text>`;
+    html+=`<rect x="${W-58}" y="17" width="9" height="9" rx="2" fill="#DC2626" opacity=".85"/><text x="${W-46}" y="25" fill="#78716C" font-size="9">הוצאה</text>`;
+    html+='</svg>';
+    // Replace SVG
+    const tmp=document.createElement('div'); tmp.innerHTML=html;
+    const newSvg=tmp.firstElementChild;
+    newSvg.id=svgId; newSvg.className='chart';
+    newSvg.style.height='150px';
+    svgEl.parentNode.replaceChild(newSvg, svgEl);
 }
 
 /* ══ SAVINGS GOAL ══ */
-function renderGoalBar(kidId, txs, containerId) {
-    const el = g(containerId); if (!el) return;
-    const goal = goals[kidId];
-    if (!goal || !goal.target) { el.innerHTML=''; return; }
-    let bal=0; txs.forEach(t=>{ if(t.type==='i') bal+=+t.amount; else bal-=+t.amount; });
-    const pct = Math.min(100, Math.max(0, (bal/goal.target)*100));
-    const kid = getKid(kidId);
-    el.innerHTML = `
+function renderGoalBar(kidId, txs, containerId){
+    const el=g(containerId); if(!el) return;
+    const goal=goals[kidId];
+    if(!goal||!goal.target){el.innerHTML='';return;}
+    let bal=0; txs.forEach(t=>{ if(t.type==='i')bal+=+t.amount; else bal-=+t.amount; });
+    const pct=Math.min(100,Math.max(0,(bal/goal.target)*100));
+    const kid=getKid(kidId);
+    el.innerHTML=`
         <div class="goal-card">
             <div class="goal-top">
                 <div class="goal-title">🎯 ${esc(goal.label||'יעד חיסכון')}</div>
@@ -656,115 +678,117 @@ function renderGoalBar(kidId, txs, containerId) {
                 <div class="goal-bar-fill" style="width:${pct}%;background:${pct>=100?'#16A34A':kid.color}"></div>
             </div>
             <div style="font-size:.74rem;color:var(--text2);margin-top:6px;font-weight:600">
-                ${pct>=100 ? '🎉 הגעת ליעד!' : `${pct.toFixed(0)}% מהיעד — נשאר ${fmtN(Math.max(0,goal.target-bal))}`}
+                ${pct>=100?'🎉 הגעת ליעד!':pct.toFixed(0)+'% מהיעד — נשאר '+fmtN(Math.max(0,goal.target-bal))}
             </div>
         </div>`;
 }
-
-function setGoalModal() {
-    const kid = getKid(selKid);
-    g('goalKidName').textContent = `${kid.emoji} ${kid.name}`;
-    const existing = goals[selKid] || {};
-    g('gLabel').value  = existing.label  || '';
-    g('gTarget').value = existing.target || '';
+function setGoalModal(){
+    const k=getKid(selKid); g('goalKidName').textContent=`${k.emoji} ${k.name}`;
+    const ex=goals[selKid]||{}; g('gLabel').value=ex.label||''; g('gTarget').value=ex.target||'';
     g('ovlGoal').classList.add('on');
 }
-function closeGoalModal() { g('ovlGoal').classList.remove('on'); }
-function saveGoal() {
-    const label  = g('gLabel').value.trim();
-    const target = parseFloat(g('gTarget').value);
-    if (!label) return toast('❌ הכנס שם ליעד');
-    if (!target||target<=0) return toast('❌ הכנס סכום יעד');
-    goals[selKid] = {label, target};
-    localStorage.setItem(GOAL_K, JSON.stringify(goals));
+function closeGoalModal(){ g('ovlGoal').classList.remove('on'); }
+function saveGoal(){
+    const label=g('gLabel').value.trim(), target=parseFloat(g('gTarget').value);
+    if(!label)return toast('❌ הכנס שם ליעד');
+    if(!target||target<=0)return toast('❌ הכנס סכום יעד');
+    goals[selKid]={label,target}; localStorage.setItem(GOAL_K,JSON.stringify(goals));
+    closeGoalModal(); renderPar(); toast('✅ יעד נשמר!');
+}
+function clearGoal(){
+    delete goals[selKid]; localStorage.setItem(GOAL_K,JSON.stringify(goals));
+    closeGoalModal(); renderPar(); toast('🗑️ יעד נמחק');
+}
+
+/* ══ GOAL FROM CHILD SCREEN ══ */
+function openChildGoalModal(){
+    // reuse same goal modal but the "save" will re-render child
+    const k=getKid(me); g('goalKidName').textContent=`${k.emoji} ${k.name}`;
+    const ex=goals[me]||{}; g('gLabel').value=ex.label||''; g('gTarget').value=ex.target||'';
+    // override save/clear to re-render child
+    g('ovlGoal').dataset.ctx='child';
+    g('ovlGoal').classList.add('on');
+}
+// Patch save/clear to handle child context
+function saveGoal(){
+    const label=g('gLabel').value.trim(), target=parseFloat(g('gTarget').value);
+    if(!label)return toast('❌ הכנס שם ליעד');
+    if(!target||target<=0)return toast('❌ הכנס סכום יעד');
+    const ctx=g('ovlGoal').dataset.ctx;
+    const kid=ctx==='child'?me:selKid;
+    goals[kid]={label,target}; localStorage.setItem(GOAL_K,JSON.stringify(goals));
     closeGoalModal();
-    renderParentDash();
+    if(ctx==='child') renderChild(); else renderPar();
     toast('✅ יעד נשמר!');
 }
-function clearGoal() {
-    delete goals[selKid];
-    localStorage.setItem(GOAL_K, JSON.stringify(goals));
+function clearGoal(){
+    const ctx=g('ovlGoal').dataset.ctx;
+    const kid=ctx==='child'?me:selKid;
+    delete goals[kid]; localStorage.setItem(GOAL_K,JSON.stringify(goals));
     closeGoalModal();
-    renderParentDash();
+    if(ctx==='child') renderChild(); else renderPar();
     toast('🗑️ יעד נמחק');
 }
 
-/* ══ NOTIFICATIONS ══ */
-function updateNotifBtn() {
-    const enabled = localStorage.getItem(NOTIF_K)==='1' && Notification.permission==='granted';
-    const btn=g('notifBtn');
-    if (enabled) { btn.classList.add('active-notif'); btn.textContent='🔔 תזכורת: פועל'; }
-    else { btn.classList.remove('active-notif'); btn.textContent='🔕 תזכורת שבועית'; }
-}
-async function toggleNotif() {
-    if (localStorage.getItem(NOTIF_K)==='1') {
-        localStorage.setItem(NOTIF_K,'0'); updateNotifBtn(); toast('🔕 תזכורת כבויה');
-    } else {
-        if (!('Notification' in window)) { toast('❌ הדפדפן אינו תומך בהתראות'); return; }
-        const p = await Notification.requestPermission();
-        if (p==='granted') {
-            localStorage.setItem(NOTIF_K,'1');
-            updateNotifBtn();
-            toast('🔔 תזכורת שבועית הופעלה!');
-            new Notification('כסף משפחתי 💰',{body:'תזכורת שבועית הופעלה! נקבל תזכורת אם לא מתחברים שבוע.',icon:''});
-        } else { toast('⚠️ נדחתה הרשאת התראות'); }
-    }
-}
-function checkWeeklyNotif() {
-    if (localStorage.getItem(NOTIF_K)!=='1') return;
-    if (Notification.permission!=='granted') return;
-    const last = parseInt(localStorage.getItem(LAST_K)||'0');
-    const now  = Date.now();
-    if (now - last > 7*24*60*60*1000 && last > 0) {
-        new Notification('כסף משפחתי 💰',{body:'עברה יותר משבוע — זמן לעדכן את כסף הילדים! 📊'});
-    }
-    localStorage.setItem(LAST_K, now.toString());
-}
-
 /* ══ EXCEL EXPORT ══ */
-async function loadXLSX() {
-    if (window.XLSX) return;
-    await new Promise((res,rej)=>{
-        const s=document.createElement('script');
-        s.src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
-        s.onload=res; s.onerror=rej; document.head.appendChild(s);
-    });
+async function loadXLSX(){
+    if(window.XLSX)return;
+    await new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';s.onload=res;s.onerror=rej;document.head.appendChild(s);});
 }
-async function exportExcel() {
+async function exportExcel(){
     show('מייצא...');
-    try {
+    try{
         await loadXLSX();
-        const kid = getKid(selKid);
-        const txs = [...(data[selKid]||[])].sort((a,b)=>a.date.localeCompare(b.date));
-        if (!txs.length) { toast('⚠️ אין תנועות לייצוא'); hide(); return; }
-        const rows = txs.map(t=>({
-            'תאריך': fmtDate(t.date),
-            'סוג': t.type==='i'?'הכנסה':'הוצאה',
-            'סכום': +t.amount,
-            'תיאור': t.description||''
-        }));
-        const ws = XLSX.utils.json_to_sheet(rows, {header:['תאריך','סוג','סכום','תיאור']});
-        ws['!cols'] = [{wch:12},{wch:8},{wch:10},{wch:30}];
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, kid.name);
-        XLSX.writeFile(wb, `${kid.name}_כסף_${today()}.xlsx`);
+        const kid=getKid(selKid);
+        const txs=[...(data[selKid]||[])].sort((a,b)=>a.date.localeCompare(b.date));
+        if(!txs.length){toast('⚠️ אין תנועות לייצוא');hide();return;}
+
+        let totalBal=0;
+        const rows=txs.map(t=>{
+            const sign=t.type==='i'?1:-1;
+            const amt=sign*(+t.amount);
+            totalBal+=amt;
+            return{'תאריך':fmtDate(t.date),'סוג':t.type==='i'?'הכנסה':'הוצאה','סכום':amt,'תיאור':t.description||''};
+        });
+        // Summary row
+        rows.push({'תאריך':'','סוג':'','סכום':'','תיאור':''});
+        rows.push({'תאריך':'סה"כ יתרה','סוג':'','סכום':totalBal,'תיאור':''});
+
+        const ws=XLSX.utils.json_to_sheet(rows,{header:['תאריך','סוג','סכום','תיאור']});
+        ws['!cols']=[{wch:12},{wch:8},{wch:10},{wch:30}];
+        // Style the total row (last row)
+        const lr=rows.length+1; // +1 for header
+        if(ws[`C${lr}`]) ws[`C${lr}`].s={font:{bold:true}};
+
+        const wb=XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb,ws,kid.name);
+        XLSX.writeFile(wb,`${kid.name}_כסף_${today()}.xlsx`);
         toast('✅ קובץ Excel הורד!');
-    } catch(e) { toast('❌ שגיאה בייצוא: '+e.message); console.error(e); }
+    }catch(e){toast('❌ שגיאה: '+e.message);console.error(e);}
     hide();
 }
 
+/* ══ NEW BADGE — SEEN TRACKING ══ */
+function getLastSeen(kidId){ return parseInt(localStorage.getItem(SEEN_PFX+kidId)||'0'); }
+function markSeen(kidId){ localStorage.setItem(SEEN_PFX+kidId, Date.now().toString()); }
+function isNewTx(tx, prevSeen){
+    // tx has createdAt timestamp; if prevSeen===0 means first ever login → nothing is NEW
+    if(!tx.createdAt || prevSeen===0) return false;
+    return tx.createdAt > prevSeen;
+}
+
 /* ══ GITHUB ══ */
-async function ghGet(path) {
+async function ghGet(path){
     const {owner,repo,branch,token}=ghCfg;
     const r=await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}&_=${Date.now()}`,{headers:{Authorization:`token ${token}`,Accept:'application/vnd.github.v3+json'}});
-    if(r.status===404) return null; if(!r.ok) throw new Error(`GitHub ${r.status}`);
-    const j=await r.json(); return {content:JSON.parse(b64d(j.content)),sha:j.sha};
+    if(r.status===404)return null; if(!r.ok)throw new Error(`GitHub ${r.status}`);
+    const j=await r.json(); return{content:JSON.parse(b64d(j.content)),sha:j.sha};
 }
-async function ghPut(path,content,sha) {
+async function ghPut(path,content,sha){
     const {owner,repo,branch,token}=ghCfg;
     const r=await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`,{method:'PUT',headers:{Authorization:`token ${token}`,'Content-Type':'application/json',Accept:'application/vnd.github.v3+json'},body:JSON.stringify({message:`update ${path}`,content:b64e(JSON.stringify(content,null,2)),branch,...(sha?{sha}:{})})});
     if(!r.ok){const t=await r.text();throw new Error(`GH PUT ${r.status}: ${t}`);}
-    return (await r.json()).content.sha;
+    return(await r.json()).content.sha;
 }
 function b64e(s){return btoa(unescape(encodeURIComponent(s)));}
 function b64d(s){return decodeURIComponent(escape(atob(s.replace(/\s/g,''))));}
@@ -772,23 +796,23 @@ async function sha256(s){const b=await crypto.subtle.digest('SHA-256',new TextEn
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,8);}
 
 /* ══ SETUP ══ */
-function buildPinRows() {
+function buildPinRows(){
     g('pinRows').innerHTML=KIDS.map(k=>`<div class="kpr"><div class="ke">${k.emoji}</div><div style="flex:1"><div class="kn">${k.name}</div><input class="fi" type="number" id="pin_${k.id}" placeholder="4 ספרות" min="1000" max="9999" dir="ltr"></div></div>`).join('');
     if(ghCfg){g('sOwner').value=ghCfg.owner||'';g('sRepo').value=ghCfg.repo||'';g('sBranch').value=ghCfg.branch||'main';g('sToken').value=ghCfg.token||'';}
 }
-async function doSetup() {
+async function doSetup(){
     const owner=g('sOwner').value.trim(),repo=g('sRepo').value.trim(),branch=g('sBranch').value.trim()||'main',token=g('sToken').value.trim();
     const pw1=g('sParPw').value,pw2=g('sParPw2').value;
-    if(!owner||!repo||!token) return toast('❌ מלא את כל פרטי GitHub');
-    if(!pw1) return toast('❌ הכנס סיסמת הורה');
-    if(pw1!==pw2) return toast('❌ הסיסמאות לא תואמות');
+    if(!owner||!repo||!token)return toast('❌ מלא את כל פרטי GitHub');
+    if(!pw1)return toast('❌ הכנס סיסמת הורה');
+    if(pw1!==pw2)return toast('❌ הסיסמאות לא תואמות');
     const pins={};
     for(const k of KIDS){const p=(g('pin_'+k.id).value||'').toString().trim();if(p.length!==4||!/^\d{4}$/.test(p))return toast(`❌ הכנס PIN תקין ל${k.name}`);pins[k.id]=p;}
     show('שומר הגדרות...');
     try{
         ghCfg={owner,repo,branch,token};
         const hs=await Promise.all([sha256(pw1),...KIDS.map(k=>sha256(pins[k.id]))]);
-        const [pH,...kH]=hs;
+        const[pH,...kH]=hs;
         const nc={parentPasswordHash:pH,children:KIDS.map((k,i)=>({...k,pinHash:kH[i]}))};
         const ex=await ghGet('config.json');
         shas.config=await ghPut('config.json',nc,ex?.sha||null);
@@ -798,7 +822,7 @@ async function doSetup() {
     }catch(e){toast('❌ שגיאה: '+e.message);console.error(e);}
     hide();
 }
-function openSetup(){buildPinRows();go('sSetup');}
+function openSetup(){ buildPinRows(); go('sSetup'); }
 
 /* ══ DATA ══ */
 async function loadCfg(){const r=await ghGet('config.json');if(!r)throw new Error('config.json לא נמצא');cfg=r.content;shas.config=r.sha;}
@@ -820,8 +844,19 @@ async function pok(){
     if(pinBuf.length<4)return;
     const k=getKid(pinKid);const h=await sha256(pinBuf);
     if(h===k.pinHash){
-        me=k.id;show('טוען נתונים...');
-        try{await loadKid(k.id);selMon=null;setupChild(k);renderChild();go('sChild');}catch(e){toast('❌ שגיאה');}
+        me=k.id;
+        // Read previous seen BEFORE updating
+        childPrevSeen=getLastSeen(me);
+        show('טוען נתונים...');
+        try{
+            await loadKid(k.id);
+            selMon=null;
+            setupChild(k);
+            renderChild();
+            // Mark seen NOW (after render, so NEW badges show in this session)
+            markSeen(me);
+            go('sChild');
+        }catch(e){toast('❌ שגיאה');}
         hide();
     }else{g('pinErr').textContent='❌ קוד שגוי, נסה שוב';pinBuf='';dots();}
 }
@@ -832,24 +867,48 @@ async function parLogin(){
     const h=await sha256(pw);
     if(h===cfg.parentPasswordHash){
         me='parent';show('טוען נתונים...');
-        try{await loadAll();selKid=(cfg.children||KIDS)[0].id;selMon=null;buildCtabs();renderPar();go('sParent');checkWeeklyNotif();updateNotifBtn();}catch(e){toast('❌ שגיאה: '+e.message);}
+        try{await loadAll();selKid=(cfg.children||KIDS)[0].id;selMon=null;buildCtabs();renderPar();go('sParent');}catch(e){toast('❌ שגיאה: '+e.message);}
         hide();
     }else g('parErr').textContent='❌ סיסמה שגויה';
 }
 
 /* ══ CHILD SCREEN ══ */
-function setupChild(k){g('childHdr').style.background=k.color;g('childHdrNm').textContent=`${k.emoji} ${k.name}`;g('childBcard').style.background=`linear-gradient(135deg,${k.color},${k.dark})`;}
+function setupChild(k){
+    g('childHdr').style.background=k.color;
+    g('childHdrNm').textContent=`${k.emoji} ${k.name}`;
+    g('childBcard').style.background=`linear-gradient(135deg,${k.color},${k.dark})`;
+}
 function renderChild(){
     const txs=data[me]||[];
     renderMbar('childMbar',txs,'c');
     const f=byMon(txs);
-    renderStats(f,'childBal','childInc','childExp',me,getKid(me).color);
+    renderStats(f,'childBal','childInc','childExp');
     renderGoalBar(me,txs,'childGoal');
+    // Add goal button to child screen
+    const goal=goals[me];
+    let goalHtml=g('childGoal').innerHTML;
+    // Append goal edit button below bar
+    if(g('childGoal').innerHTML){
+        g('childGoal').innerHTML+=`<div style="text-align:left;margin-top:-6px;margin-bottom:8px"><button onclick="openChildGoalModal()" style="font-size:.74rem;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:3px 10px;cursor:pointer;font-family:inherit;font-weight:700;color:var(--text2)">✏️ ערוך יעד</button></div>`;
+    } else {
+        g('childGoal').innerHTML=`<div style="margin-bottom:8px"><button onclick="openChildGoalModal()" style="font-size:.78rem;background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:7px 14px;cursor:pointer;font-family:inherit;font-weight:700;color:var(--text2)">🎯 הגדר יעד חיסכון</button></div>`;
+    }
     g('childCnt').textContent=f.length;
-    g('childTxl').innerHTML=buildTxCards(f,false);
-    setTimeout(()=>drawChart(me,'childChartSVG'),0);
+    g('childTxl').innerHTML=buildTxCards(f,false,true);
+    setTimeout(()=>drawChart(me,'cChartSVG','child'),0);
 }
-async function refreshChild(){show('מרענן...');try{await loadKid(me);renderChild();toast('🔄 עודכן');}catch(e){toast('❌ שגיאה');}hide();}
+async function refreshChild(){
+    show('מרענן...');
+    try{
+        await loadKid(me);
+        // On manual refresh, update seen so new ones show correctly
+        childPrevSeen=getLastSeen(me);
+        renderChild();
+        markSeen(me);
+        toast('🔄 עודכן');
+    }catch(e){toast('❌ שגיאה');}
+    hide();
+}
 
 /* ══ PARENT SCREEN ══ */
 function buildCtabs(){
@@ -863,33 +922,41 @@ function renderPar(){
     const txs=data[selKid]||[];
     renderMbar('parMbar',txs,'p');
     const f=byMon(txs);
-    renderStats(f,'parBal','parInc','parExp',selKid,k.color);
+    renderStats(f,'parBal','parInc','parExp');
     renderGoalBar(selKid,txs,'parGoal');
     g('parCnt').textContent=f.length;
-    g('parTxl').innerHTML=buildTxCards(f,true);
-    setTimeout(()=>drawChart(selKid,'parChartSVG'),0);
+    g('parTxl').innerHTML=buildTxCards(f,true,false);
+    setTimeout(()=>drawChart(selKid,'pChartSVG','par'),0);
 }
 async function refreshParent(){show('מרענן...');try{await loadAll();buildCtabs();renderPar();toast('🔄 עודכן');}catch(e){toast('❌ שגיאה');}hide();}
 
 /* ══ RENDER ══ */
-function renderStats(txs,bId,iId,eId,kidId,color){
+function renderStats(txs,bId,iId,eId){
     let inc=0,exp=0; txs.forEach(t=>{if(t.type==='i')inc+=+t.amount;else exp+=+t.amount;});
     const bal=inc-exp;
     const el=g(bId);
-    el.textContent = (bal<0?'-':'') + fmtN(Math.abs(bal));
-    el.className = 'bamt' + (bal<0?' neg':bal>0?' pos':'');
+    el.textContent=(bal<0?'-':'')+fmtN(Math.abs(bal));
+    el.className='bamt'+(bal<0?' neg':bal>0?' pos':'');
     g(iId).textContent=fmtN(inc);
     g(eId).textContent=fmtN(exp);
 }
-function buildTxCards(txs,editable){
+function buildTxCards(txs,editable,showNew){
     if(!txs.length)return`<div class="empty"><div class="ei">💸</div><p>אין תנועות${selMon?' בחודש זה':' עדיין'}</p></div>`;
-    return[...txs].sort((a,b)=>b.date.localeCompare(a.date)).map(t=>`
-        <div class="tx">
+    return[...txs].sort((a,b)=>b.date.localeCompare(a.date)).map(t=>{
+        const isNew=showNew&&isNewTx(t,childPrevSeen);
+        return`<div class="tx${isNew?' is-new':''}">
             <div class="txico ${t.type}">${t.type==='i'?'📈':'📉'}</div>
-            <div class="txb"><div class="txd">${esc(t.description||'ללא תיאור')}</div><div class="txdt">${fmtDate(t.date)}</div></div>
+            <div class="txb">
+                <div class="txd">${esc(t.description||'ללא תיאור')}</div>
+                <div class="txdt">
+                    ${fmtDate(t.date)}
+                    ${isNew?'<span class="new-badge">חדש</span>':''}
+                </div>
+            </div>
             <div class="txa ${t.type}">${t.type==='i'?'+':'-'}${fmtN(t.amount)}</div>
             ${editable?`<div class="txacts"><button class="ibtn" onclick="openEdit('${t.id}')">✏️</button><button class="ibtn" onclick="delTx('${t.id}')">🗑️</button></div>`:''}
-        </div>`).join('');
+        </div>`;
+    }).join('');
 }
 function renderMbar(cid,txs,ctx){
     const ms=[...new Set(txs.map(t=>t.date.slice(0,7)))].sort().reverse();
@@ -931,7 +998,7 @@ async function saveTx(){
     try{
         const arr=[...(data[tk]||[])];
         if(editId){const i=arr.findIndex(t=>t.id===editId);if(i>=0)arr[i]={...arr[i],type:txType,amount,date,description:desc};}
-        else arr.push({id:uid(),type:txType,amount,date,description:desc});
+        else arr.push({id:uid(),type:txType,amount,date,description:desc,createdAt:Date.now()});
         data[tk]=arr;
         shas[tk]=await ghPut(`data/${tk}.json`,arr,shas[tk]||null);
         addDesc(desc);
@@ -950,7 +1017,7 @@ async function delTx(id){
 
 /* ══ UTILS ══ */
 function getKid(id){return(cfg?.children||KIDS).find(k=>k.id===id)||KIDS[0];}
-function logout(){me=null;pinBuf='';selKid=null;selMon=null;g('parPw').value='';g('parErr').textContent='';go('sLogin');}
+function logout(){me=null;pinBuf='';selKid=null;selMon=null;childPrevSeen=0;g('parPw').value='';g('parErr').textContent='';go('sLogin');}
 function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));g(id).classList.add('active');}
 function show(t='טוען...'){g('ltxt').textContent=t;g('loading').style.display='flex';}
 function hide(){g('loading').style.display='none';}
@@ -961,7 +1028,7 @@ function fmtN(n){return'₪'+Math.abs(+n||0).toLocaleString('he-IL',{minimumFrac
 function fmtDate(d){if(!d)return'';const[y,m,dy]=d.split('-');return`${dy}/${m}/${y}`;}
 function fmtMon(m){const[y,mo]=m.split('-');return`${HM[+mo-1]} ${y}`;}
 function today(){return new Date().toISOString().slice(0,10);}
-function safeJSON(k,def){try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(def));}catch{return def;}}
+function safeJ(k,def){try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(def));}catch{return def;}}
 </script>
 </body>
 </html>
