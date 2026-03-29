@@ -19,5 +19,12 @@
     "amount": 200,
     "date": "2026-03-01",
     "description": "הוספה לכרטיס"
+  },
+  {
+    "id": "mnbo9f0b3giucv",
+    "type": "i",
+    "amount": 700,
+    "date": "2026-02-10",
+    "description": "משכורת WHITE POOL"
   }
 ]
