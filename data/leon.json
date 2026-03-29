@@ -54,5 +54,12 @@
     "amount": 200,
     "date": "2026-03-23",
     "description": "הוספה לכרטיס"
+  },
+  {
+    "id": "mnbocr6fdj0u3r",
+    "type": "e",
+    "amount": 10,
+    "date": "2026-03-26",
+    "description": "BIT משצים"
   }
 ]
