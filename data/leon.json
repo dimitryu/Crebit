@@ -82,5 +82,13 @@
     "amount": 56,
     "date": "2026-03-24",
     "description": "מכולת"
+  },
+  {
+    "id": "mnd51yzefe6ffh",
+    "type": "e",
+    "amount": 200,
+    "date": "2026-03-30",
+    "description": "הוספה לכרטיס",
+    "createdAt": 1774872154202
   }
 ]
