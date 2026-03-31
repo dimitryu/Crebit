@@ -38,5 +38,13 @@
     "date": "2026-01-27",
     "description": "APPLE from Viza 1833",
     "createdAt": 1774953968716
+  },
+  {
+    "id": "mnehu7og9bodwv",
+    "type": "e",
+    "amount": 500,
+    "date": "2026-02-01",
+    "description": "קנס על חניה",
+    "createdAt": 1774954093408
   }
 ]
