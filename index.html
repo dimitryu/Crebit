@@ -172,12 +172,23 @@ body.dark .lp-bg{background:linear-gradient(180deg,#020617 0%,#0f172a 100%)}
 .streak-tag{font-size:.74rem;background:rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;display:inline-flex;align-items:center;gap:4px;margin-top:10px;font-weight:700}
 
 /* SAVINGS GOAL */
-.goal-card{background:var(--card);border-radius:16px;padding:14px 16px;margin-bottom:14px;box-shadow:var(--ss);border:1px solid var(--border)}
-.goal-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.goal-title{font-size:.88rem;font-weight:700}
-.goal-nums{font-size:.78rem;color:var(--text2);font-weight:600}
+.goal-card{background:var(--card);border-radius:16px;padding:14px 16px;margin-bottom:10px;box-shadow:var(--ss);border:1px solid var(--border)}
+.goal-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;gap:8px}
+.goal-title{font-size:.88rem;font-weight:700;flex:1}
+.goal-nums{font-size:.78rem;color:var(--text2);font-weight:600;white-space:nowrap}
+.goal-del{background:none;border:none;cursor:pointer;font-size:.9rem;padding:3px 6px;border-radius:6px;color:var(--text2);line-height:1;flex-shrink:0}
+.goal-del:hover{background:var(--exp-bg);color:var(--exp)}
 .goal-bar-bg{background:var(--border);border-radius:20px;height:10px;overflow:hidden}
 .goal-bar-fill{height:100%;border-radius:20px;transition:width .6s cubic-bezier(.4,0,.2,1);min-width:4px}
+.goal-section{margin-bottom:14px}
+.goal-add-btn{width:100%;padding:10px;background:var(--bg);border:1.5px dashed var(--border);border-radius:12px;color:var(--text2);font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s}
+.goal-add-btn:hover{border-color:var(--acc);color:var(--acc);background:var(--card)}
+/* Goal modal list */
+.goal-list-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.goal-list-item:last-child{border-bottom:none}
+.goal-list-bar-bg{flex:1;background:var(--border);border-radius:20px;height:7px;overflow:hidden}
+.goal-list-bar-fill{height:100%;border-radius:20px}
+.goal-divider{border:none;border-top:1.5px solid var(--border);margin:16px 0}
 
 /* FAMILY SUMMARY */
 .fam-total{background:linear-gradient(135deg,var(--par),var(--par-dk));border-radius:20px;padding:20px;margin-bottom:18px;color:#fff;text-align:center;box-shadow:0 4px 18px rgba(0,0,0,.15)}
@@ -559,13 +570,18 @@ svg.chart{width:100%;display:block;direction:ltr;height:200px;overflow:visible}
 <div class="ovl" id="ovlGoal" onclick="if(event.target===this)closeGoalModal()">
   <div class="modal">
     <div class="mhdl"></div>
-    <div class="mtit">🎯 יעד חיסכון</div>
-    <div class="fg"><label class="fl">ילד</label><div id="goalKidName" style="font-size:1rem;font-weight:700;padding:6px 0"></div></div>
-    <div class="fg"><label class="fl">שם היעד</label><input class="fi" id="gLabel" placeholder="מה רוצים לחסוך?"></div>
+    <div class="mtit">🎯 יעדי חיסכון</div>
+    <div class="fg"><label class="fl">ילד</label><div id="goalKidName" style="font-size:1rem;font-weight:700;padding:4px 0"></div></div>
+    <!-- Existing goals list -->
+    <div id="goalExistingList"></div>
+    <hr class="goal-divider">
+    <!-- Add new goal form -->
+    <div style="font-size:.82rem;font-weight:700;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.3px">➕ הוסף יעד חדש</div>
+    <div class="fg"><label class="fl">שם היעד</label><input class="fi" id="gLabel" placeholder="לדוגמה: אופניים, טיול, משחק"></div>
     <div class="fg"><label class="fl">סכום יעד (₪)</label><input class="fi" type="number" id="gTarget" min="1" dir="ltr" placeholder="500"></div>
     <div class="mbtns">
-      <button class="btn btnd" style="flex:1" onclick="clearGoal()">מחק יעד</button>
-      <button class="btn btnp" style="flex:2" onclick="saveGoal()">שמור יעד</button>
+      <button class="btn btng" style="flex:1" onclick="closeGoalModal()">סגור</button>
+      <button class="btn btnp" style="flex:2" onclick="saveGoal()">➕ הוסף יעד</button>
     </div>
   </div>
 </div>
@@ -586,14 +602,14 @@ svg.chart{width:100%;display:block;direction:ltr;height:200px;overflow:visible}
 
 <script>
 /* ═══ VERSION ═══ */
-const VER='v1.5.1';
+const VER='v1.5.2';
 const KIDS=[
   {id:'leon',    name:'לאון',    emoji:'🦁',color:'#E87D3E',dark:'#B85A1A'},
   {id:'angelina',name:'אנגלינה',emoji:'🌸',color:'#D946A0',dark:'#A01470'},
   {id:'evelyn',  name:'אוולין', emoji:'⭐',color:'#7C3AED',dark:'#4C1D95'}
 ];
 const HM=['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
-const DESC_K='dh_v1',GOAL_K='goals_v1',DARK_K='darkMode',SEEN_PFX='lastSeen_',OC_PFX='oc_';
+const DESC_K='dh_v1',DARK_K='darkMode',SEEN_PFX='lastSeen_',OC_PFX='oc_';
 
 /* ═══ STATE ═══ */
 let ghCfg=null,cfg=null,data={},shas={};
@@ -613,7 +629,7 @@ window.addEventListener('load',async()=>{
   injectPWA();
   ['vLogin','vSetup','vPin','vParLogin','vChild','vParent','vFam'].forEach(id=>{const el=g(id);if(el)el.textContent=VER;});
   descHist=safeJ(DESC_K,[]);
-  goals=safeJ(GOAL_K,{});
+  goals={};  // loaded from GitHub after login
   refreshDL();
   // Dark mode
   isDark=localStorage.getItem(DARK_K)==='1';
@@ -863,49 +879,132 @@ function drawChart(kidId,svgId,view){
   svgEl.parentNode.replaceChild(ns,svgEl);
 }
 
-/* ═══ SAVINGS GOAL ═══ */
-function renderGoalBar(kidId,txs,containerId){
-  const el=g(containerId);if(!el)return;
-  const goal=goals[kidId];
-  if(!goal||!goal.target){el.innerHTML='';return;}
-  let bal=0;txs.forEach(t=>{if(t.type==='i')bal+=+t.amount;else bal-=+t.amount;});
-  const pct=Math.min(100,Math.max(0,(bal/goal.target)*100));
-  const kid=getKid(kidId);const done=pct>=100;
-  el.innerHTML=`
-    <div class="goal-card">
-      <div class="goal-top"><div class="goal-title">🎯 ${esc(goal.label||'יעד חיסכון')}</div><div class="goal-nums">${fmtN(Math.max(0,bal))} / ${fmtN(goal.target)}</div></div>
+/* ═══ SAVINGS GOALS (GitHub-backed, multi-goal per child) ═══ */
+// goals = { kidId: [{id, label, target}, ...] }
+let goalsSha=null;
+
+async function loadGoals(){
+  try{
+    const r=await ghGet('goals.json');
+    if(r){goals=r.content;goalsSha=r.sha;}
+    else{goals={};goalsSha=null;}
+    localStorage.setItem('oc_goals',JSON.stringify(goals));
+  }catch(e){goals=safeJ('oc_goals',{});goalsSha=null;}
+}
+async function saveGoals(){
+  goalsSha=await ghPut('goals.json',goals,goalsSha||null);
+  localStorage.setItem('oc_goals',JSON.stringify(goals));
+}
+function getKidGoals(kidId){return goals[kidId]||[];}
+
+function calcBal(txs){let b=0;txs.forEach(t=>{if(t.type==='i')b+=+t.amount;else b-=+t.amount;});return b;}
+
+function renderGoalBars(kidId,txs,containerId,editable){
+  const el=g(containerId);if(!el)return false;
+  const kid=getKid(kidId);
+  const bal=calcBal(txs);
+  const safeBal=Math.max(0,bal);
+  const kidGoals=getKidGoals(kidId);
+  const addFn=editable==='child'?'openChildGoalModal()':'setGoalModal()';
+
+  if(!kidGoals.length){
+    el.innerHTML=`<div class="goal-section"><button class="goal-add-btn" onclick="${addFn}">🎯 הגדר יעד חיסכון</button></div>`;
+    return false;
+  }
+
+  let anyDone=false;
+  const cards=kidGoals.map(goal=>{
+    const pct=Math.min(100,Math.max(0,(safeBal/goal.target)*100));
+    const done=pct>=100;if(done)anyDone=true;
+    const delFn=`deleteGoal('${goal.id}','${editable}')`;
+    return`<div class="goal-card">
+      <div class="goal-top">
+        <div class="goal-title">🎯 ${esc(goal.label)}</div>
+        <div class="goal-nums">${fmtN(safeBal)} / ${fmtN(goal.target)}</div>
+        <button class="goal-del" onclick="${delFn}" title="מחק יעד">🗑️</button>
+      </div>
       <div class="goal-bar-bg"><div class="goal-bar-fill" style="width:${pct}%;background:${done?'#16A34A':kid.color}"></div></div>
-      <div style="font-size:.74rem;color:var(--text2);margin-top:6px;font-weight:600">${done?'🎉 הגעת ליעד!':pct.toFixed(0)+'% מהיעד — נשאר '+fmtN(Math.max(0,goal.target-bal))}</div>
+      <div style="font-size:.74rem;color:var(--text2);margin-top:5px;font-weight:600">
+        ${done?'🎉 הגעת ליעד!':pct.toFixed(0)+'% מהיעד — נשאר '+fmtN(Math.max(0,goal.target-safeBal))}
+      </div>
     </div>`;
-  return done;
+  }).join('');
+
+  el.innerHTML=`<div class="goal-section">${cards}<button class="goal-add-btn" style="margin-top:4px" onclick="${addFn}">➕ הוסף יעד נוסף</button></div>`;
+  return anyDone;
 }
-function setGoalModal(){
-  const k=getKid(selKid);g('goalKidName').textContent=`${k.emoji} ${k.name}`;
-  const ex=goals[selKid]||{};g('gLabel').value=ex.label||'';g('gTarget').value=ex.target||'';
-  g('ovlGoal').dataset.ctx='par';g('ovlGoal').classList.add('on');
+
+async function deleteGoal(goalId,ctx){
+  const kidId=ctx==='child'?me:selKid;
+  goals[kidId]=(goals[kidId]||[]).filter(gx=>gx.id!==goalId);
+  show('מוחק יעד...');
+  try{await saveGoals();if(ctx==='child')renderChild();else renderPar();toast('🗑️ יעד נמחק');}
+  catch(e){toast('❌ שגיאה: '+e.message);}
+  hide();
 }
-function openChildGoalModal(){
-  const k=getKid(me);g('goalKidName').textContent=`${k.emoji} ${k.name}`;
-  const ex=goals[me]||{};g('gLabel').value=ex.label||'';g('gTarget').value=ex.target||'';
-  g('ovlGoal').dataset.ctx='child';g('ovlGoal').classList.add('on');
+
+function openGoalModal(ctx){
+  const kidId=ctx==='child'?me:selKid;
+  const kid=getKid(kidId);
+  g('goalKidName').textContent=`${kid.emoji} ${kid.name}`;
+  g('gLabel').value='';g('gTarget').value='';
+  g('ovlGoal').dataset.ctx=ctx;
+  // Render existing goals
+  const kidGoals=getKidGoals(kidId);
+  const safeBal=Math.max(0,calcBal(data[kidId]||[]));
+  if(!kidGoals.length){
+    g('goalExistingList').innerHTML=`<div style="font-size:.82rem;color:var(--text2);padding:4px 0 4px">אין יעדים עדיין</div>`;
+  }else{
+    g('goalExistingList').innerHTML=kidGoals.map(goal=>{
+      const pct=Math.min(100,Math.max(0,(safeBal/goal.target)*100));
+      return`<div class="goal-list-item">
+        <div style="flex:1">
+          <div style="font-size:.85rem;font-weight:700">${esc(goal.label)}</div>
+          <div style="font-size:.74rem;color:var(--text2)">${pct.toFixed(0)}% — ${fmtN(safeBal)} / ${fmtN(goal.target)}</div>
+        </div>
+        <div class="goal-list-bar-bg" style="width:60px;flex:none">
+          <div class="goal-list-bar-fill" style="width:${pct}%;background:${pct>=100?'#16A34A':kid.color}"></div>
+        </div>
+        <button class="goal-del" onclick="deleteGoalFromModal('${goal.id}')">🗑️</button>
+      </div>`;
+    }).join('');
+  }
+  g('ovlGoal').classList.add('on');
 }
+function setGoalModal(){openGoalModal('par');}
+function openChildGoalModal(){openGoalModal('child');}
 function closeGoalModal(){g('ovlGoal').classList.remove('on');}
-function saveGoal(){
+
+async function deleteGoalFromModal(goalId){
+  const ctx=g('ovlGoal').dataset.ctx;
+  const kidId=ctx==='child'?me:selKid;
+  goals[kidId]=(goals[kidId]||[]).filter(gx=>gx.id!==goalId);
+  show('מוחק יעד...');
+  try{
+    await saveGoals();
+    toast('🗑️ יעד נמחק');
+    openGoalModal(ctx); // refresh modal list
+    if(ctx==='child')renderChild();else renderPar();
+  }catch(e){toast('❌ שגיאה: '+e.message);}
+  hide();
+}
+
+async function saveGoal(){
   const label=g('gLabel').value.trim(),target=parseFloat(g('gTarget').value);
   if(!label)return toast('❌ הכנס שם ליעד');
   if(!target||target<=0)return toast('❌ הכנס סכום יעד');
-  const ctx=g('ovlGoal').dataset.ctx;const kid=ctx==='child'?me:selKid;
-  goals[kid]={label,target};localStorage.setItem(GOAL_K,JSON.stringify(goals));
-  closeGoalModal();
-  if(ctx==='child')renderChild();else renderPar();
-  toast('✅ יעד נשמר!');
-}
-function clearGoal(){
-  const ctx=g('ovlGoal').dataset.ctx;const kid=ctx==='child'?me:selKid;
-  delete goals[kid];localStorage.setItem(GOAL_K,JSON.stringify(goals));
-  closeGoalModal();
-  if(ctx==='child')renderChild();else renderPar();
-  toast('🗑️ יעד נמחק');
+  const ctx=g('ovlGoal').dataset.ctx;
+  const kidId=ctx==='child'?me:selKid;
+  if(!goals[kidId])goals[kidId]=[];
+  goals[kidId].push({id:uid(),label,target});
+  show('שומר יעד...');
+  try{
+    await saveGoals();
+    closeGoalModal();
+    if(ctx==='child')renderChild();else renderPar();
+    toast('✅ יעד נוסף!');
+  }catch(e){toast('❌ שגיאה: '+e.message);}
+  hide();
 }
 
 /* ═══ EXCEL EXPORT ═══ */
@@ -1138,7 +1237,7 @@ async function pok(){
   if(h===k.pinHash){
     me=k.id;childPrevSeen=getLastSeen(me);show('טוען נתונים...');
     try{
-      await loadKid(k.id);selMon=null;setupChild(k);renderChild();
+      await loadKid(k.id);await loadGoals();selMon=null;setupChild(k);renderChild();
       const txs=data[me]||[];
       const newTxs=txs.filter(t=>isNewTx(t,childPrevSeen));
       markSeen(me);
@@ -1155,7 +1254,7 @@ async function parLogin(){
   const h=await sha256(pw);
   if(h===cfg.parentPasswordHash){
     me='parent';show('טוען נתונים...');
-    try{await loadAll();selKid=(cfg.children||KIDS)[0].id;selMon=null;buildCtabs();renderPar();go('sParent');}catch(e){toast('❌ שגיאה: '+e.message);}
+    try{await loadAll();await loadGoals();selKid=(cfg.children||KIDS)[0].id;selMon=null;buildCtabs();renderPar();go('sParent');}catch(e){toast('❌ שגיאה: '+e.message);}
     hide();
   }else g('parErr').textContent='❌ סיסמה שגויה';
 }
@@ -1171,30 +1270,20 @@ function renderChild(){
   renderMbar('childMbar',txs,'c');
   const f=byMon(txs);
   const bal=renderStats(f,'childBal','childInc','childExp');
-  // Card color: red if negative
   g('childBcard').style.background=bal<0?`linear-gradient(135deg,var(--neg1),var(--neg2))`:`linear-gradient(135deg,${k.color},${k.dark})`;
-  // Badge
   const badge=calcBadge(bal);
   g('childBadge').textContent=badge?badge.icon:'';
-  // Streak
   const streak=calcStreak(txs);
   g('childStreak').innerHTML=streak>=2?`<div class="streak-tag">🔥 ${streak} חודשים ברצף</div>`:'';
-  // Goal
-  const goalDone=renderGoalBar(me,txs,'childGoal');
+  const goalDone=renderGoalBars(me,txs,'childGoal','child');
   if(goalDone)setTimeout(showConfetti,200);
-  // Goal button
-  if(g('childGoal').innerHTML){
-    g('childGoal').innerHTML+=`<div style="text-align:left;margin-top:-4px;margin-bottom:8px"><button onclick="openChildGoalModal()" style="font-size:.74rem;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:3px 10px;cursor:pointer;font-family:inherit;font-weight:700;color:var(--text2)">✏️ ערוך יעד</button></div>`;
-  }else{
-    g('childGoal').innerHTML=`<div style="margin-bottom:10px"><button onclick="openChildGoalModal()" style="font-size:.78rem;background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:7px 14px;cursor:pointer;font-family:inherit;font-weight:700;color:var(--text2)">🎯 הגדר יעד חיסכון</button></div>`;
-  }
   g('childCnt').textContent=f.length;
   g('childTxl').innerHTML=buildTxCards(f,false,true);
   setTimeout(()=>drawChart(me,'cChartSVG','child'),0);
 }
 async function refreshChild(){
   show('מרענן...');
-  try{childPrevSeen=getLastSeen(me);await loadKid(me);renderChild();markSeen(me);setOffline(false,'child');toast('🔄 עודכן');}catch(e){toast('❌ שגיאה');}
+  try{childPrevSeen=getLastSeen(me);await loadKid(me);await loadGoals();renderChild();markSeen(me);setOffline(false,'child');toast('🔄 עודכן');}catch(e){toast('❌ שגיאה');}
   hide();
 }
 
@@ -1215,7 +1304,7 @@ function renderPar(){
   g('parBadge').textContent=badge?badge.icon:'';
   const streak=calcStreak(txs);
   g('parStreak').innerHTML=streak>=2?`<div class="streak-tag">🔥 ${streak} חודשים ברצף</div>`:'';
-  const goalDone=renderGoalBar(selKid,txs,'parGoal');
+  const goalDone=renderGoalBars(selKid,txs,'parGoal','par');
   if(goalDone)setTimeout(showConfetti,200);
   g('parCnt').textContent=f.length;
   g('parTxl').innerHTML=buildTxCards(f,true,false);
@@ -1223,7 +1312,7 @@ function renderPar(){
 }
 async function refreshParent(){
   show('מרענן...');
-  try{await loadAll();buildCtabs();renderPar();toast('🔄 עודכן');}catch(e){toast('❌ שגיאה');}
+  try{await loadAll();await loadGoals();buildCtabs();renderPar();toast('🔄 עודכן');}catch(e){toast('❌ שגיאה');}
   hide();
 }
 
