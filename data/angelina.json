@@ -54,5 +54,13 @@
     "date": "2026-02-01",
     "description": "bit",
     "createdAt": 1774954125346
+  },
+  {
+    "id": "mnehvxzm4k1yeq",
+    "type": "e",
+    "amount": 100,
+    "date": "2026-02-23",
+    "description": "קנס על חניה",
+    "createdAt": 1774954174163
   }
 ]
