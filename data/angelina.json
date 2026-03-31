@@ -22,5 +22,13 @@
     "date": "2025-12-12",
     "description": "החזר חוב",
     "createdAt": 1774953868142
+  },
+  {
+    "id": "mnehqazpwqf1vb",
+    "type": "i",
+    "amount": 140,
+    "date": "2026-01-24",
+    "description": "Cash Back Max Visa",
+    "createdAt": 1774953911077
   }
 ]
