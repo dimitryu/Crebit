@@ -14,5 +14,13 @@
     "date": "2025-10-20",
     "description": "החזר חוב",
     "createdAt": 1774953826117
+  },
+  {
+    "id": "mnehpdv2omfzkx",
+    "type": "i",
+    "amount": 2000,
+    "date": "2025-12-12",
+    "description": "החזר חוב",
+    "createdAt": 1774953868142
   }
 ]
