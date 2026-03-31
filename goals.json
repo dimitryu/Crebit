@@ -1,3 +1,9 @@
 {
-  "leon": []
+  "leon": [
+    {
+      "id": "mnevm3w0f9tyrs",
+      "label": "Comp",
+      "target": 1000
+    }
+  ]
 }
