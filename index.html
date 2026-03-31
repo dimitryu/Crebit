@@ -296,25 +296,39 @@ svg.chart{width:100%;display:block;direction:ltr;height:200px;overflow:visible}
 <!-- SETUP -->
 <div class="screen" id="sSetup">
   <div class="hdr" style="background:var(--par);border-bottom:none;flex-direction:column;align-items:center;gap:2px">
-    <h1 style="color:#fff">⚙️ הגדרה ראשונית</h1>
+    <h1 style="color:#fff">⚙️ הגדרת חיבור</h1>
     <div class="ver-badge" id="vSetup"></div>
   </div>
   <div class="scon">
-    <div class="shero anim"><div class="bi">💰</div><h2>ברוכים הבאים!</h2><p>הגדר פעם אחת ותתחיל לנהל את כסף הילדים</p></div>
+    <div class="shero anim">
+      <div class="bi">💰</div>
+      <h2 id="setupHeroTitle">חיבור ל-Crebit</h2>
+      <p id="setupHeroSub">הכנס את פרטי ה-GitHub שקיבלת מההורה שלך</p>
+    </div>
     <div class="scard anim d1">
       <div class="sct">🐙 GitHub Repository</div>
       <div class="fg"><label class="fl">שם משתמש GitHub</label><input class="fi" id="sOwner" dir="ltr" placeholder="your-username" autocomplete="off"></div>
       <div class="fg"><label class="fl">שם ה-Repository</label><input class="fi" id="sRepo" dir="ltr" placeholder="family-money" autocomplete="off"></div>
       <div class="fg"><label class="fl">Branch</label><input class="fi" id="sBranch" dir="ltr" value="main" autocomplete="off"></div>
-      <div class="fg"><label class="fl">Personal Access Token</label><input class="fi" id="sToken" type="password" dir="ltr" placeholder="ghp_..." autocomplete="off"><div class="hint">⚠️ צור repo ריק ב-GitHub לפני הגדרה<br>📖 Settings → Developer settings → Personal access tokens (Classic) → הרשאת <b>repo</b></div></div>
+      <div class="fg"><label class="fl">Personal Access Token</label><input class="fi" id="sToken" type="password" dir="ltr" placeholder="ghp_..." autocomplete="off">
+        <div class="hint">📖 GitHub → Settings → Developer settings → Personal access tokens (Classic) → הרשאת <b>repo</b></div>
+      </div>
     </div>
-    <div class="scard anim d2">
-      <div class="sct">🔐 סיסמת הורה</div>
-      <div class="fg"><label class="fl">סיסמה</label><input class="fi" id="sParPw" type="password" placeholder="הכנס סיסמה"></div>
-      <div class="fg"><label class="fl">אימות סיסמה</label><input class="fi" id="sParPw2" type="password" placeholder="הכנס שוב"></div>
+
+    <!-- Only shown when creating for the first time (no config.json found) -->
+    <div id="setupNewSection" style="display:none">
+      <div class="scard anim" style="border:2px solid var(--acc)">
+        <div class="sct" style="color:var(--acc)">🆕 הגדרה ראשונה — נמצא Repo ריק</div>
+        <p style="font-size:.82rem;color:var(--text2);margin-bottom:14px;line-height:1.5">הRepo ריק — הגדר סיסמת הורה וקודי PIN לילדים. פעולה זו נדרשת <b>פעם אחת בלבד</b>.</p>
+        <div class="sct" style="margin-top:4px">🔐 סיסמת הורה</div>
+        <div class="fg"><label class="fl">סיסמה</label><input class="fi" id="sParPw" type="password" placeholder="הכנס סיסמה"></div>
+        <div class="fg"><label class="fl">אימות סיסמה</label><input class="fi" id="sParPw2" type="password" placeholder="הכנס שוב"></div>
+        <div class="sct" style="margin-top:8px">👶 קוד PIN לכל ילד (4 ספרות)</div>
+        <div id="pinRows"></div>
+      </div>
     </div>
-    <div class="scard anim d3"><div class="sct">👶 קוד PIN לכל ילד (4 ספרות)</div><div id="pinRows"></div></div>
-    <button class="btn btnp anim d4" onclick="doSetup()" style="margin-bottom:40px">✅ שמור והתחל</button>
+
+    <button class="btn btnp anim d2" id="setupBtn" onclick="doSetup()" style="margin-bottom:40px">🔗 התחבר</button>
   </div>
 </div>
 
@@ -572,7 +586,7 @@ svg.chart{width:100%;display:block;direction:ltr;height:200px;overflow:visible}
 
 <script>
 /* ═══ VERSION ═══ */
-const VER='v1.5.0';
+const VER='v1.5.1';
 const KIDS=[
   {id:'leon',    name:'לאון',    emoji:'🦁',color:'#E87D3E',dark:'#B85A1A'},
   {id:'angelina',name:'אנגלינה',emoji:'🌸',color:'#D946A0',dark:'#A01470'},
@@ -607,10 +621,10 @@ window.addEventListener('load',async()=>{
   // Auto-lock
   setupLock();
   const s=localStorage.getItem('ghCfg');
-  if(!s){buildPinRows();go('sSetup');hide();return;}
+  if(!s){openSetup();hide();return;}
   ghCfg=JSON.parse(s);
   try{await loadCfg();buildLGrid();go('sLogin');}
-  catch(e){toast('⚠️ שגיאה — בדוק הגדרות');buildPinRows();go('sSetup');}
+  catch(e){toast('⚠️ שגיאה — בדוק הגדרות');openSetup();}
   hide();
 });
 
@@ -1003,32 +1017,83 @@ function injectPWA(){
 }
 
 /* ═══ SETUP ═══ */
+let setupIsNew = false; // true when repo exists but no config.json yet
+
 function buildPinRows(){
   g('pinRows').innerHTML=KIDS.map(k=>`<div class="kpr"><div class="ke">${k.emoji}</div><div style="flex:1"><div class="kn">${k.name}</div><input class="fi" type="number" id="pin_${k.id}" placeholder="4 ספרות" min="1000" max="9999" dir="ltr"></div></div>`).join('');
-  if(ghCfg){g('sOwner').value=ghCfg.owner||'';g('sRepo').value=ghCfg.repo||'';g('sBranch').value=ghCfg.branch||'main';g('sToken').value=ghCfg.token||'';}
 }
+
+function openSetup(){
+  // Always open in "connect" mode — password section hidden until we know it's needed
+  setupIsNew = false;
+  g('setupNewSection').style.display = 'none';
+  g('setupBtn').textContent = '🔗 התחבר';
+  g('setupHeroTitle').textContent = 'חיבור ל-Crebit';
+  g('setupHeroSub').textContent = 'הכנס את פרטי ה-GitHub שקיבלת מההורה';
+  if(ghCfg){
+    g('sOwner').value=ghCfg.owner||'';g('sRepo').value=ghCfg.repo||'';
+    g('sBranch').value=ghCfg.branch||'main';g('sToken').value=ghCfg.token||'';
+  }
+  go('sSetup');
+}
+
 async function doSetup(){
-  const owner=g('sOwner').value.trim(),repo=g('sRepo').value.trim(),branch=g('sBranch').value.trim()||'main',token=g('sToken').value.trim();
-  const pw1=g('sParPw').value,pw2=g('sParPw2').value;
-  if(!owner||!repo||!token)return toast('❌ מלא את כל פרטי GitHub');
-  if(!pw1)return toast('❌ הכנס סיסמת הורה');
-  if(pw1!==pw2)return toast('❌ הסיסמאות לא תואמות');
-  const pins={};
-  for(const k of KIDS){const p=(g('pin_'+k.id).value||'').toString().trim();if(p.length!==4||!/^\d{4}$/.test(p))return toast(`❌ הכנס PIN תקין ל${k.name}`);pins[k.id]=p;}
-  show('שומר הגדרות...');
+  const owner=g('sOwner').value.trim(),repo=g('sRepo').value.trim();
+  const branch=g('sBranch').value.trim()||'main',token=g('sToken').value.trim();
+  if(!owner||!repo||!token) return toast('❌ מלא את כל פרטי GitHub');
+
+  show('מתחבר ל-GitHub...');
+  ghCfg={owner,repo,branch,token};
+
   try{
-    ghCfg={owner,repo,branch,token};
+    const existing = await ghGet('config.json');
+
+    if(existing){
+      // Config exists — just connect, no passwords needed
+      cfg = existing.content;
+      shas.config = existing.sha;
+      localStorage.setItem('ghCfg', JSON.stringify(ghCfg));
+      buildLGrid();
+      go('sLogin');
+      toast('✅ מחובר בהצלחה!');
+      hide();
+      return;
+    }
+
+    // No config.json — first time, need passwords
+    hide();
+    if(!setupIsNew){
+      setupIsNew = true;
+      buildPinRows();
+      g('setupNewSection').style.display = 'block';
+      g('setupBtn').textContent = '✅ שמור והתחל';
+      g('setupHeroTitle').textContent = 'הגדרה ראשונה';
+      g('setupHeroSub').textContent = 'Repo חדש — הגדר סיסמת הורה ו-PIN לכל ילד';
+      toast('📋 הכנס סיסמאות להשלמת ההגדרה');
+      return;
+    }
+
+    // Second click — validate and save passwords
+    const pw1=g('sParPw').value, pw2=g('sParPw2').value;
+    if(!pw1) return toast('❌ הכנס סיסמת הורה');
+    if(pw1!==pw2) return toast('❌ הסיסמאות לא תואמות');
+    const pins={};
+    for(const k of KIDS){
+      const p=(g('pin_'+k.id).value||'').toString().trim();
+      if(p.length!==4||!/^\d{4}$/.test(p)) return toast(`❌ הכנס PIN תקין ל${k.name}`);
+      pins[k.id]=p;
+    }
+    show('שומר הגדרות...');
     const hs=await Promise.all([sha256(pw1),...KIDS.map(k=>sha256(pins[k.id]))]);
     const[pH,...kH]=hs;
     const nc={parentPasswordHash:pH,children:KIDS.map((k,i)=>({...k,pinHash:kH[i]}))};
-    const ex=await ghGet('config.json');shas.config=await ghPut('config.json',nc,ex?.sha||null);
+    shas.config=await ghPut('config.json',nc,null);
     for(const k of KIDS){const e=await ghGet(`data/${k.id}.json`);if(!e)await ghPut(`data/${k.id}.json`,[],null);}
     localStorage.setItem('ghCfg',JSON.stringify(ghCfg));
-    cfg=nc;buildLGrid();go('sLogin');toast('✅ הגדרות נשמרו!');
+    cfg=nc; buildLGrid(); go('sLogin'); toast('✅ הגדרות נשמרו!');
   }catch(e){toast('❌ שגיאה: '+e.message);console.error(e);}
   hide();
 }
-function openSetup(){buildPinRows();go('sSetup');}
 
 /* ═══ DATA ═══ */
 async function loadCfg(){
