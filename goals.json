@@ -4,6 +4,21 @@
       "id": "mnesahwegu8v9p",
       "label": "test",
       "target": 300
+    },
+    {
+      "id": "mnesavmhubod7r",
+      "label": "test2",
+      "target": 700
+    },
+    {
+      "id": "mnesb0uou3t5i1",
+      "label": "test2",
+      "target": 700
+    },
+    {
+      "id": "mnesb5wgkgk4y7",
+      "label": "test2",
+      "target": 700
     }
   ]
 }
