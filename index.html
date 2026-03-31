@@ -168,9 +168,9 @@
         .res-row { display:flex; gap:0; background:var(--bg); border-radius:8px; overflow:hidden; border:1.5px solid var(--border); margin-bottom:10px; }
         .res-btn { flex:1; padding:5px 0; border:none; background:transparent; font-size:.78rem; font-weight:700; color:var(--text2); cursor:pointer; font-family:inherit; transition:all .12s; }
         .res-btn.on { background:var(--acc); color:#fff; }
-        .chart-wrap { overflow:hidden; transition:max-height .3s; max-height:200px; }
+        .chart-wrap { overflow:hidden; overflow-x:auto; transition:max-height .3s; max-height:230px; }
         .chart-wrap.closed { max-height:0; }
-        svg.chart { width:100%; display:block; direction:ltr; }
+        svg.chart { width:100%; display:block; direction:ltr; height:200px; overflow:visible; }
 
         /* TOOLBAR */
         .toolbar { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
@@ -364,6 +364,7 @@
                 <button class="res-btn" onclick="setRes('child','d')">יום</button>
                 <button class="res-btn on" onclick="setRes('child','w')">שבוע</button>
                 <button class="res-btn" onclick="setRes('child','m')">חודש</button>
+                <button class="res-btn" onclick="setRes('child','y')">שנה</button>
             </div>
             <div class="chart-wrap" id="cCW"><svg class="chart" height="150" id="cChartSVG"></svg></div>
         </div>
@@ -407,6 +408,7 @@
                 <button class="res-btn" onclick="setRes('par','d')">יום</button>
                 <button class="res-btn on" onclick="setRes('par','w')">שבוע</button>
                 <button class="res-btn" onclick="setRes('par','m')">חודש</button>
+                <button class="res-btn" onclick="setRes('par','y')">שנה</button>
             </div>
             <div class="chart-wrap" id="pCW"><svg class="chart" height="150" id="pChartSVG"></svg></div>
         </div>
@@ -434,7 +436,10 @@
                 <button class="qa" onclick="setAmt(10)">₪10</button><button class="qa" onclick="setAmt(20)">₪20</button><button class="qa" onclick="setAmt(50)">₪50</button><button class="qa" onclick="setAmt(100)">₪100</button><button class="qa" onclick="setAmt(200)">₪200</button>
             </div>
         </div>
-        <div class="fg"><label class="fl">תאריך</label><input class="fi" type="date" id="mDate" dir="ltr"></div>
+        <div class="fg"><label class="fl">תאריך</label>
+            <input class="fi" type="text" id="mDate" dir="ltr" placeholder="dd/MM/yyyy"
+                   maxlength="10" inputmode="numeric" oninput="autoFmtDate(this)">
+        </div>
         <div class="fg">
             <label class="fl" style="display:flex;align-items:center;justify-content:space-between">
                 <span>תיאור</span>
@@ -481,7 +486,7 @@
 
 <script>
 /* ══ VERSION ══ */
-const VER = 'v1.3.2';
+const VER = 'v1.4.0';
 const KIDS = [
     {id:'leon',     name:'לאון',    emoji:'🦁', color:'#E87D3E', dark:'#B85A1A'},
     {id:'angelina', name:'אנגלינה', emoji:'🌸', color:'#D946A0', dark:'#A01470'},
@@ -594,10 +599,9 @@ function toggleChart(id){
 function setRes(view,res){
     chartRes[view]=res;
     const rowId = view==='child'?'cResRow':'pResRow';
-    g(rowId).querySelectorAll('.res-btn').forEach(b=>b.classList.remove('on'));
+    const labels = {d:'יום',w:'שבוע',m:'חודש',y:'שנה'};
     g(rowId).querySelectorAll('.res-btn').forEach(b=>{
-        if((res==='d'&&b.textContent==='יום')||(res==='w'&&b.textContent==='שבוע')||(res==='m'&&b.textContent==='חודש'))
-            b.classList.add('on');
+        b.classList.toggle('on', b.textContent===labels[res]);
     });
     if(view==='child') drawChart(me,'cChartSVG','child');
     else drawChart(selKid,'pChartSVG','par');
@@ -610,34 +614,33 @@ function drawChart(kidId, svgId, view){
     const res=chartRes[view]||'w';
     const now=new Date();
 
-    // Build periods
+    /* ── Build periods ── */
     let periods=[];
-    if(res==='m'){
-        // Last 9 months
+    if(res==='y'){
+        // All unique years in data + current year
+        const years=[...new Set(txs.map(t=>t.date.slice(0,4)))];
+        if(!years.includes(String(now.getFullYear()))) years.push(String(now.getFullYear()));
+        years.sort().forEach(y=>{
+            periods.push({label:y, filter:t=>t.date.startsWith(y)});
+        });
+    } else if(res==='m'){
         for(let i=8;i>=0;i--){
             const d=new Date(now.getFullYear(),now.getMonth()-i,1);
             const key=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
-            const label=HM[d.getMonth()].slice(0,3);
-            periods.push({key,label,filter:t=>t.date.startsWith(key)});
+            periods.push({label:HM[d.getMonth()].slice(0,3), filter:t=>t.date.startsWith(key)});
         }
     } else if(res==='w'){
-        // Last 12 weeks
         for(let i=11;i>=0;i--){
             const start=new Date(now); start.setDate(now.getDate()-i*7-now.getDay());
             const end=new Date(start); end.setDate(start.getDate()+6);
-            const sk=start.toISOString().slice(0,10);
-            const ek=end.toISOString().slice(0,10);
-            const d=start.getDate(), m=start.getMonth()+1;
-            const label=`${d}/${m}`;
-            periods.push({key:sk,label,filter:t=>t.date>=sk&&t.date<=ek});
+            const sk=start.toISOString().slice(0,10), ek=end.toISOString().slice(0,10);
+            periods.push({label:`${start.getDate()}/${start.getMonth()+1}`, filter:t=>t.date>=sk&&t.date<=ek});
         }
-    } else {
-        // Last 21 days
+    } else { // day
         for(let i=20;i>=0;i--){
             const d=new Date(now); d.setDate(now.getDate()-i);
             const key=d.toISOString().slice(0,10);
-            const label=`${d.getDate()}/${d.getMonth()+1}`;
-            periods.push({key,label,filter:t=>t.date===key});
+            periods.push({label:`${d.getDate()}/${d.getMonth()+1}`, filter:t=>t.date===key});
         }
     }
 
@@ -645,49 +648,95 @@ function drawChart(kidId, svgId, view){
         const pts=txs.filter(p.filter);
         const inc=pts.filter(t=>t.type==='i').reduce((s,t)=>s+(+t.amount),0);
         const exp=pts.filter(t=>t.type==='e').reduce((s,t)=>s+(+t.amount),0);
-        return{...p,inc,exp};
+        return{label:p.label,inc,exp};
     });
 
-    const maxVal=Math.max(...stats.flatMap(s=>[s.inc,s.exp]),1);
-    const nPeriods=periods.length;
-    // Layout: fit all bars
-    const BAR=res==='d'?7:res==='w'?11:16;
-    const GAP=res==='d'?2:4;
-    const GRP=BAR*2+GAP+2;
-    const PAD_L=12, PAD_R=60, PAD_T=20, PAD_B=28;
-    const W=Math.max(320, PAD_L + nPeriods*GRP + PAD_R);
-    const H=150;
+    /* ── Layout ── */
+    const n=stats.length;
+    const PAD_L=36, PAD_R=16, PAD_T=28, PAD_B=30;
+    const STEP=res==='d'?22:res==='w'?28:res==='y'?50:36;
+    const W=Math.max(300, PAD_L + (n-1)*STEP + PAD_R + 20);
+    const H=200;
     const CH=H-PAD_T-PAD_B;
 
-    let html=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="direction:ltr;font-family:Rubik,Arial,sans-serif;min-width:${W}px">`;
-    // Grid
-    for(let i=0;i<=4;i++){
-        const y=PAD_T+(CH/4)*i;
-        html+=`<line x1="${PAD_L}" y1="${y}" x2="${W-PAD_R+30}" y2="${y}" stroke="#E7E5E4" stroke-width="1"/>`;
+    const maxVal=Math.max(...stats.flatMap(s=>[s.inc,s.exp]),1);
+    const yFor=v=> PAD_T + CH - (v/maxVal)*CH;
+    const xFor=i=> PAD_L + i*STEP;
+
+    /* ── Y-axis labels ── */
+    const yTicks=4;
+    let svgHtml=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="direction:ltr;font-family:Rubik,Arial,sans-serif;overflow:visible">`;
+
+    // Grid lines + Y labels
+    for(let i=0;i<=yTicks;i++){
+        const val=maxVal*(1-i/yTicks);
+        const y=PAD_T+(CH/yTicks)*i;
+        svgHtml+=`<line x1="${PAD_L}" y1="${y}" x2="${W-PAD_R}" y2="${y}" stroke="#E7E5E4" stroke-width="1"/>`;
+        if(val>0){
+            const lbl = val>=1000 ? `₪${(val/1000).toFixed(1)}k` : `₪${Math.round(val)}`;
+            svgHtml+=`<text x="${PAD_L-4}" y="${y+4}" text-anchor="end" fill="#A8A29E" font-size="8">${lbl}</text>`;
+        }
     }
+
+    /* ── Build polyline points ── */
+    const iPts=stats.map((s,i)=>`${xFor(i)},${yFor(s.inc)}`).join(' ');
+    const ePts=stats.map((s,i)=>`${xFor(i)},${yFor(s.exp)}`).join(' ');
+
+    /* ── Filled area under lines ── */
+    const iArea=`${xFor(0)},${PAD_T+CH} `+stats.map((s,i)=>`${xFor(i)},${yFor(s.inc)}`).join(' ')+` ${xFor(n-1)},${PAD_T+CH}`;
+    const eArea=`${xFor(0)},${PAD_T+CH} `+stats.map((s,i)=>`${xFor(i)},${yFor(s.exp)}`).join(' ')+` ${xFor(n-1)},${PAD_T+CH}`;
+
+    svgHtml+=`<polygon points="${iArea}" fill="#16A34A" opacity=".08"/>`;
+    svgHtml+=`<polygon points="${eArea}" fill="#DC2626" opacity=".08"/>`;
+
+    /* ── Lines ── */
+    if(n>1){
+        svgHtml+=`<polyline points="${iPts}" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>`;
+        svgHtml+=`<polyline points="${ePts}" fill="none" stroke="#DC2626" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>`;
+    }
+
+    /* ── Dots + amount labels + x-labels ── */
+    const showEvery = res==='d'?3:1; // for day show every 3rd label
     stats.forEach((s,i)=>{
-        const x=PAD_L+i*GRP;
-        const iH=maxVal?(s.inc/maxVal)*CH:0;
-        const eH=maxVal?(s.exp/maxVal)*CH:0;
-        const iY=PAD_T+CH-iH, eY=PAD_T+CH-eH;
-        if(s.inc>0) html+=`<rect x="${x}" y="${iY}" width="${BAR}" height="${iH}" rx="3" fill="#16A34A" opacity=".85"/>`;
-        else html+=`<rect x="${x}" y="${PAD_T+CH-2}" width="${BAR}" height="2" rx="1" fill="#E7E5E4"/>`;
-        if(s.exp>0) html+=`<rect x="${x+BAR+GAP}" y="${eY}" width="${BAR}" height="${eH}" rx="3" fill="#DC2626" opacity=".85"/>`;
-        else html+=`<rect x="${x+BAR+GAP}" y="${PAD_T+CH-2}" width="${BAR}" height="2" rx="1" fill="#E7E5E4"/>`;
-        // Label every 2nd for day, every for others
-        const showL = res==='d'?(i%3===0):true;
-        if(showL) html+=`<text x="${x+BAR}" y="${H-4}" text-anchor="middle" fill="#78716C" font-size="${res==='d'?8:9}">${s.label}</text>`;
+        const x=xFor(i), yi=yFor(s.inc), ye=yFor(s.exp);
+
+        // Income dot
+        svgHtml+=`<circle cx="${x}" cy="${yi}" r="3.5" fill="#16A34A"/>`;
+        // Expense dot
+        svgHtml+=`<circle cx="${x}" cy="${ye}" r="3.5" fill="#DC2626"/>`;
+
+        // Amount label for income (only if >0)
+        if(s.inc>0){
+            const lbl=s.inc>=1000?`₪${(s.inc/1000).toFixed(1)}k`:`₪${Math.round(s.inc)}`;
+            const ly=Math.max(PAD_T+10, yi-7);
+            svgHtml+=`<text x="${x}" y="${ly}" text-anchor="middle" fill="#16A34A" font-size="8" font-weight="700">${lbl}</text>`;
+        }
+        // Amount label for expense (only if >0)
+        if(s.exp>0){
+            const lbl=s.exp>=1000?`₪${(s.exp/1000).toFixed(1)}k`:`₪${Math.round(s.exp)}`;
+            const ly=Math.min(H-PAD_B-6, ye+13);
+            svgHtml+=`<text x="${x}" y="${ly}" text-anchor="middle" fill="#DC2626" font-size="8" font-weight="700">${lbl}</text>`;
+        }
+
+        // X-axis label
+        if(i%showEvery===0){
+            svgHtml+=`<text x="${x}" y="${H-4}" text-anchor="middle" fill="#78716C" font-size="8">${s.label}</text>`;
+        }
     });
-    // Legend top-right
-    html+=`<rect x="${W-58}" y="4" width="9" height="9" rx="2" fill="#16A34A" opacity=".85"/><text x="${W-46}" y="12" fill="#78716C" font-size="9">הכנסה</text>`;
-    html+=`<rect x="${W-58}" y="17" width="9" height="9" rx="2" fill="#DC2626" opacity=".85"/><text x="${W-46}" y="25" fill="#78716C" font-size="9">הוצאה</text>`;
-    html+='</svg>';
-    // Replace SVG
-    const tmp=document.createElement('div'); tmp.innerHTML=html;
+
+    /* ── Legend ── */
+    const lx=W-PAD_R-70;
+    svgHtml+=`<circle cx="${lx}" cy="9" r="4" fill="#16A34A"/><text x="${lx+7}" y="13" fill="#78716C" font-size="9">הכנסה</text>`;
+    svgHtml+=`<circle cx="${lx+38}" cy="9" r="4" fill="#DC2626"/><text x="${lx+45}" y="13" fill="#78716C" font-size="9">הוצאה</text>`;
+
+    svgHtml+='</svg>';
+
+    /* ── Inject ── */
+    const tmp=document.createElement('div'); tmp.innerHTML=svgHtml;
     const newSvg=tmp.firstElementChild;
     newSvg.id=svgId; newSvg.className='chart';
-    newSvg.style.height='150px';
-    svgEl.parentNode.replaceChild(newSvg, svgEl);
+    newSvg.style.cssText='height:200px;overflow:visible;width:100%';
+    svgEl.parentNode.replaceChild(newSvg,svgEl);
 }
 
 /* ══ SAVINGS GOAL ══ */
@@ -998,7 +1047,7 @@ function byMon(txs){return selMon?txs.filter(t=>t.date.startsWith(selMon)):txs;}
 /* ══ MODAL ══ */
 function openAdd(){
     editId=null;txType='i';g('mTitle').textContent='הוספת תנועה';
-    g('mAmt').value='';g('mDate').value=today();g('mDesc').value='';
+    g('mAmt').value='';g('mDate').value=isoToDisplay(today());g('mDesc').value='';
     g('hdd').classList.remove('open');
     g('mKidGrp').style.display='block';
     mKidSel=selKid;
@@ -1010,7 +1059,7 @@ function openAdd(){
 function openEdit(id){
     const tx=(data[selKid]||[]).find(t=>t.id===id);if(!tx)return;
     editId=id;txType=tx.type;g('mTitle').textContent='עריכת תנועה';
-    g('mAmt').value=tx.amount;g('mDate').value=tx.date;g('mDesc').value=tx.description;
+    g('mAmt').value=tx.amount;g('mDate').value=isoToDisplay(tx.date);g('mDesc').value=tx.description;
     g('hdd').classList.remove('open');g('mKidGrp').style.display='none';
     refreshTT();g('ovl').classList.add('on');
 }
@@ -1019,9 +1068,10 @@ function closeModal(){g('ovl').classList.remove('on');g('hdd').classList.remove(
 function setTT(t){txType=t;refreshTT();}
 function refreshTT(){g('btnI').className='tbtn'+(txType==='i'?' oi':'');g('btnE').className='tbtn'+(txType==='e'?' oe':'');}
 async function saveTx(){
-    const amount=parseFloat(g('mAmt').value),date=g('mDate').value,desc=g('mDesc').value.trim();
+    const amount=parseFloat(g('mAmt').value),dateDisp=g('mDate').value.trim(),desc=g('mDesc').value.trim();
+    const date=displayToIso(dateDisp);
     if(!amount||amount<=0)return toast('❌ הכנס סכום תקין');
-    if(!date)return toast('❌ הכנס תאריך');
+    if(!date)return toast('❌ הכנס תאריך בפורמט dd/MM/yyyy');
     if(!desc)return toast('❌ הכנס תיאור');
     const tk=editId?selKid:(mKidSel||selKid);
     closeModal();show('שומר...');
@@ -1043,6 +1093,28 @@ async function delTx(id){
     try{data[selKid]=(data[selKid]||[]).filter(t=>t.id!==id);shas[selKid]=await ghPut(`data/${selKid}.json`,data[selKid],shas[selKid]||null);renderPar();toast('🗑️ נמחק');}
     catch(e){toast('❌ שגיאה: '+e.message);}
     hide();
+}
+
+/* ══ DATE HELPERS ══ */
+// Auto-format text input as user types: inserts slashes at positions 2 and 5
+function autoFmtDate(inp){
+    let v=inp.value.replace(/\D/g,'');
+    if(v.length>2) v=v.slice(0,2)+'/'+v.slice(2);
+    if(v.length>5) v=v.slice(0,5)+'/'+v.slice(5);
+    inp.value=v.slice(0,10);
+}
+// dd/MM/yyyy  →  yyyy-MM-dd  (for storage)
+function displayToIso(s){
+    if(!s)return'';
+    const p=s.split('/');
+    if(p.length!==3||p[2].length!==4)return'';
+    return`${p[2]}-${p[1].padStart(2,'0')}-${p[0].padStart(2,'0')}`;
+}
+// yyyy-MM-dd  →  dd/MM/yyyy  (for showing in input)
+function isoToDisplay(s){
+    if(!s)return'';
+    const[y,m,d]=s.split('-');
+    return`${d}/${m}/${y}`;
 }
 
 /* ══ UTILS ══ */
