@@ -90,5 +90,13 @@
     "date": "2026-03-30",
     "description": "הוספה לכרטיס",
     "createdAt": 1774872154202
+  },
+  {
+    "id": "mng2e327a97rt6",
+    "type": "i",
+    "amount": 8,
+    "date": "2026-04-01",
+    "description": "מכולט",
+    "createdAt": 1775049079039
   }
 ]
