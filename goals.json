@@ -5,7 +5,14 @@
       "label": "Test",
       "emoji": "🎮",
       "target": 100,
-      "deposits": []
+      "deposits": [
+        {
+          "id": "mng2mantqt7o4w",
+          "amount": 50,
+          "date": "2026-04-01",
+          "note": ""
+        }
+      ]
     }
   ]
 }
