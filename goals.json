@@ -1,3 +1,11 @@
 {
-  "leon": []
+  "leon": [
+    {
+      "id": "mng4qm5vf1v76s",
+      "label": "Апгрейд копма",
+      "emoji": "🎮",
+      "target": 1000,
+      "deposits": []
+    }
+  ]
 }
