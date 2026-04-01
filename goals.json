@@ -1,3 +1,11 @@
 {
-  "leon": []
+  "leon": [
+    {
+      "id": "mng2likjgfjlpn",
+      "label": "Test",
+      "emoji": "🎮",
+      "target": 100,
+      "deposits": []
+    }
+  ]
 }
