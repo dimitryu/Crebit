@@ -5,7 +5,14 @@
       "label": "Апгрейд копма",
       "emoji": "🎮",
       "target": 1000,
-      "deposits": []
+      "deposits": [
+        {
+          "id": "mng4ruohml28hy",
+          "amount": 200,
+          "date": "2026-04-01",
+          "note": "מסכורת"
+        }
+      ]
     }
   ]
 }
