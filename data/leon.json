@@ -98,5 +98,13 @@
     "date": "2026-04-01",
     "description": "מכולט",
     "createdAt": 1775049079039
+  },
+  {
+    "id": "mnk7ohi8n6vqg4",
+    "type": "e",
+    "amount": 150,
+    "date": "2026-04-04",
+    "description": "הוספה לכרטיס",
+    "createdAt": 1775299827104
   }
 ]
