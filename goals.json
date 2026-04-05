@@ -19,7 +19,14 @@
       "label": "מתנה לפסח",
       "emoji": "🎯",
       "target": 200,
-      "deposits": []
+      "deposits": [
+        {
+          "id": "mnlwa1ejz8jiip",
+          "amount": 200,
+          "date": "2026-04-05",
+          "note": ""
+        }
+      ]
     }
   ]
 }
