@@ -122,5 +122,13 @@
     "date": "2026-04-05",
     "description": "משימות בית",
     "createdAt": 1775403910189
+  },
+  {
+    "id": "mnm8v6hspnbe7k",
+    "type": "i",
+    "amount": 150,
+    "date": "2026-04-05",
+    "description": "מתנה מסבטא",
+    "createdAt": 1775422751392
   }
 ]
