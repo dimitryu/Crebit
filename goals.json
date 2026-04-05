@@ -28,5 +28,14 @@
         }
       ]
     }
+  ],
+  "evelyn": [
+    {
+      "id": "mnlwbn7g7k04ob",
+      "label": "מתנה לפסח",
+      "emoji": "🎯",
+      "target": 200,
+      "deposits": []
+    }
   ]
 }
