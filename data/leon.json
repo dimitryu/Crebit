@@ -106,5 +106,13 @@
     "date": "2026-04-04",
     "description": "הוספה לכרטיס",
     "createdAt": 1775299827104
+  },
+  {
+    "id": "mnlwanronfl4t4",
+    "type": "i",
+    "amount": 200,
+    "date": "2026-04-05",
+    "description": "מתנה לפסח",
+    "createdAt": 1775401638612
   }
 ]
