@@ -6,5 +6,13 @@
     "date": "2026-04-05",
     "description": "מתנה לפסח",
     "createdAt": 1775401666043
+  },
+  {
+    "id": "mnlxm7ef0i9hc9",
+    "type": "i",
+    "amount": 30,
+    "date": "2026-04-05",
+    "description": "משימות בית",
+    "createdAt": 1775403856887
   }
 ]
