@@ -130,5 +130,13 @@
     "date": "2026-04-05",
     "description": "מתנה מסבטא",
     "createdAt": 1775422751392
+  },
+  {
+    "id": "mnn5nr82gq6l6c",
+    "type": "e",
+    "amount": 30,
+    "date": "2026-04-06",
+    "description": "Roblox",
+    "createdAt": 1775477832338
   }
 ]
