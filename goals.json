@@ -13,26 +13,6 @@
           "note": "מסכורת"
         }
       ]
-    },
-    {
-      "id": "mnlw9i42l6khkw",
-      "label": "מתנה לפסח",
-      "emoji": "🎯",
-      "target": 200,
-      "deposits": [
-        {
-          "id": "mnlwa1ejz8jiip",
-          "amount": 200,
-          "date": "2026-04-05",
-          "note": ""
-        },
-        {
-          "id": "mnm8w1udgp821k",
-          "amount": 150,
-          "date": "2026-04-05",
-          "note": ""
-        }
-      ]
     }
   ],
   "evelyn": [
