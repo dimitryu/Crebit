@@ -146,5 +146,13 @@
     "date": "2026-04-08",
     "description": "Shain",
     "createdAt": 1775676182235
+  },
+  {
+    "id": "mnrm4vluiu4s3n",
+    "type": "i",
+    "amount": 30,
+    "date": "2026-04-09",
+    "description": "גלידה",
+    "createdAt": 1775747369730
   }
 ]
