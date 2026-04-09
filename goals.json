@@ -26,7 +26,14 @@
       "label": "מתנה לפסח",
       "emoji": "🎯",
       "target": 90,
-      "deposits": []
+      "deposits": [
+        {
+          "id": "mnrpger6oxvc66",
+          "amount": 90,
+          "date": "2026-04-09",
+          "note": ""
+        }
+      ]
     }
   ],
   "evelyn": [
