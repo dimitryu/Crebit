@@ -154,5 +154,13 @@
     "date": "2026-04-09",
     "description": "גלידה",
     "createdAt": 1775747369730
+  },
+  {
+    "id": "mnrphfrltpifi1",
+    "type": "e",
+    "amount": 100,
+    "date": "2026-04-09",
+    "description": "מתנה לפסח",
+    "createdAt": 1775752994577
   }
 ]
