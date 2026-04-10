@@ -162,5 +162,13 @@
     "date": "2026-04-09",
     "description": "מתנה לפסח",
     "createdAt": 1775752994577
+  },
+  {
+    "id": "mnt7mnbnc5bacl",
+    "type": "i",
+    "amount": 642,
+    "date": "2026-04-10",
+    "description": "משכורת וויטפול",
+    "createdAt": 1775843936915
   }
 ]
