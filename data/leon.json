@@ -170,5 +170,13 @@
     "date": "2026-04-10",
     "description": "משכורת וויטפול",
     "createdAt": 1775843936915
+  },
+  {
+    "id": "mnw03votaq4o8m",
+    "type": "e",
+    "amount": 200,
+    "date": "2026-04-12",
+    "description": "הכנסה לכרטיס",
+    "createdAt": 1776012702509
   }
 ]
