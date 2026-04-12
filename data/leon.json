@@ -178,5 +178,13 @@
     "date": "2026-04-12",
     "description": "הכנסה לכרטיס",
     "createdAt": 1776012702509
+  },
+  {
+    "id": "mnw0eyc86hdtv7",
+    "type": "i",
+    "amount": 40,
+    "date": "2026-04-12",
+    "description": "מכולט",
+    "createdAt": 1776013219160
   }
 ]
