@@ -38,5 +38,13 @@
     "date": "2026-04-10",
     "description": "מזומן",
     "createdAt": 1775843983438
+  },
+  {
+    "id": "mo0d88emw9k77i",
+    "type": "e",
+    "amount": 150,
+    "date": "2026-04-15",
+    "description": "הכנסה לכרטיס",
+    "createdAt": 1776276605326
   }
 ]
