@@ -186,5 +186,13 @@
     "date": "2026-04-12",
     "description": "מכולט",
     "createdAt": 1776013219160
+  },
+  {
+    "id": "mo63x7mf3r1963",
+    "type": "e",
+    "amount": 90,
+    "date": "2026-04-19",
+    "description": "מתנה לפסח",
+    "createdAt": 1776623771607
   }
 ]
