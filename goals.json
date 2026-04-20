@@ -25,7 +25,14 @@
       "label": "Oneplus 15",
       "emoji": "📱",
       "target": 1500,
-      "deposits": []
+      "deposits": [
+        {
+          "id": "mo7llbiepexwi6",
+          "amount": 50,
+          "date": "2026-04-20",
+          "note": "משכורת"
+        }
+      ]
     }
   ],
   "evelyn": []
