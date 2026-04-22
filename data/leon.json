@@ -194,5 +194,13 @@
     "date": "2026-04-19",
     "description": "מתנה לפסח",
     "createdAt": 1776623771607
+  },
+  {
+    "id": "moafi3gala9lt5",
+    "type": "e",
+    "amount": 200,
+    "date": "2026-04-22",
+    "description": "הכנסה לכרטיס",
+    "createdAt": 1776885086459
   }
 ]
