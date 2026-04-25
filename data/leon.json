@@ -202,5 +202,13 @@
     "date": "2026-04-22",
     "description": "הכנסה לכרטיס",
     "createdAt": 1776885086459
+  },
+  {
+    "id": "moee8oh1zrh10y",
+    "type": "i",
+    "amount": 22,
+    "date": "2026-04-25",
+    "description": "גלידה",
+    "createdAt": 1777124832229
   }
 ]
