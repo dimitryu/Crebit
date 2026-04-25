@@ -210,5 +210,13 @@
     "date": "2026-04-25",
     "description": "גלידה",
     "createdAt": 1777124832229
+  },
+  {
+    "id": "moeixj1g3ut8o5",
+    "type": "e",
+    "amount": 22,
+    "date": "2026-04-25",
+    "description": "גלידה",
+    "createdAt": 1777132710052
   }
 ]
