@@ -54,5 +54,13 @@
     "date": "2026-04-25",
     "description": "גלידה",
     "createdAt": 1777132727707
+  },
+  {
+    "id": "moopuaw67medvn",
+    "type": "i",
+    "amount": 53,
+    "date": "2026-05-02",
+    "description": "משימות בית",
+    "createdAt": 1777748978598
   }
 ]
