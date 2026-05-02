@@ -218,5 +218,13 @@
     "date": "2026-04-25",
     "description": "גלידה",
     "createdAt": 1777132710052
+  },
+  {
+    "id": "moopulwsai0mnt",
+    "type": "i",
+    "amount": 21,
+    "date": "2026-05-02",
+    "description": "משימות בית",
+    "createdAt": 1777748992876
   }
 ]
