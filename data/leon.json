@@ -226,5 +226,13 @@
     "date": "2026-05-02",
     "description": "משימות בית",
     "createdAt": 1777748992876
+  },
+  {
+    "id": "mosnwj2048w1ax",
+    "type": "e",
+    "amount": 150,
+    "date": "2026-05-05",
+    "description": "הכנסה לכרטיס",
+    "createdAt": 1777987587960
   }
 ]
