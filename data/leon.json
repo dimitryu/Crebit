@@ -242,5 +242,13 @@
     "date": "2026-05-05",
     "description": "מכולט",
     "createdAt": 1777987603373
+  },
+  {
+    "id": "motz65zckpwf5z",
+    "type": "e",
+    "amount": 30,
+    "date": "2026-05-06",
+    "description": "Roblox",
+    "createdAt": 1778066979528
   }
 ]
