@@ -43,6 +43,12 @@
           "amount": 50,
           "date": "2026-04-22",
           "note": "משכורת"
+        },
+        {
+          "id": "mougmzoclpugkq",
+          "amount": 100,
+          "date": "2026-05-06",
+          "note": ""
         }
       ]
     }
