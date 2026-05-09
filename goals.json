@@ -59,7 +59,14 @@
       "label": "פשוט חיסכון",
       "emoji": "🎯",
       "target": 500,
-      "deposits": []
+      "deposits": [
+        {
+          "id": "moybvq3ywhcbeg",
+          "amount": 559,
+          "date": "2026-05-09",
+          "note": ""
+        }
+      ]
     }
   ]
 }
