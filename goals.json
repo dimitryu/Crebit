@@ -53,5 +53,13 @@
       ]
     }
   ],
-  "evelyn": []
+  "evelyn": [
+    {
+      "id": "moybuaeq5qo1kl",
+      "label": "פשוט חיסכון",
+      "emoji": "🎯",
+      "target": 500,
+      "deposits": []
+    }
+  ]
 }
