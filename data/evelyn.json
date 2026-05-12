@@ -62,5 +62,13 @@
     "date": "2026-05-02",
     "description": "משימות בית",
     "createdAt": 1777748978598
+  },
+  {
+    "id": "mp2e4uq0keyee5",
+    "type": "e",
+    "amount": 100,
+    "date": "2026-05-12",
+    "description": "רדיטכרד",
+    "createdAt": 1778575841928
   }
 ]
