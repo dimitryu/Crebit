@@ -70,5 +70,13 @@
     "date": "2026-05-12",
     "description": "הכנסה לכרטיס",
     "createdAt": 1778575841928
+  },
+  {
+    "id": "mp3xqghajg3jmm",
+    "type": "e",
+    "amount": 5,
+    "date": "2026-05-13",
+    "description": "חטיף",
+    "createdAt": 1778669228782
   }
 ]
