@@ -274,5 +274,13 @@
     "date": "2026-05-13",
     "description": "חטיף",
     "createdAt": 1778669217127
+  },
+  {
+    "id": "mp4j8q99s05ao7",
+    "type": "i",
+    "amount": 49,
+    "date": "2026-05-13",
+    "description": "מכולת",
+    "createdAt": 1778705353197
   }
 ]
