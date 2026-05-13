@@ -266,5 +266,13 @@
     "date": "2026-05-11",
     "description": "משכורת וויטפול",
     "createdAt": 1778520916044
+  },
+  {
+    "id": "mp3xq7hjhd0ucy",
+    "type": "i",
+    "amount": 5,
+    "date": "2026-05-13",
+    "description": "חטיף",
+    "createdAt": 1778669217127
   }
 ]
