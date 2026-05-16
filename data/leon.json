@@ -290,5 +290,13 @@
     "date": "2026-05-16",
     "description": "הכנסה לכרטיס",
     "createdAt": 1778939011998
+  },
+  {
+    "id": "mp8fvnqxwoe7n9",
+    "type": "i",
+    "amount": 28,
+    "date": "2026-05-16",
+    "description": "חטיפים",
+    "createdAt": 1778941569273
   }
 ]
