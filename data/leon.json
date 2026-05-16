@@ -282,5 +282,13 @@
     "date": "2026-05-13",
     "description": "מכולת",
     "createdAt": 1778705353197
+  },
+  {
+    "id": "mp8ecujilgusse",
+    "type": "e",
+    "amount": 200,
+    "date": "2026-05-16",
+    "description": "הכנסה לכרטיס",
+    "createdAt": 1778939011998
   }
 ]
