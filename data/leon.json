@@ -298,5 +298,13 @@
     "date": "2026-05-16",
     "description": "חטיפים",
     "createdAt": 1778941569273
+  },
+  {
+    "id": "mpcxltnseob1ap",
+    "type": "e",
+    "amount": 500,
+    "date": "2026-05-19",
+    "description": "Dutyfree",
+    "createdAt": 1779213208168
   }
 ]
