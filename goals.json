@@ -75,7 +75,14 @@
       "label": "לינה דיוטי פריי",
       "emoji": "✈️",
       "target": 500,
-      "deposits": []
+      "deposits": [
+        {
+          "id": "mpco7bt7rnsk4x",
+          "amount": 500,
+          "date": "2026-05-19",
+          "note": "משכורת"
+        }
+      ]
     }
   ],
   "evelyn": []
