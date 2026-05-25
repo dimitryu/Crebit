@@ -306,5 +306,13 @@
     "date": "2026-05-19",
     "description": "Dutyfree",
     "createdAt": 1779213208168
+  },
+  {
+    "id": "mplbdqs7mdn7j2",
+    "type": "e",
+    "amount": 100,
+    "date": "2026-05-25",
+    "description": "כרטיס",
+    "createdAt": 1779720075223
   }
 ]
