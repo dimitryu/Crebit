@@ -86,5 +86,13 @@
     "date": "2026-05-20",
     "description": "מכולת",
     "createdAt": 1779274289001
+  },
+  {
+    "id": "mpwjm0rtotnjqq",
+    "type": "e",
+    "amount": 160,
+    "date": "2026-06-02",
+    "description": "כרטיס",
+    "createdAt": 1780399026281
   }
 ]
