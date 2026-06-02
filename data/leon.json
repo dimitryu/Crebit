@@ -314,5 +314,13 @@
     "date": "2026-05-25",
     "description": "כרטיס",
     "createdAt": 1779720075223
+  },
+  {
+    "id": "mpwn1gju5zqf67",
+    "type": "e",
+    "amount": 100,
+    "date": "2026-06-02",
+    "description": "הכנסה לכרטיס",
+    "createdAt": 1780404785418
   }
 ]
