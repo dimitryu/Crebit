@@ -330,5 +330,13 @@
     "date": "2026-06-06",
     "description": "Roblox",
     "createdAt": 1780745481976
+  },
+  {
+    "id": "mq29zmkoealu2m",
+    "type": "i",
+    "amount": 30,
+    "date": "2026-06-06",
+    "description": "משימות בית",
+    "createdAt": 1780745661960
   }
 ]
