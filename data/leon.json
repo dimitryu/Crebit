@@ -338,5 +338,13 @@
     "date": "2026-06-06",
     "description": "משימות בית",
     "createdAt": 1780745661960
+  },
+  {
+    "id": "mq5iyw3i8rhmxp",
+    "type": "e",
+    "amount": 300,
+    "date": "2026-06-08",
+    "description": "בוסם",
+    "createdAt": 1780942142718
   }
 ]
