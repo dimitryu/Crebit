@@ -346,5 +346,13 @@
     "date": "2026-06-08",
     "description": "בוסם",
     "createdAt": 1780942142718
+  },
+  {
+    "id": "mq8hyg6k6xqurg",
+    "type": "i",
+    "amount": 1440,
+    "date": "2026-06-10",
+    "description": "Whitepool",
+    "createdAt": 1781121841004
   }
 ]
