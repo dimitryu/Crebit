@@ -354,5 +354,13 @@
     "date": "2026-06-10",
     "description": "Whitepool",
     "createdAt": 1781121841004
+  },
+  {
+    "id": "mq95q4hevmbhs5",
+    "type": "e",
+    "amount": 100,
+    "date": "2026-06-11",
+    "description": "הכנסה לכרטיס",
+    "createdAt": 1781161763378
   }
 ]
