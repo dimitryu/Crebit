@@ -362,5 +362,13 @@
     "date": "2026-06-11",
     "description": "הכנסה לכרטיס",
     "createdAt": 1781161763378
+  },
+  {
+    "id": "mqdhfpanzvb9yb",
+    "type": "e",
+    "amount": 200,
+    "date": "2026-06-14",
+    "description": "הכנסה לכרטיס",
+    "createdAt": 1781423297231
   }
 ]
