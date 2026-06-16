@@ -102,5 +102,13 @@
     "date": "2026-06-06",
     "description": "משימות בית",
     "createdAt": 1780745677104
+  },
+  {
+    "id": "mqgpn55owggwsr",
+    "type": "i",
+    "amount": 7,
+    "date": "2026-06-16",
+    "description": "מכולט",
+    "createdAt": 1781618479836
   }
 ]
