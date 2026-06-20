@@ -370,5 +370,13 @@
     "date": "2026-06-14",
     "description": "הכנסה לכרטיס",
     "createdAt": 1781423297231
+  },
+  {
+    "id": "mqmq15x0ml6yyg",
+    "type": "e",
+    "amount": 33,
+    "date": "2026-06-20",
+    "description": "Befresh",
+    "createdAt": 1781981931060
   }
 ]
