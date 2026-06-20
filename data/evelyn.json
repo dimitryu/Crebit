@@ -110,5 +110,13 @@
     "date": "2026-06-16",
     "description": "מכולט",
     "createdAt": 1781618479836
+  },
+  {
+    "id": "mqmq1h84g88i8o",
+    "type": "i",
+    "amount": 33,
+    "date": "2026-06-20",
+    "description": "Befresh",
+    "createdAt": 1781981945716
   }
 ]
