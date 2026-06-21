@@ -83,7 +83,7 @@ body{font-family:'Rubik',-apple-system,BlinkMacSystemFont,Arial,sans-serif;backg
 
 /* DESC DROPDOWN */
 .dw{position:relative}
-.hdd{position:absolute;top:calc(100% + 4px);right:0;left:0;background:var(--card);border:1.5px solid var(--border);border-radius:var(--rs);box-shadow:var(--sm);z-index:300;max-height:200px;overflow-y:auto;display:none}
+.hdd{position:absolute;bottom:calc(100% + 4px);top:auto;right:0;left:0;background:var(--card);border:1.5px solid var(--border);border-radius:var(--rs);box-shadow:var(--sm);z-index:300;max-height:200px;overflow-y:auto;display:none}
 .hdd.open{display:block}
 .hi{padding:11px 14px;font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);transition:background .1s}
 .hi:last-child{border-bottom:none}
@@ -652,7 +652,7 @@ svg.chart{width:100%;display:block;direction:ltr;height:200px;overflow:visible}
 
 <script>
 /* ═══ VERSION & CONSTS ═══ */
-const VER='v1.6.0';
+const VER='v1.6.1';
 const KIDS=[
   {id:'leon',    name:'לאון',    emoji:'🦁',color:'#E87D3E',dark:'#B85A1A'},
   {id:'angelina',name:'אנגלינה',emoji:'🌸',color:'#D946A0',dark:'#A01470'},
@@ -691,6 +691,7 @@ let goalsCtx=null;       // 'child' | 'par'
 let goalsKidId=null;     // current kid in goals screen
 let depositGoalId=null;  // goal being deposited into
 let setupIsNew=false;
+let lastBackPress=0;
 
 /* ═══ INIT ═══ */
 window.addEventListener('load',async()=>{
@@ -699,6 +700,7 @@ window.addEventListener('load',async()=>{
   descHist=safeJ(DESC_K,[]);
   isDark=localStorage.getItem(DARK_K)==='1';applyDark();
   setupLock();
+  initBackTrap();
   refreshDL();
   const s=localStorage.getItem('ghCfg');
   if(!s){openSetup();hide();return;}
@@ -707,6 +709,49 @@ window.addEventListener('load',async()=>{
   catch(e){toast('⚠️ שגיאה — בדוק הגדרות');openSetup();}
   hide();
 });
+
+/* ═══ ANDROID BACK BUTTON — navigate within app instead of exiting ═══ */
+function initBackTrap(){
+  history.pushState({app:true},'',location.href);
+  window.addEventListener('popstate',handleBackPress);
+}
+function handleBackPress(){
+  // 1) Close any open modal first
+  const openModal=document.querySelector('.ovl.on');
+  if(openModal){
+    openModal.classList.remove('on');
+    history.pushState({app:true},'',location.href);
+    return;
+  }
+  const current=document.querySelector('.screen.active')?.id;
+
+  // 2) At the root screen — require a second back press within 2s to actually exit
+  if(current==='sLogin'){
+    const now=Date.now();
+    if(now-lastBackPress<2000){
+      return; // don't re-trap — lets the next native back actually exit
+    }
+    lastBackPress=now;
+    toast('⬅️ לחץ שוב ליציאה');
+    history.pushState({app:true},'',location.href);
+    return;
+  }
+
+  // 3) Otherwise — navigate back within the app, and keep trapping
+  history.pushState({app:true},'',location.href);
+  if(current==='sPin'||current==='sParLogin'){
+    go('sLogin');
+  }else if(current==='sSetup'){
+    if(ghCfg)go('sLogin');
+    // else: first-run setup has no back target — stay put
+  }else if(current==='sChild'||current==='sParent'){
+    logout();
+  }else if(current==='sGoals'){
+    go(goalsCtx==='child'?'sChild':'sParent');
+  }else if(current==='sFam'){
+    go('sParent');
+  }
+}
 
 /* ═══ DARK MODE ═══ */
 function toggleDark(){isDark=!isDark;localStorage.setItem(DARK_K,isDark?'1':'0');applyDark();}
