@@ -126,5 +126,13 @@
     "date": "2026-06-24",
     "description": "מכולט",
     "createdAt": 1782300369513
+  },
+  {
+    "id": "mqs7nym1i3gv67",
+    "type": "i",
+    "amount": 34,
+    "date": "2026-06-24",
+    "description": "מכולט",
+    "createdAt": 1782313879033
   }
 ]
