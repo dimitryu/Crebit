@@ -118,5 +118,13 @@
     "date": "2026-06-20",
     "description": "Befresh",
     "createdAt": 1781981945716
+  },
+  {
+    "id": "mqrzmell8ch3n3",
+    "type": "i",
+    "amount": 35,
+    "date": "2026-06-24",
+    "description": "מכולט",
+    "createdAt": 1782300369513
   }
 ]
