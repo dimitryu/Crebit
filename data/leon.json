@@ -378,5 +378,13 @@
     "date": "2026-06-20",
     "description": "Befresh",
     "createdAt": 1781981931060
+  },
+  {
+    "id": "mqsjdi28hph68y",
+    "type": "i",
+    "amount": 58,
+    "date": "2026-06-24",
+    "description": "זיכוי שאיין",
+    "createdAt": 1782333546416
   }
 ]
