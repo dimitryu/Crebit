@@ -134,5 +134,13 @@
     "date": "2026-06-24",
     "description": "מכולט",
     "createdAt": 1782313879033
+  },
+  {
+    "id": "mqzmweqn5ztv2u",
+    "type": "e",
+    "amount": 100,
+    "date": "2026-06-29",
+    "description": "הכנסה לכרטיס",
+    "createdAt": 1782762730660
   }
 ]
