@@ -386,5 +386,13 @@
     "date": "2026-06-24",
     "description": "זיכוי שאיין",
     "createdAt": 1782333546416
+  },
+  {
+    "id": "mqytkmk8upty3c",
+    "type": "e",
+    "amount": 200,
+    "date": "2026-06-29",
+    "description": "הכנסה לכרטיס",
+    "createdAt": 1782713472056
   }
 ]
