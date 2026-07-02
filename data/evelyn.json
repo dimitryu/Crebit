@@ -142,5 +142,13 @@
     "date": "2026-06-29",
     "description": "הכנסה לכרטיס",
     "createdAt": 1782762730660
+  },
+  {
+    "id": "mr3g29bls430og",
+    "type": "i",
+    "amount": 50,
+    "date": "2026-07-02",
+    "description": "ניקיון",
+    "createdAt": 1782993110961
   }
 ]
