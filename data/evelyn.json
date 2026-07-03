@@ -150,5 +150,13 @@
     "date": "2026-07-02",
     "description": "ניקיון",
     "createdAt": 1782993110961
+  },
+  {
+    "id": "mr4o6w1dv8djyn",
+    "type": "i",
+    "amount": 78,
+    "date": "2026-07-03",
+    "description": "מסימות",
+    "createdAt": 1783067230129
   }
 ]
