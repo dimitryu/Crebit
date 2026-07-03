@@ -402,5 +402,13 @@
     "date": "2026-07-02",
     "description": "מתנה",
     "createdAt": 1783020565675
+  },
+  {
+    "id": "mr4o6m3xc5pbo5",
+    "type": "i",
+    "amount": 2,
+    "date": "2026-07-03",
+    "description": "מסימות",
+    "createdAt": 1783067217261
   }
 ]
