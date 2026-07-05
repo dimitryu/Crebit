@@ -1,50 +1,6 @@
 {
   "leon": [
     {
-      "id": "mng4qm5vf1v76s",
-      "label": "Апгрейд копма",
-      "emoji": "🎮",
-      "target": 1000,
-      "deposits": [
-        {
-          "id": "mng4ruohml28hy",
-          "amount": 200,
-          "date": "2026-04-01",
-          "note": "מסכורת"
-        },
-        {
-          "id": "mo7lkzn7qzqfhz",
-          "amount": 50,
-          "date": "2026-04-20",
-          "note": "משכורת"
-        },
-        {
-          "id": "mougmvj1lc3hcg",
-          "amount": 50,
-          "date": "2026-05-06",
-          "note": ""
-        },
-        {
-          "id": "mp1jvfqhr1xm3a",
-          "amount": 50,
-          "date": "2026-05-11",
-          "note": "מסכורת"
-        },
-        {
-          "id": "mp4j3ntquhz6p1",
-          "amount": 50,
-          "date": "2026-05-13",
-          "note": "מסכורת"
-        },
-        {
-          "id": "mq5mx73ba6v90q",
-          "amount": 100,
-          "date": "2026-06-08",
-          "note": "משכורת"
-        }
-      ]
-    },
-    {
       "id": "mr86cibatw3z1e",
       "label": "B2b",
       "emoji": "🎯",
