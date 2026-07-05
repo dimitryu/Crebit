@@ -45,44 +45,6 @@
       ]
     },
     {
-      "id": "mnrihcao1cpig8",
-      "label": "Oneplus 15",
-      "emoji": "📱",
-      "target": 1500,
-      "deposits": [
-        {
-          "id": "mo7llbiepexwi6",
-          "amount": 50,
-          "date": "2026-04-20",
-          "note": "משכורת"
-        },
-        {
-          "id": "moaffiswmurmi7",
-          "amount": 50,
-          "date": "2026-04-22",
-          "note": "משכורת"
-        },
-        {
-          "id": "mougmzoclpugkq",
-          "amount": 100,
-          "date": "2026-05-06",
-          "note": ""
-        },
-        {
-          "id": "mp1juwijn7g0zp",
-          "amount": 200,
-          "date": "2026-05-11",
-          "note": "מסכורת"
-        },
-        {
-          "id": "mq5mxg2zgjfyi9",
-          "amount": 100,
-          "date": "2026-06-08",
-          "note": "משכורת"
-        }
-      ]
-    },
-    {
       "id": "mr86cibatw3z1e",
       "label": "B2b",
       "emoji": "🎯",
