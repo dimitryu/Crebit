@@ -418,5 +418,13 @@
     "date": "2026-07-04",
     "description": "הכנסה לכרטיס",
     "createdAt": 1783171313883
+  },
+  {
+    "id": "mr94dp4xrrf0p2",
+    "type": "e",
+    "amount": 30,
+    "date": "2026-07-06",
+    "description": "Roblox",
+    "createdAt": 1783336286337
   }
 ]
