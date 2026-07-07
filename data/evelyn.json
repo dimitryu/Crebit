@@ -158,5 +158,13 @@
     "date": "2026-07-03",
     "description": "מסימות",
     "createdAt": 1783067230129
+  },
+  {
+    "id": "mramucspevz5td",
+    "type": "i",
+    "amount": 6,
+    "date": "2026-07-07",
+    "description": "מכולת",
+    "createdAt": 1783427762761
   }
 ]
