@@ -434,5 +434,13 @@
     "date": "2026-07-07",
     "description": "הכנסה לכרטיס",
     "createdAt": 1783427522546
+  },
+  {
+    "id": "mrds2totonlx4c",
+    "type": "i",
+    "amount": 21,
+    "date": "2026-07-09",
+    "description": "מכולת",
+    "createdAt": 1783617954509
   }
 ]
