@@ -166,5 +166,13 @@
     "date": "2026-07-07",
     "description": "מכולת",
     "createdAt": 1783427762761
+  },
+  {
+    "id": "mrgrn7l4057u1i",
+    "type": "e",
+    "amount": 100,
+    "date": "2026-07-11",
+    "description": "הכנסה לכרטיס",
+    "createdAt": 1783798624552
   }
 ]
