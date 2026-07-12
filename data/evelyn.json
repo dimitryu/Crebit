@@ -174,5 +174,13 @@
     "date": "2026-07-11",
     "description": "הכנסה לכרטיס",
     "createdAt": 1783798624552
+  },
+  {
+    "id": "mrhn0lizy3neat",
+    "type": "i",
+    "amount": 70,
+    "date": "2026-07-12",
+    "description": "מכולת",
+    "createdAt": 1783851317248
   }
 ]
