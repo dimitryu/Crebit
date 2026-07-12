@@ -442,5 +442,13 @@
     "date": "2026-07-09",
     "description": "מכולת",
     "createdAt": 1783617954509
+  },
+  {
+    "id": "mrhp9fd3l31emr",
+    "type": "i",
+    "amount": 1087,
+    "date": "2026-07-12",
+    "description": "Whitepool",
+    "createdAt": 1783855088391
   }
 ]
