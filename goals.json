@@ -1,19 +1,4 @@
 {
-  "leon": [
-    {
-      "id": "mr86cibatw3z1e",
-      "label": "B2b",
-      "emoji": "🎯",
-      "target": 1050,
-      "deposits": [
-        {
-          "id": "mr86ddysfnv564",
-          "amount": 1050,
-          "date": "2026-07-05",
-          "note": ""
-        }
-      ]
-    }
-  ],
+  "leon": [],
   "evelyn": []
 }
