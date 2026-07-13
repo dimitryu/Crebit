@@ -1,4 +1,12 @@
 {
-  "leon": [],
+  "leon": [
+    {
+      "id": "mriy7mvqcy9xlb",
+      "label": "B2B",
+      "emoji": "🎯",
+      "target": 5000,
+      "deposits": []
+    }
+  ],
   "evelyn": []
 }
