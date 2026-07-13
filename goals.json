@@ -5,7 +5,14 @@
       "label": "B2B",
       "emoji": "🎯",
       "target": 5000,
-      "deposits": []
+      "deposits": [
+        {
+          "id": "mriy7x6r586rdm",
+          "amount": 1400,
+          "date": "2026-07-13",
+          "note": ""
+        }
+      ]
     }
   ],
   "evelyn": []
