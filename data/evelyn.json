@@ -182,5 +182,13 @@
     "date": "2026-07-12",
     "description": "מכולת",
     "createdAt": 1783851317248
+  },
+  {
+    "id": "mrkawb9mdrtk4o",
+    "type": "i",
+    "amount": 10,
+    "date": "2026-07-14",
+    "description": "מכולת",
+    "createdAt": 1784012360458
   }
 ]
