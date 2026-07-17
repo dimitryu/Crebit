@@ -450,5 +450,13 @@
     "date": "2026-07-12",
     "description": "Whitepool",
     "createdAt": 1783855088391
+  },
+  {
+    "id": "mrp7ubwoi0uvm1",
+    "type": "e",
+    "amount": 200,
+    "date": "2026-07-17",
+    "description": "הכנסה לכרטיס",
+    "createdAt": 1784309560008
   }
 ]
