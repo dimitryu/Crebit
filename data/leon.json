@@ -466,5 +466,13 @@
     "date": "2026-07-19",
     "description": "הכנסה לכרטיס",
     "createdAt": 1784461697453
+  },
+  {
+    "id": "mryjdjj73a8ur1",
+    "type": "e",
+    "amount": 200,
+    "date": "2026-07-24",
+    "description": "הכנסה לכרטיס",
+    "createdAt": 1784873127715
   }
 ]
