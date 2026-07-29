@@ -474,5 +474,13 @@
     "date": "2026-07-24",
     "description": "הכנסה לכרטיס",
     "createdAt": 1784873127715
+  },
+  {
+    "id": "ms65uanitxhzty",
+    "type": "e",
+    "amount": 100,
+    "date": "2026-07-29",
+    "description": "הכנסה לכרטיס",
+    "createdAt": 1785334124142
   }
 ]
