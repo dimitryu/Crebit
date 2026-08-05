@@ -482,5 +482,13 @@
     "date": "2026-07-29",
     "description": "הכנסה לכרטיס",
     "createdAt": 1785334124142
+  },
+  {
+    "id": "msfvxnht4qyxyi",
+    "type": "i",
+    "amount": 25,
+    "date": "2026-08-05",
+    "description": "מסימות",
+    "createdAt": 1785922146353
   }
 ]
