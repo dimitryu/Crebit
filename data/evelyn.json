@@ -198,5 +198,13 @@
     "date": "2026-08-05",
     "description": "מסימות",
     "createdAt": 1785922165018
+  },
+  {
+    "id": "msfw09f8sojfgn",
+    "type": "i",
+    "amount": 34,
+    "date": "2026-08-05",
+    "description": "חוב מלאון",
+    "createdAt": 1785922268084
   }
 ]
