@@ -490,5 +490,13 @@
     "date": "2026-08-05",
     "description": "מסימות",
     "createdAt": 1785922146353
+  },
+  {
+    "id": "msfvzvkenqzrsi",
+    "type": "e",
+    "amount": 34,
+    "date": "2026-08-05",
+    "description": "חוב לאוולין",
+    "createdAt": 1785922250126
   }
 ]
