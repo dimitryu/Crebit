@@ -190,5 +190,13 @@
     "date": "2026-07-14",
     "description": "מכולת",
     "createdAt": 1784012360458
+  },
+  {
+    "id": "msfvy1wajzoj7a",
+    "type": "i",
+    "amount": 100,
+    "date": "2026-08-05",
+    "description": "מסימות",
+    "createdAt": 1785922165018
   }
 ]
