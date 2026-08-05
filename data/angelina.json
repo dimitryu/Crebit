@@ -62,5 +62,13 @@
     "date": "2026-02-23",
     "description": "קנס על חניה",
     "createdAt": 1774954174163
+  },
+  {
+    "id": "msgc2sqitx6gtp",
+    "type": "e",
+    "amount": 50,
+    "date": "2026-08-05",
+    "description": "מונית",
+    "createdAt": 1785949260282
   }
 ]
