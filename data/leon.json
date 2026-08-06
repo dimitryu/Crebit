@@ -498,5 +498,13 @@
     "date": "2026-08-05",
     "description": "חוב לאוולין",
     "createdAt": 1785922250126
+  },
+  {
+    "id": "mshgi1f8nncnh3",
+    "type": "e",
+    "amount": 30,
+    "date": "2026-08-06",
+    "description": "Roblox",
+    "createdAt": 1786017156020
   }
 ]
