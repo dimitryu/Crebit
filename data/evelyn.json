@@ -206,5 +206,13 @@
     "date": "2026-08-05",
     "description": "חוב מלאון",
     "createdAt": 1785922268084
+  },
+  {
+    "id": "mshod4t4783zd9",
+    "type": "e",
+    "amount": 100,
+    "date": "2026-08-06",
+    "description": "הכנסה לכרטיס",
+    "createdAt": 1786030364056
   }
 ]
