@@ -522,5 +522,13 @@
     "date": "2026-08-08",
     "description": "כרטיס",
     "createdAt": 1786212764315
+  },
+  {
+    "id": "mskoyxz9y8uxcz",
+    "type": "i",
+    "amount": 50,
+    "date": "2026-08-08",
+    "description": "אוולין",
+    "createdAt": 1786212780165
   }
 ]
