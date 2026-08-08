@@ -214,5 +214,13 @@
     "date": "2026-08-06",
     "description": "הכנסה לכרטיס",
     "createdAt": 1786030364056
+  },
+  {
+    "id": "mskoza0bzcnvme",
+    "type": "e",
+    "amount": 50,
+    "date": "2026-08-08",
+    "description": "לאום",
+    "createdAt": 1786212795755
   }
 ]
