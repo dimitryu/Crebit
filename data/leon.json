@@ -546,5 +546,13 @@
     "date": "2026-08-10",
     "description": "כרטיס",
     "createdAt": 1786387048350
+  },
+  {
+    "id": "msnl6qou821eb3",
+    "type": "e",
+    "amount": 131,
+    "date": "2026-08-10",
+    "description": "Gta",
+    "createdAt": 1786387824030
   }
 ]
