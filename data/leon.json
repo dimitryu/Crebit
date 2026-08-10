@@ -530,5 +530,13 @@
     "date": "2026-08-08",
     "description": "אוולין",
     "createdAt": 1786212780165
+  },
+  {
+    "id": "msnknuvfspls9k",
+    "type": "i",
+    "amount": 4450,
+    "date": "2026-08-10",
+    "description": "משכורת whitepool",
+    "createdAt": 1786386942987
   }
 ]
