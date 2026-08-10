@@ -538,5 +538,13 @@
     "date": "2026-08-10",
     "description": "משכורת whitepool",
     "createdAt": 1786386942987
+  },
+  {
+    "id": "msnkq4661c22ds",
+    "type": "e",
+    "amount": 400,
+    "date": "2026-08-10",
+    "description": "כרטיס",
+    "createdAt": 1786387048350
   }
 ]
