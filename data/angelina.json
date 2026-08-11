@@ -70,5 +70,13 @@
     "date": "2026-08-05",
     "description": "מונית",
     "createdAt": 1785949260282
+  },
+  {
+    "id": "msod6fetwh896a",
+    "type": "e",
+    "amount": 200,
+    "date": "2026-08-11",
+    "description": "חניות פנגו",
+    "createdAt": 1786434838661
   }
 ]
