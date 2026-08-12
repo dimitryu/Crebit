@@ -222,5 +222,13 @@
     "date": "2026-08-08",
     "description": "לאום",
     "createdAt": 1786212795755
+  },
+  {
+    "id": "mspyv0j1luicdq",
+    "type": "i",
+    "amount": 5,
+    "date": "2026-08-12",
+    "description": "מקולט",
+    "createdAt": 1786531723885
   }
 ]
