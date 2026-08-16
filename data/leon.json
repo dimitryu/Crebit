@@ -554,5 +554,13 @@
     "date": "2026-08-10",
     "description": "Gta",
     "createdAt": 1786387824030
+  },
+  {
+    "id": "msvqk9z12t4idd",
+    "type": "e",
+    "amount": 200,
+    "date": "2026-08-16",
+    "description": "כרדיטכארד",
+    "createdAt": 1786880583037
   }
 ]
