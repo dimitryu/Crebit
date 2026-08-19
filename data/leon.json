@@ -562,5 +562,13 @@
     "date": "2026-08-16",
     "description": "כרדיטכארד",
     "createdAt": 1786880583037
+  },
+  {
+    "id": "mszpt3tf0petnq",
+    "type": "e",
+    "amount": 400,
+    "date": "2026-08-19",
+    "description": "כרדיטכארד",
+    "createdAt": 1787121180051
   }
 ]
