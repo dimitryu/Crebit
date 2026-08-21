@@ -94,5 +94,13 @@
     "date": "2026-08-21",
     "description": "כנס 90536046619",
     "createdAt": 1787320135176
+  },
+  {
+    "id": "mt30ablba3sorp",
+    "type": "e",
+    "amount": 1000,
+    "date": "2026-08-21",
+    "description": "כנס 11501238791",
+    "createdAt": 1787320177967
   }
 ]
