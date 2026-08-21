@@ -78,5 +78,13 @@
     "date": "2026-08-11",
     "description": "חניות פנגו",
     "createdAt": 1786434838661
+  },
+  {
+    "id": "mt306tpdpnl09h",
+    "type": "e",
+    "amount": 40,
+    "date": "2026-08-20",
+    "description": "מונית",
+    "createdAt": 1787320014817
   }
 ]
