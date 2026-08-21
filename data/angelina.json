@@ -86,5 +86,13 @@
     "date": "2026-08-20",
     "description": "מונית",
     "createdAt": 1787320014817
+  },
+  {
+    "id": "mt309eko2peeau",
+    "type": "e",
+    "amount": 250,
+    "date": "2026-08-21",
+    "description": "כנס 90536046619",
+    "createdAt": 1787320135176
   }
 ]
