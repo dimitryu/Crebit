@@ -570,5 +570,13 @@
     "date": "2026-08-19",
     "description": "כרדיטכארד",
     "createdAt": 1787121180051
+  },
+  {
+    "id": "mt305v4d6kssu8",
+    "type": "e",
+    "amount": 200,
+    "date": "2026-08-21",
+    "description": "כרדיטכארד",
+    "createdAt": 1787319969997
   }
 ]
