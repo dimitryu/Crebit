@@ -578,5 +578,13 @@
     "date": "2026-08-21",
     "description": "כרדיטכארד",
     "createdAt": 1787319969997
+  },
+  {
+    "id": "mt66suxq1tryzf",
+    "type": "e",
+    "amount": 113,
+    "date": "2026-08-23",
+    "description": "מתנה למקס",
+    "createdAt": 1787512519070
   }
 ]
