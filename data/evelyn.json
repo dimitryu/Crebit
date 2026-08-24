@@ -238,5 +238,13 @@
     "date": "2026-08-18",
     "description": "הכנסת מזומן",
     "createdAt": 1787076500612
+  },
+  {
+    "id": "mt721bfcjto1x1",
+    "type": "i",
+    "amount": 15,
+    "date": "2026-08-24",
+    "description": "מכולט",
+    "createdAt": 1787564981784
   }
 ]
