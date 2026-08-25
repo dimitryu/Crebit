@@ -586,5 +586,13 @@
     "date": "2026-08-23",
     "description": "מתנה למקס",
     "createdAt": 1787512519070
+  },
+  {
+    "id": "mt8yyaoxd3soaw",
+    "type": "e",
+    "amount": 120,
+    "date": "2026-08-25",
+    "description": "אוזניות",
+    "createdAt": 1787680734369
   }
 ]
