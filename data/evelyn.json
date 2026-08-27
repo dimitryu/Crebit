@@ -246,5 +246,13 @@
     "date": "2026-08-24",
     "description": "מכולט",
     "createdAt": 1787564981784
+  },
+  {
+    "id": "mtb8hux7qqle6h",
+    "type": "i",
+    "amount": 20,
+    "date": "2026-08-27",
+    "description": "מכולט",
+    "createdAt": 1787817695947
   }
 ]
