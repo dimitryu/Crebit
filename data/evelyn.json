@@ -254,5 +254,13 @@
     "date": "2026-08-27",
     "description": "מכולט",
     "createdAt": 1787817695947
+  },
+  {
+    "id": "mtcwdom22zik9o",
+    "type": "e",
+    "amount": 100,
+    "date": "2026-08-28",
+    "description": "כרטיס",
+    "createdAt": 1787918278106
   }
 ]
