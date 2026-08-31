@@ -602,5 +602,13 @@
     "date": "2026-08-31",
     "description": "כרטיס",
     "createdAt": 1788196497776
+  },
+  {
+    "id": "mthnxq7f95zc8h",
+    "type": "e",
+    "amount": 60,
+    "date": "2026-08-31",
+    "description": "כרטיס",
+    "createdAt": 1788206427627
   }
 ]
