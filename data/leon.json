@@ -594,5 +594,13 @@
     "date": "2026-08-25",
     "description": "אוזניות",
     "createdAt": 1787680734369
+  },
+  {
+    "id": "mthi0wa829hx38",
+    "type": "i",
+    "amount": 300,
+    "date": "2026-08-31",
+    "description": "כרטיס",
+    "createdAt": 1788196497776
   }
 ]
