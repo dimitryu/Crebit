@@ -610,5 +610,13 @@
     "date": "2026-08-31",
     "description": "כרטיס",
     "createdAt": 1788206427627
+  },
+  {
+    "id": "mtn2csbma2wmss",
+    "type": "i",
+    "amount": 14,
+    "date": "2026-09-04",
+    "description": "משימות בית",
+    "createdAt": 1788532975714
   }
 ]
