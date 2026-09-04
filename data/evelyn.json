@@ -262,5 +262,13 @@
     "date": "2026-08-28",
     "description": "כרטיס",
     "createdAt": 1787918278106
+  },
+  {
+    "id": "mtn2d2mpcamyad",
+    "type": "i",
+    "amount": 76,
+    "date": "2026-09-04",
+    "description": "משימות בית",
+    "createdAt": 1788532989073
   }
 ]
