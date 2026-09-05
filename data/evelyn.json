@@ -270,5 +270,13 @@
     "date": "2026-09-04",
     "description": "משימות בית",
     "createdAt": 1788532989073
+  },
+  {
+    "id": "mtoot6butmz1hu",
+    "type": "i",
+    "amount": 18,
+    "date": "2026-09-05",
+    "description": "מקולט",
+    "createdAt": 1788631158090
   }
 ]
