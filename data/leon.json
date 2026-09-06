@@ -618,5 +618,13 @@
     "date": "2026-09-04",
     "description": "משימות בית",
     "createdAt": 1788532975714
+  },
+  {
+    "id": "mtptqdiqjj361x",
+    "type": "e",
+    "amount": 31,
+    "date": "2026-09-06",
+    "description": "Roblox",
+    "createdAt": 1788699891698
   }
 ]
