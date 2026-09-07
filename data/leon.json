@@ -634,5 +634,13 @@
     "date": "2026-09-06",
     "description": "כרדיטכארד",
     "createdAt": 1788701611053
+  },
+  {
+    "id": "mtrl1iukpp88v8",
+    "type": "i",
+    "amount": 120,
+    "date": "2026-09-07",
+    "description": "מחברות",
+    "createdAt": 1788806227628
   }
 ]
