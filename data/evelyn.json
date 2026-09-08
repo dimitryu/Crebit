@@ -286,5 +286,13 @@
     "date": "2026-09-08",
     "description": "אוכל",
     "createdAt": 1788852177233
+  },
+  {
+    "id": "mtscfkdb8lhjmk",
+    "type": "e",
+    "amount": 100,
+    "date": "2026-09-08",
+    "description": "כרדיטכארד",
+    "createdAt": 1788852232415
   }
 ]
