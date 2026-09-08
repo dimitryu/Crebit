@@ -278,5 +278,13 @@
     "date": "2026-09-05",
     "description": "מקולט",
     "createdAt": 1788631158090
+  },
+  {
+    "id": "mtscedsh8qpgd3",
+    "type": "i",
+    "amount": 20,
+    "date": "2026-09-08",
+    "description": "אוכל",
+    "createdAt": 1788852177233
   }
 ]
