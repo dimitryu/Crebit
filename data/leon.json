@@ -642,5 +642,13 @@
     "date": "2026-09-07",
     "description": "מחברות",
     "createdAt": 1788806227628
+  },
+  {
+    "id": "mtvjivcpselcv0",
+    "type": "i",
+    "amount": 2804,
+    "date": "2026-09-10",
+    "description": "Whitepool",
+    "createdAt": 1789045542457
   }
 ]
