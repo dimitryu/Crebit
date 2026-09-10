@@ -650,5 +650,13 @@
     "date": "2026-09-10",
     "description": "Whitepool",
     "createdAt": 1789045542457
+  },
+  {
+    "id": "mtvsn08lwlxloi",
+    "type": "e",
+    "amount": 200,
+    "date": "2026-09-10",
+    "description": "כרטיס",
+    "createdAt": 1789060851957
   }
 ]
