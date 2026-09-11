@@ -658,5 +658,13 @@
     "date": "2026-09-10",
     "description": "כרטיס",
     "createdAt": 1789060851957
+  },
+  {
+    "id": "mtwq4olmg5denb",
+    "type": "e",
+    "amount": 2800,
+    "date": "2026-09-11",
+    "description": "טלפון חדש",
+    "createdAt": 1789117104010
   }
 ]
