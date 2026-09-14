@@ -302,5 +302,13 @@
     "date": "2026-09-09",
     "description": "מקולט",
     "createdAt": 1788945603433
+  },
+  {
+    "id": "mu160xsv5mntgm",
+    "type": "i",
+    "amount": 45,
+    "date": "2026-09-14",
+    "description": "מקולט",
+    "createdAt": 1789385667871
   }
 ]
