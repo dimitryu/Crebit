@@ -310,5 +310,13 @@
     "date": "2026-09-14",
     "description": "מקולט",
     "createdAt": 1789385667871
+  },
+  {
+    "id": "mu1615budpxv7d",
+    "type": "e",
+    "amount": 100,
+    "date": "2026-09-14",
+    "description": "כרטיס",
+    "createdAt": 1789385677627
   }
 ]
