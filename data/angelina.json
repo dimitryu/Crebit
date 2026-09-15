@@ -110,5 +110,13 @@
     "date": "2026-09-15",
     "description": "כנס 90536046619",
     "createdAt": 1789461791300
+  },
+  {
+    "id": "mu2fdbhmrxzgvi",
+    "type": "i",
+    "amount": 500,
+    "date": "2026-09-15",
+    "description": "כנס 11501238791",
+    "createdAt": 1789461828202
   }
 ]
