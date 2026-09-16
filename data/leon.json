@@ -666,5 +666,13 @@
     "date": "2026-09-11",
     "description": "טלפון חדש",
     "createdAt": 1789117104010
+  },
+  {
+    "id": "mu4861wtip8j8z",
+    "type": "e",
+    "amount": 100,
+    "date": "2026-09-16",
+    "description": "כרדיטכארד",
+    "createdAt": 1789570664237
   }
 ]
