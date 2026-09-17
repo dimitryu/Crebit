@@ -318,5 +318,13 @@
     "date": "2026-09-14",
     "description": "כרטיס",
     "createdAt": 1789385677627
+  },
+  {
+    "id": "mu5mehbctwagj4",
+    "type": "i",
+    "amount": 160,
+    "date": "2026-09-17",
+    "description": "תופרת",
+    "createdAt": 1789655038248
   }
 ]
