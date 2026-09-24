@@ -118,5 +118,13 @@
     "date": "2026-09-15",
     "description": "קנס 11501238791",
     "createdAt": 1789461828202
+  },
+  {
+    "id": "mufs90e8llum5l",
+    "type": "i",
+    "amount": 40,
+    "date": "2026-09-24",
+    "description": "מזרק הדברה",
+    "createdAt": 1790269522496
   }
 ]
