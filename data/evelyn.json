@@ -326,5 +326,13 @@
     "date": "2026-09-17",
     "description": "תופרת",
     "createdAt": 1789655038248
+  },
+  {
+    "id": "muf48kfryp1abh",
+    "type": "i",
+    "amount": 200,
+    "date": "2026-09-24",
+    "description": "הפקדת מזומן",
+    "createdAt": 1790229191031
   }
 ]
