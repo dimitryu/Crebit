@@ -350,5 +350,13 @@
     "date": "2026-09-25",
     "description": "מזומן",
     "createdAt": 1790364923278
+  },
+  {
+    "id": "muhd2cadxyma2l",
+    "type": "i",
+    "amount": 73,
+    "date": "2026-09-25",
+    "description": "לאון וולט",
+    "createdAt": 1790364949429
   }
 ]
