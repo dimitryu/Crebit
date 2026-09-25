@@ -674,5 +674,13 @@
     "date": "2026-09-16",
     "description": "כרדיטכארד",
     "createdAt": 1789570664237
+  },
+  {
+    "id": "muhd2qlbwo6q71",
+    "type": "e",
+    "amount": 73,
+    "date": "2026-09-25",
+    "description": "אוולין וולט",
+    "createdAt": 1790364967967
   }
 ]
