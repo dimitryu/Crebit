@@ -342,5 +342,13 @@
     "date": "2026-09-24",
     "description": "כרטיס",
     "createdAt": 1790281197988
+  },
+  {
+    "id": "muhd1s3y3u6kz3",
+    "type": "i",
+    "amount": 1136,
+    "date": "2026-09-25",
+    "description": "מזומן",
+    "createdAt": 1790364923278
   }
 ]
