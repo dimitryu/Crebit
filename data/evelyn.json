@@ -358,5 +358,13 @@
     "date": "2026-09-25",
     "description": "לאון וולט",
     "createdAt": 1790364949429
+  },
+  {
+    "id": "mumdxrw0gy00j4",
+    "type": "i",
+    "amount": 37,
+    "date": "2026-09-29",
+    "description": "מקולט",
+    "createdAt": 1790668746864
   }
 ]
