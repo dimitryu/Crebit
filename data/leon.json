@@ -682,5 +682,13 @@
     "date": "2026-09-25",
     "description": "אוולין וולט",
     "createdAt": 1790364967967
+  },
+  {
+    "id": "mumgczbvqfocd4",
+    "type": "e",
+    "amount": 100,
+    "date": "2026-09-29",
+    "description": "כרדיטכארד",
+    "createdAt": 1790672815579
   }
 ]
