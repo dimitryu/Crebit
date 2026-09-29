@@ -27,5 +27,13 @@
       ]
     }
   ],
-  "evelyn": []
+  "evelyn": [
+    {
+      "id": "mumet6p1489yga",
+      "label": "לא יודעת",
+      "emoji": "📱",
+      "target": 500,
+      "deposits": []
+    }
+  ]
 }
