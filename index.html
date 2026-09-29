@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <!--
   ╔════════════════════════════════════════════════════════════╗
-  ║  Crebit — ניהול כסף משפחתי           גרסה: v1.7.0          ║
+  ║  Crebit — ניהול כסף משפחתי           גרסה: v1.8.0          ║
   ╠════════════════════════════════════════════════════════════╣
   ║  מה צריך להחליף / להכניס?                                  ║
   ║  • אין מפתחות בתוך הקוד. פרטי GitHub (שם משתמש, Repo,      ║
   ║    Branch, Token) מוזנים במסך ההגדרה הראשוני באפליקציה     ║
   ║    ונשמרים רק במכשיר.                                      ║
-  ║  • כל עדכון: שנה את VER בשורה ~30 (הסקריפט הראשון למטה).   ║
+  ║  • כל עדכון: שנה את VER בשורה ~30 (הסקריפט הראשון למטה)    ║
+  ║    ואת CACHE בקובץ sw.js לאותו מספר גרסה.                  ║
+  ║  • להעלות ל-GitHub ביחד: index.html, sw.js, manifest.json,  ║
+  ║    icon-180.png, icon-192.png, icon-512.png,               ║
+  ║    icon-maskable-512.png (כולם באותה תיקייה).              ║
   ║  • כתובות ספריות הייצוא (CDN) נמצאות ב-CDN באותו סקריפט.   ║
   ╚════════════════════════════════════════════════════════════╝
 -->
@@ -22,7 +26,7 @@
 <title>💰 Crebit</title>
 <script>
 /* ═══ CONFIG — מספר גרסה וכתובות ספריות (עדכן כאן) ═══ */
-const VER='v1.7.0';   // ← לשנות בכל עדכון של האפליקציה
+const VER='v1.8.0';   // ← לשנות בכל עדכון של האפליקציה
 const CDN={           // ← ספריות ייצוא, נטענות רק בעת ייצוא
   exceljs:'https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js',
   html2canvas:'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js',
@@ -229,6 +233,19 @@ body.dark .tx.is-new{background:#2d2a00;border-color:#ca8a04}
 .empty .ei{font-size:3rem;margin-bottom:10px;opacity:.5}
 .empty p{font-size:.9rem;font-weight:500}
 
+/* TEMPLATES / UNDO / UPDATE */
+.tpl-row{display:flex;gap:7px;flex-wrap:wrap}
+.tpl{border:1.5px solid var(--border);background:var(--bg);color:var(--text);border-radius:20px;padding:6px 12px;font-size:.8rem;font-weight:600;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:5px}
+.tpl b{direction:ltr;font-weight:800}
+.tpl.i b{color:var(--inc)}.tpl.e b{color:var(--exp)}
+.tpl:active{transform:scale(.96)}
+.tpl-empty{font-size:.78rem;color:var(--text2)}
+.undo-bar{position:fixed;bottom:84px;left:50%;transform:translateX(-50%) translateY(20px);background:#1C1917;color:#fff;padding:8px 8px 8px 16px;border-radius:26px;font-size:.86rem;font-weight:500;opacity:0;pointer-events:none;transition:all .25s;z-index:998;display:flex;align-items:center;gap:12px;max-width:92vw}
+.undo-bar.on{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
+.undo-bar span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:52vw}
+.undo-bar button{background:#fff;color:#1C1917;border:none;border-radius:18px;padding:7px 14px;font-weight:800;font-family:inherit;cursor:pointer;font-size:.82rem;white-space:nowrap}
+.upd-bar{position:fixed;top:0;left:0;right:0;background:#16A34A;color:#fff;text-align:center;padding:11px 12px;font-weight:700;font-size:.88rem;z-index:999;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+
 /* STATS */
 .st-nav{display:flex;align-items:center;justify-content:space-between;margin:2px 0 10px}
 .st-nav button{background:var(--bg);border:1.5px solid var(--border);border-radius:10px;width:40px;height:34px;font-size:.9rem;cursor:pointer;color:var(--text);font-family:inherit}
@@ -348,6 +365,8 @@ svg.chart{width:100%;display:block;direction:ltr;height:200px;overflow:visible}
 <canvas id="confettiCanvas"></canvas>
 <div class="loverlay" id="loading"><div class="spin"></div><div class="ltxt" id="ltxt">טוען...</div></div>
 <div class="toast" id="toast"></div>
+<div class="undo-bar" id="undoBar"><span id="undoTxt"></span><button onclick="undoDel()">↩️ בטל</button></div>
+<div class="upd-bar" id="updBar" style="display:none" onclick="applyUpdate()">🔄 גרסה חדשה <span id="updVer"></span> זמינה — לחץ לעדכון</div>
 <datalist id="descList"></datalist>
 
 <!-- ══ SETUP ══ -->
@@ -395,6 +414,7 @@ svg.chart{width:100%;display:block;direction:ltr;height:200px;overflow:visible}
       <div class="lpt">מי נכנס עכשיו?</div>
       <div class="lgrid" id="lgrid"></div>
       <div class="lftr">
+        <button class="lsb" id="installBtn" style="display:none" onclick="doInstall()">📲 התקן</button>
         <button class="lsb" onclick="openSetup()">⚙️ הגדרות</button>
         <button class="lsb" id="darkToggleLogin" onclick="toggleDark()">🌙</button>
       </div>
@@ -620,6 +640,10 @@ svg.chart{width:100%;display:block;direction:ltr;height:200px;overflow:visible}
   <div class="modal">
     <div class="mhdl"></div>
     <div class="mtit" id="mTitle">הוספת תנועה</div>
+    <div class="fg" id="tplGrp">
+      <label class="fl" style="display:flex;align-items:center;justify-content:space-between"><span>⚡ תבניות מהירות</span><button onclick="openTplMgr()" style="font-size:.72rem;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:3px 10px;cursor:pointer;font-family:inherit;font-weight:700;color:var(--text2)">⚙️ נהל תבניות</button></label>
+      <div class="tpl-row" id="tplRow"></div>
+    </div>
     <div class="fg" id="mKidGrp" style="display:none"><label class="fl">ילד</label><div class="mksel" id="mKidSel"></div></div>
     <div class="fg">
       <label class="fl">סוג תנועה</label>
@@ -647,6 +671,32 @@ svg.chart{width:100%;display:block;direction:ltr;height:200px;overflow:visible}
       <button class="btn btng" style="flex:1" onclick="closeModal()">ביטול</button>
       <button class="btn btnp" style="flex:2" onclick="saveTx()">💾 שמור</button>
     </div>
+  </div>
+</div>
+
+<!-- ══ MODAL: TEMPLATES ══ -->
+<div class="ovl" id="ovlTpl" onclick="if(event.target===this)closeTplMgr()">
+  <div class="modal">
+    <div class="mhdl"></div>
+    <div class="mtit" id="tplFormTitle">⚡ תבנית חדשה</div>
+    <div class="fg"><label class="fl">סוג</label>
+      <div class="trow"><button class="tbtn" id="tplBtnI" onclick="setTplType('i')">📈 הכנסה</button><button class="tbtn oe" id="tplBtnE" onclick="setTplType('e')">📉 הוצאה</button></div>
+    </div>
+    <div class="fg" style="display:flex;gap:10px">
+      <div style="width:84px"><label class="fl">אייקון</label><input class="fi" id="tplEmoji" maxlength="4" placeholder="🍬" style="text-align:center"></div>
+      <div style="flex:1"><label class="fl">סכום (לא חובה)</label><input class="fi" type="number" id="tplAmt" min="0.01" step="0.01" dir="ltr" placeholder="0.00"></div>
+    </div>
+    <div class="qa-row" style="margin-top:-6px;margin-bottom:14px">
+      <button class="qa" onclick="g('tplEmoji').value='🍬'">🍬</button><button class="qa" onclick="g('tplEmoji').value='🎮'">🎮</button><button class="qa" onclick="g('tplEmoji').value='💵'">💵</button><button class="qa" onclick="g('tplEmoji').value='🎁'">🎁</button><button class="qa" onclick="g('tplEmoji').value='🍕'">🍕</button><button class="qa" onclick="g('tplEmoji').value='🎬'">🎬</button><button class="qa" onclick="g('tplEmoji').value='👕'">👕</button><button class="qa" onclick="g('tplEmoji').value='⚡'">⚡</button>
+    </div>
+    <div class="fg"><label class="fl">תיאור</label><input class="fi" id="tplDesc" placeholder="לדוגמה: דמי כיס שבועיים, ממתקים" autocomplete="off"></div>
+    <div class="mbtns" style="margin-top:6px">
+      <button class="btn btng" id="tplCancel" style="flex:1;display:none" onclick="resetTplForm()">בטל עריכה</button>
+      <button class="btn btnp" style="flex:2" onclick="saveTpl()">💾 שמור תבנית</button>
+    </div>
+    <div class="mtit" style="font-size:.95rem;margin:22px 0 8px">התבניות שלי</div>
+    <div id="tplList"></div>
+    <div style="margin-top:16px"><button class="btn btng" onclick="closeTplMgr()">סגור</button></div>
   </div>
 </div>
 
@@ -772,10 +822,15 @@ let goalsKidId=null;     // current kid in goals screen
 let depositGoalId=null;  // goal being deposited into
 let setupIsNew=false;
 let lastBackPress=0;
+let lastUpdChk=0,deferredInstall=null;
+let tpls=[],tplSha=null,tplEditId=null,tplType='e';
+let undoTimer=null,undoItem=null;
 
 /* ═══ INIT ═══ */
 window.addEventListener('load',async()=>{
-  injectPWA();
+  setupPWA();
+  setTimeout(checkUpdate,2500);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden&&Date.now()-lastUpdChk>10*60*1000)checkUpdate();});
   ['vLogin','vSetup','vPin','vParLogin','vChild','vParent','vGoals','vFam','vStats'].forEach(id=>{const el=g(id);if(el)el.textContent=VER;});
   descHist=safeJ(DESC_K,[]);
   isDark=localStorage.getItem(DARK_K)==='1';applyDark();
@@ -797,7 +852,7 @@ function initBackTrap(){
 }
 function handleBackPress(){
   // 1) Close any open modal first
-  const openModal=document.querySelector('.ovl.on');
+  const _om=document.querySelectorAll('.ovl.on');const openModal=_om[_om.length-1];
   if(openModal){
     openModal.classList.remove('on');
     history.pushState({app:true},'',location.href);
@@ -1509,6 +1564,97 @@ function injectPWA(){
   }catch(e){console.warn('PWA:',e);}
 }
 
+/* ═══ PWA: manifest + Service Worker + עדכון גרסה + התקנה ═══ */
+async function setupPWA(){
+  let ok=false;
+  if(/^https?:/.test(location.protocol)){
+    try{
+      const r=await fetch('manifest.json',{cache:'no-store'});
+      if(r.ok){
+        await r.json();
+        const add=(rel,href,extra={})=>{const l=document.createElement('link');l.rel=rel;l.href=href;Object.assign(l,extra);document.head.appendChild(l);};
+        add('manifest','manifest.json');add('icon','icon-192.png',{type:'image/png'});add('apple-touch-icon','icon-180.png');
+        ok=true;
+        if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(e=>console.warn('SW:',e));
+      }
+    }catch(e){}
+  }
+  if(!ok)injectPWA(); // גיבוי: אם הקבצים לא הועלו — אייקון ו-manifest נוצרים דינמית
+  const ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  if(ios&&!isStandalone())g('installBtn').style.display='inline-block';
+}
+function isStandalone(){return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;}
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;const b=g('installBtn');if(b)b.style.display='inline-block';});
+window.addEventListener('appinstalled',()=>{deferredInstall=null;const b=g('installBtn');if(b)b.style.display='none';});
+function doInstall(){
+  if(deferredInstall){deferredInstall.prompt();deferredInstall=null;return;}
+  toast('📲 בספארי: שתף ⬆️ ← הוסף למסך הבית');
+}
+function verNum(v){return String(v).replace(/^v/,'').split('.').map(x=>parseInt(x)||0);}
+function verGt(a,b){const x=verNum(a),y=verNum(b);for(let i=0;i<3;i++){if((x[i]||0)!==(y[i]||0))return(x[i]||0)>(y[i]||0);}return false;}
+async function checkUpdate(){
+  lastUpdChk=Date.now();
+  if(!/^https?:/.test(location.protocol))return;
+  try{
+    const r=await fetch(location.pathname+'?_='+Date.now(),{cache:'no-store'});if(!r.ok)return;
+    const m=(await r.text()).match(/const VER='(v[\d.]+)'/);
+    if(m&&verGt(m[1],VER)){g('updVer').textContent=m[1];g('updBar').style.display='block';}
+  }catch(e){}
+}
+async function applyUpdate(){
+  show('מעדכן...');
+  try{
+    if('serviceWorker' in navigator){const regs=await navigator.serviceWorker.getRegistrations();await Promise.all(regs.map(r=>r.unregister()));}
+    if(window.caches){const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)));}
+  }catch(e){}
+  location.replace(location.pathname+'?v='+Date.now());
+}
+
+/* ═══ TEMPLATES (תבניות מהירות — נשמרות ב-GitHub: templates.json) ═══ */
+async function loadTpls(){
+  try{const r=await ghGet('templates.json');if(r){tpls=r.content;tplSha=r.sha;}else{tpls=[];tplSha=null;}localStorage.setItem(OC_PFX+'tpls',JSON.stringify(tpls));}
+  catch(e){tpls=safeJ(OC_PFX+'tpls',[]);tplSha=null;}
+}
+async function saveTpls(){tplSha=await ghPut('templates.json',tpls,tplSha||null);localStorage.setItem(OC_PFX+'tpls',JSON.stringify(tpls));}
+function renderTplRow(){
+  g('tplRow').innerHTML=tpls.length?tpls.map(t=>`<button class="tpl ${t.type}" onclick="applyTpl('${t.id}')">${esc(t.emoji||'⚡')} ${esc(t.desc)}${t.amount?` <b>${t.type==='i'?'+':'-'}${fmtN(t.amount)}</b>`:''}</button>`).join(''):'<span class="tpl-empty">אין תבניות עדיין — לחץ "נהל תבניות" כדי ליצור</span>';
+}
+function applyTpl(id){
+  const t=tpls.find(x=>x.id===id);if(!t)return;
+  setTT(t.type);g('mAmt').value=t.amount||'';g('mDesc').value=t.desc;g('hdd').classList.remove('open');
+  if(!t.amount)g('mAmt').focus();
+}
+function openTplMgr(){resetTplForm();renderTplList();g('ovlTpl').classList.add('on');}
+function closeTplMgr(){g('ovlTpl').classList.remove('on');}
+function setTplType(t){tplType=t;g('tplBtnI').className='tbtn'+(t==='i'?' oi':'');g('tplBtnE').className='tbtn'+(t==='e'?' oe':'');}
+function resetTplForm(){tplEditId=null;setTplType('e');g('tplEmoji').value='';g('tplAmt').value='';g('tplDesc').value='';g('tplFormTitle').textContent='⚡ תבנית חדשה';g('tplCancel').style.display='none';}
+function renderTplList(){
+  g('tplList').innerHTML=tpls.length?tpls.map(t=>`<div class="hmi"><span style="flex:1;font-size:.9rem;font-weight:500">${esc(t.emoji||'⚡')} ${esc(t.desc)} <small style="direction:ltr;display:inline-block;font-weight:800;color:${t.type==='i'?'var(--inc)':'var(--exp)'}">${t.amount?(t.type==='i'?'+':'-')+fmtN(t.amount):(t.type==='i'?'הכנסה':'הוצאה')}</small></span><button class="ibtn" onclick="editTpl('${t.id}')">✏️</button><button class="ibtn" onclick="delTpl('${t.id}')">🗑️</button></div>`).join(''):'<div class="hempty" style="padding:16px 0;text-align:center;color:var(--text2)">אין תבניות שמורות</div>';
+}
+function editTpl(id){
+  const t=tpls.find(x=>x.id===id);if(!t)return;
+  tplEditId=id;setTplType(t.type);g('tplEmoji').value=t.emoji||'';g('tplAmt').value=t.amount||'';g('tplDesc').value=t.desc;
+  g('tplFormTitle').textContent='✏️ עריכת תבנית';g('tplCancel').style.display='block';g('tplDesc').focus();
+}
+async function saveTpl(){
+  const desc=g('tplDesc').value.trim(),amt=parseFloat(g('tplAmt').value),emoji=g('tplEmoji').value.trim()||'⚡';
+  if(!desc)return toast('❌ הכנס תיאור לתבנית');
+  if(g('tplAmt').value&&!(amt>0))return toast('❌ סכום לא תקין');
+  const item={id:tplEditId||uid(),type:tplType,amount:amt>0?amt:0,desc,emoji};
+  const prev=[...tpls];
+  if(tplEditId)tpls=tpls.map(t=>t.id===tplEditId?item:t);else tpls=[...tpls,item];
+  show('שומר תבנית...');
+  try{await saveTpls();renderTplList();renderTplRow();resetTplForm();toast('✅ התבנית נשמרה');}
+  catch(e){tpls=prev;toast('❌ שגיאה: '+e.message);}
+  hide();
+}
+async function delTpl(id){
+  const prev=[...tpls];tpls=tpls.filter(t=>t.id!==id);show('מוחק...');
+  try{await saveTpls();if(tplEditId===id)resetTplForm();renderTplList();renderTplRow();toast('🗑️ התבנית נמחקה');}
+  catch(e){tpls=prev;toast('❌ שגיאה: '+e.message);}
+  hide();
+}
+
 /* ═══ SETUP ═══ */
 function buildPinRows(){g('pinRows').innerHTML=KIDS.map(k=>`<div class="kpr"><div class="ke">${k.emoji}</div><div style="flex:1"><div class="kn">${k.name}</div><input class="fi" type="number" id="pin_${k.id}" placeholder="4 ספרות" min="1000" max="9999" dir="ltr"></div></div>`).join('');}
 function openSetup(){
@@ -1595,7 +1741,7 @@ async function parLogin(){
   const h=await sha256(pw);
   if(h===cfg.parentPasswordHash){
     me='parent';show('טוען נתונים...');
-    try{await loadAll();await loadGoals();selKid=(cfg.children||KIDS)[0].id;selMon=null;buildCtabs();renderPar();go('sParent');}
+    try{await loadAll();await loadGoals();await loadTpls();selKid=(cfg.children||KIDS)[0].id;selMon=null;buildCtabs();renderPar();go('sParent');}
     catch(e){toast('❌ שגיאה: '+e.message);}
     hide();
   }else g('parErr').textContent='❌ סיסמה שגויה';
@@ -1665,7 +1811,7 @@ function renderPar(){
 }
 async function refreshParent(){
   show('מרענן...');
-  try{await loadAll();await loadGoals();buildCtabs();renderPar();g('parOffline').classList.remove('on');toast('🔄 עודכן');}
+  try{await loadAll();await loadGoals();await loadTpls();buildCtabs();renderPar();g('parOffline').classList.remove('on');toast('🔄 עודכן');}
   catch(e){toast('❌ שגיאה');}
   hide();
 }
@@ -1703,13 +1849,14 @@ function openAdd(){
   const kids=cfg?.children||KIDS;
   g('mKidSel').innerHTML=kids.map(k=>`<button class="mkbtn ${k.id===mKidSel?'on':''}" id="mk_${k.id}" style="${k.id===mKidSel?`background:${k.color};border-color:${k.color};`:''}"><span class="me">${k.emoji}</span>${k.name}</button>`).join('');
   kids.forEach(k=>{g('mk_'+k.id).onclick=()=>{mKidSel=k.id;kids.forEach(kk=>{const b=g('mk_'+kk.id);b.classList.toggle('on',kk.id===k.id);b.style.background=kk.id===k.id?kk.color:'';b.style.borderColor=kk.id===k.id?kk.color:'';});};});
+  g('tplGrp').style.display='block';renderTplRow();
   refreshTT();g('ovl').classList.add('on');
 }
 function openEdit(id){
   const tx=(data[selKid]||[]).find(t=>t.id===id);if(!tx)return;
   editId=id;txType=tx.type;g('mTitle').textContent='עריכת תנועה';
   g('mAmt').value=tx.amount;g('mDate').value=isoToDisplay(tx.date);g('mDesc').value=tx.description;
-  g('hdd').classList.remove('open');g('mKidGrp').style.display='none';
+  g('hdd').classList.remove('open');g('mKidGrp').style.display='none';g('tplGrp').style.display='none';
   refreshTT();g('ovl').classList.add('on');
 }
 function maybClose(e){if(e.target===g('ovl'))closeModal();}
@@ -1737,9 +1884,34 @@ async function saveTx(){
   hide();
 }
 async function delTx(id){
-  if(!confirm('❓ למחוק תנועה זו?'))return;show('מוחק...');
-  try{data[selKid]=(data[selKid]||[]).filter(t=>t.id!==id);shas[selKid]=await ghPut(`data/${selKid}.json`,data[selKid],shas[selKid]||null);localStorage.setItem(OC_PFX+selKid,JSON.stringify(data[selKid]));renderPar();toast('🗑️ נמחק');}
-  catch(e){toast('❌ שגיאה: '+e.message);}
+  const kid=selKid,tx=(data[kid]||[]).find(t=>t.id===id);if(!tx)return;
+  show('מוחק...');
+  const prev=data[kid];
+  try{
+    data[kid]=prev.filter(t=>t.id!==id);
+    shas[kid]=await ghPut(`data/${kid}.json`,data[kid],shas[kid]||null);
+    localStorage.setItem(OC_PFX+kid,JSON.stringify(data[kid]));
+    renderPar();showUndo(kid,tx);
+  }catch(e){data[kid]=prev;renderPar();toast('❌ שגיאה: '+e.message);}
+  hide();
+}
+function showUndo(kid,tx){
+  undoItem={kid,tx};clearTimeout(undoTimer);
+  g('undoTxt').textContent='🗑️ נמחק: '+(tx.description||'תנועה');
+  g('undoBar').classList.add('on');
+  undoTimer=setTimeout(()=>{g('undoBar').classList.remove('on');undoItem=null;},8000);
+}
+async function undoDel(){
+  if(!undoItem)return;
+  const{kid,tx}=undoItem;clearTimeout(undoTimer);g('undoBar').classList.remove('on');undoItem=null;
+  show('משחזר...');
+  try{
+    const arr=[...(data[kid]||[])];if(!arr.some(t=>t.id===tx.id))arr.push(tx);
+    data[kid]=arr;shas[kid]=await ghPut(`data/${kid}.json`,arr,shas[kid]||null);
+    localStorage.setItem(OC_PFX+kid,JSON.stringify(arr));
+    if(kid!==selKid){selKid=kid;selMon=null;buildCtabs();}
+    renderPar();toast('↩️ התנועה שוחזרה');
+  }catch(e){toast('❌ שגיאה: '+e.message);}
   hide();
 }
 
