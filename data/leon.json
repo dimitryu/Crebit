@@ -690,5 +690,13 @@
     "date": "2026-09-29",
     "description": "כרדיטכארד",
     "createdAt": 1790672815579
+  },
+  {
+    "id": "mupithojfbs2zc",
+    "type": "e",
+    "amount": 95,
+    "date": "2026-10-01",
+    "description": "מתנה וואיטפול",
+    "createdAt": 1790858343619
   }
 ]
