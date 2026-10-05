@@ -126,5 +126,13 @@
     "date": "2026-09-24",
     "description": "מזרק הדברה",
     "createdAt": 1790269522496
+  },
+  {
+    "id": "muv996ufm2da4d",
+    "type": "e",
+    "amount": 300,
+    "date": "2026-10-05",
+    "description": "מניקור",
+    "createdAt": 1791205076967
   }
 ]
