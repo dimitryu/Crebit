@@ -698,5 +698,13 @@
     "date": "2026-10-01",
     "description": "מתנה וואיטפול",
     "createdAt": 1790858343619
+  },
+  {
+    "id": "muuspt3ndhdt5p",
+    "type": "e",
+    "amount": 100,
+    "date": "2026-10-05",
+    "description": "כרטיס",
+    "createdAt": 1791177298835
   }
 ]
