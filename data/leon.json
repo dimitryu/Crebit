@@ -706,5 +706,13 @@
     "date": "2026-10-05",
     "description": "כרטיס",
     "createdAt": 1791177298835
+  },
+  {
+    "id": "muwjqlb8hj6opn",
+    "type": "e",
+    "amount": 30,
+    "date": "2026-10-06",
+    "description": "Roblox",
+    "createdAt": 1791283151204
   }
 ]
