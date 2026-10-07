@@ -366,5 +366,13 @@
     "date": "2026-09-29",
     "description": "מקולט",
     "createdAt": 1790668746864
+  },
+  {
+    "id": "muy7xesw9xlj90",
+    "type": "i",
+    "amount": 34,
+    "date": "2026-10-07",
+    "description": "מקולט",
+    "createdAt": 1791384246320
   }
 ]
