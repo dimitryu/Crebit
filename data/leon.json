@@ -722,5 +722,13 @@
     "date": "2026-10-07",
     "description": "פרחים",
     "createdAt": 1791379659071
+  },
+  {
+    "id": "mv2l2q5say1lgs",
+    "type": "i",
+    "amount": 1233,
+    "date": "2026-10-10",
+    "description": "משכורת whitepool",
+    "createdAt": 1791648194032
   }
 ]
