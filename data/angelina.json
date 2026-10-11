@@ -134,5 +134,13 @@
     "date": "2026-10-05",
     "description": "מניקור",
     "createdAt": 1791205076967
+  },
+  {
+    "id": "mv3dpw8apls0s6",
+    "type": "i",
+    "amount": 300,
+    "date": "2026-10-11",
+    "description": "מניקיור",
+    "createdAt": 1791696304234
   }
 ]
