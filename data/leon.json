@@ -730,5 +730,13 @@
     "date": "2026-10-10",
     "description": "משכורת whitepool",
     "createdAt": 1791648194032
+  },
+  {
+    "id": "mv3qvgeiz1gncz",
+    "type": "e",
+    "amount": 200,
+    "date": "2026-10-11",
+    "description": "כרטיס",
+    "createdAt": 1791718398666
   }
 ]
