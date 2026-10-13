@@ -374,5 +374,13 @@
     "date": "2026-10-07",
     "description": "מקולט",
     "createdAt": 1791384246320
+  },
+  {
+    "id": "mv6ztimbfl2vy7",
+    "type": "i",
+    "amount": 7,
+    "date": "2026-10-13",
+    "description": "החזר מלאון",
+    "createdAt": 1791914823299
   }
 ]
