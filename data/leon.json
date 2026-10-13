@@ -738,5 +738,13 @@
     "date": "2026-10-11",
     "description": "כרטיס",
     "createdAt": 1791718398666
+  },
+  {
+    "id": "mv6zt7cf73shte",
+    "type": "e",
+    "amount": 7,
+    "date": "2026-10-13",
+    "description": "החזר לאוולין",
+    "createdAt": 1791914808687
   }
 ]
