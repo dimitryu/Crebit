@@ -754,5 +754,13 @@
     "date": "2026-10-15",
     "description": "כרטיס",
     "createdAt": 1792072677349
+  },
+  {
+    "id": "mv9qy6j8lcpz0c",
+    "type": "i",
+    "amount": 55,
+    "date": "2026-10-15",
+    "description": "מכולט",
+    "createdAt": 1792081322900
   }
 ]
