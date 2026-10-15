@@ -382,5 +382,13 @@
     "date": "2026-10-13",
     "description": "החזר מלאון",
     "createdAt": 1791914823299
+  },
+  {
+    "id": "mva1e6abqyzi9u",
+    "type": "e",
+    "amount": 20,
+    "date": "2026-10-15",
+    "description": "ללאון",
+    "createdAt": 1792098865235
   }
 ]
