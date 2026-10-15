@@ -746,5 +746,13 @@
     "date": "2026-10-13",
     "description": "החזר לאוולין",
     "createdAt": 1791914808687
+  },
+  {
+    "id": "mv9lsvl1wjr635",
+    "type": "e",
+    "amount": 300,
+    "date": "2026-10-15",
+    "description": "כרטיס",
+    "createdAt": 1792072677349
   }
 ]
