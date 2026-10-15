@@ -762,5 +762,13 @@
     "date": "2026-10-15",
     "description": "מכולט",
     "createdAt": 1792081322900
+  },
+  {
+    "id": "mva1duxw34v9en",
+    "type": "i",
+    "amount": 20,
+    "date": "2026-10-15",
+    "description": "מאוולין",
+    "createdAt": 1792098850532
   }
 ]
