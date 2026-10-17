@@ -770,5 +770,13 @@
     "date": "2026-10-15",
     "description": "מאוולין",
     "createdAt": 1792098850532
+  },
+  {
+    "id": "mvcaa0njxfgy1f",
+    "type": "e",
+    "amount": 44,
+    "date": "2026-10-17",
+    "description": "משחק מחשב",
+    "createdAt": 1792234720207
   }
 ]
