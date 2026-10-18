@@ -390,5 +390,13 @@
     "date": "2026-10-15",
     "description": "ללאון",
     "createdAt": 1792098865235
+  },
+  {
+    "id": "mvdq8gu4k2efih",
+    "type": "e",
+    "amount": 100,
+    "date": "2026-10-18",
+    "description": "כרדיטכארד",
+    "createdAt": 1792321987900
   }
 ]
