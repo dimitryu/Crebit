@@ -398,5 +398,13 @@
     "date": "2026-10-18",
     "description": "כרדיטכארד",
     "createdAt": 1792321987900
+  },
+  {
+    "id": "mvdqmh9rx1wn0h",
+    "type": "i",
+    "amount": 12,
+    "date": "2026-10-18",
+    "description": "מקולט",
+    "createdAt": 1792322641647
   }
 ]
