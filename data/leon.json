@@ -778,5 +778,13 @@
     "date": "2026-10-17",
     "description": "משחק מחשב",
     "createdAt": 1792234720207
+  },
+  {
+    "id": "mvglbpw1p8f4am",
+    "type": "e",
+    "amount": 200,
+    "date": "2026-10-20",
+    "description": "כרדיטכארד",
+    "createdAt": 1792495140049
   }
 ]
