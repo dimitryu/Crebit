@@ -406,5 +406,13 @@
     "date": "2026-10-18",
     "description": "מקולט",
     "createdAt": 1792322641647
+  },
+  {
+    "id": "mvgoykgqz6coxy",
+    "type": "i",
+    "amount": 15,
+    "date": "2026-10-20",
+    "description": "מכולט",
+    "createdAt": 1792501244954
   }
 ]
