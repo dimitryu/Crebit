@@ -414,5 +414,13 @@
     "date": "2026-10-20",
     "description": "מכולט",
     "createdAt": 1792501244954
+  },
+  {
+    "id": "mvi5m830grjbge",
+    "type": "i",
+    "amount": 8,
+    "date": "2026-10-21",
+    "description": "מקולט",
+    "createdAt": 1792589688684
   }
 ]
