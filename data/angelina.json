@@ -142,5 +142,13 @@
     "date": "2026-10-11",
     "description": "מניקיור",
     "createdAt": 1791696304234
+  },
+  {
+    "id": "mvj86mvckhvj14",
+    "type": "e",
+    "amount": 2970,
+    "date": "2026-10-22",
+    "description": "טיפול שיניים",
+    "createdAt": 1792654466376
   }
 ]
