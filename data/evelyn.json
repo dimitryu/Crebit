@@ -422,5 +422,13 @@
     "date": "2026-10-21",
     "description": "מקולט",
     "createdAt": 1792589688684
+  },
+  {
+    "id": "mvo5i1nvu0lpgb",
+    "type": "i",
+    "amount": 100,
+    "date": "2026-10-25",
+    "description": "מתנה",
+    "createdAt": 1792952290795
   }
 ]
