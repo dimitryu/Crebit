@@ -786,5 +786,13 @@
     "date": "2026-10-20",
     "description": "כרדיטכארד",
     "createdAt": 1792495140049
+  },
+  {
+    "id": "mvo5hqlkofq7to",
+    "type": "i",
+    "amount": 150,
+    "date": "2026-10-25",
+    "description": "מתנה",
+    "createdAt": 1792952276456
   }
 ]
