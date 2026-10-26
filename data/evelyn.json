@@ -438,5 +438,13 @@
     "date": "2026-10-26",
     "description": "כרטיס",
     "createdAt": 1793008901232
+  },
+  {
+    "id": "mvp495f71pmr1p",
+    "type": "i",
+    "amount": 93,
+    "date": "2026-10-26",
+    "description": "מקולט",
+    "createdAt": 1793010662323
   }
 ]
