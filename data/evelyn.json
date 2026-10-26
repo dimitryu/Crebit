@@ -430,5 +430,13 @@
     "date": "2026-10-25",
     "description": "מתנה",
     "createdAt": 1792952290795
+  },
+  {
+    "id": "mvp37ek0leemin",
+    "type": "e",
+    "amount": 100,
+    "date": "2026-10-26",
+    "description": "כרטיס",
+    "createdAt": 1793008901232
   }
 ]
