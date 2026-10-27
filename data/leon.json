@@ -794,5 +794,13 @@
     "date": "2026-10-25",
     "description": "מתנה",
     "createdAt": 1792952276456
+  },
+  {
+    "id": "mvqwapbd59pbab",
+    "type": "e",
+    "amount": 100,
+    "date": "2026-10-27",
+    "description": "כרטיס",
+    "createdAt": 1793118230185
   }
 ]
