@@ -446,5 +446,13 @@
     "date": "2026-10-26",
     "description": "מקולט",
     "createdAt": 1793010662323
+  },
+  {
+    "id": "mvtinpiujlxbx8",
+    "type": "i",
+    "amount": 42,
+    "date": "2026-10-29",
+    "description": "מקולט",
+    "createdAt": 1793276720886
   }
 ]
