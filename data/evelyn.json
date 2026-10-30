@@ -454,5 +454,13 @@
     "date": "2026-10-29",
     "description": "מקולט",
     "createdAt": 1793276720886
+  },
+  {
+    "id": "mvus6vss0x58x2",
+    "type": "e",
+    "amount": 100,
+    "date": "2026-10-30",
+    "description": "כרטיס",
+    "createdAt": 1793353198205
   }
 ]
