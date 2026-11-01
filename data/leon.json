@@ -810,5 +810,13 @@
     "date": "2026-11-01",
     "description": "כרטיס",
     "createdAt": 1793516189108
+  },
+  {
+    "id": "mvxtf6n0f0vzdf",
+    "type": "e",
+    "amount": 100,
+    "date": "2026-11-01",
+    "description": "כרטיס",
+    "createdAt": 1793536663644
   }
 ]
