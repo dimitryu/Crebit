@@ -462,5 +462,13 @@
     "date": "2026-10-30",
     "description": "כרטיס",
     "createdAt": 1793353198205
+  },
+  {
+    "id": "mvze71wpdguin4",
+    "type": "i",
+    "amount": 35,
+    "date": "2026-11-02",
+    "description": "מכולט",
+    "createdAt": 1793632022377
   }
 ]
