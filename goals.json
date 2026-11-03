@@ -33,7 +33,14 @@
       "label": "B2B",
       "emoji": "🎯",
       "target": 5000,
-      "deposits": []
+      "deposits": [
+        {
+          "id": "mw0giyg7571bex",
+          "amount": 1500,
+          "date": "2026-11-03",
+          "note": ""
+        }
+      ]
     }
   ]
 }
