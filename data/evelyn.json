@@ -478,5 +478,13 @@
     "date": "2026-11-03",
     "description": "מלאון",
     "createdAt": 1793700352042
+  },
+  {
+    "id": "mw0tgx5g7d2g5k",
+    "type": "i",
+    "amount": 226,
+    "date": "2026-11-03",
+    "description": "משימות",
+    "createdAt": 1793718143188
   }
 ]
