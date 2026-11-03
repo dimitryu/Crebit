@@ -470,5 +470,13 @@
     "date": "2026-11-02",
     "description": "מכולט",
     "createdAt": 1793632022377
+  },
+  {
+    "id": "mw0ivleym209iv",
+    "type": "i",
+    "amount": 4,
+    "date": "2026-11-03",
+    "description": "מלאון",
+    "createdAt": 1793700352042
   }
 ]
