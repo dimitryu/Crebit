@@ -826,5 +826,13 @@
     "date": "2026-11-03",
     "description": "לאוולין",
     "createdAt": 1793700333132
+  },
+  {
+    "id": "mw0tgnhlz4y468",
+    "type": "i",
+    "amount": 42,
+    "date": "2026-11-03",
+    "description": "משימות",
+    "createdAt": 1793718130665
   }
 ]
