@@ -27,5 +27,13 @@
       ]
     }
   ],
-  "evelyn": []
+  "evelyn": [
+    {
+      "id": "mw0ginut19e2nc",
+      "label": "B2B",
+      "emoji": "🎯",
+      "target": 5000,
+      "deposits": []
+    }
+  ]
 }
