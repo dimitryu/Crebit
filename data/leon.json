@@ -834,5 +834,13 @@
     "date": "2026-11-03",
     "description": "משימות",
     "createdAt": 1793718130665
+  },
+  {
+    "id": "mw3nss27ihaftp",
+    "type": "e",
+    "amount": 200,
+    "date": "2026-11-05",
+    "description": "כרטיס",
+    "createdAt": 1793890017295
   }
 ]
