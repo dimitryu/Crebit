@@ -486,5 +486,13 @@
     "date": "2026-11-03",
     "description": "משימות",
     "createdAt": 1793718143188
+  },
+  {
+    "id": "mw3hi0lun47bef",
+    "type": "i",
+    "amount": 40,
+    "date": "2026-11-05",
+    "description": "מקולט",
+    "createdAt": 1793879437458
   }
 ]
