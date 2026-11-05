@@ -842,5 +842,13 @@
     "date": "2026-11-05",
     "description": "כרטיס",
     "createdAt": 1793890017295
+  },
+  {
+    "id": "mw3oep0ikb3kvw",
+    "type": "i",
+    "amount": 150,
+    "date": "2026-11-05",
+    "description": "בגדים",
+    "createdAt": 1793891039778
   }
 ]
