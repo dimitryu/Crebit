@@ -518,5 +518,13 @@
     "date": "2026-11-09",
     "description": "מקולט",
     "createdAt": 1794241143798
+  },
+  {
+    "id": "mw9gv5bdfyowbt",
+    "type": "e",
+    "amount": 100,
+    "date": "2026-11-09",
+    "description": "כרדיטכארד",
+    "createdAt": 1794241167529
   }
 ]
