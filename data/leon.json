@@ -882,5 +882,13 @@
     "date": "2026-11-08",
     "description": "כרטיס",
     "createdAt": 1794149622292
+  },
+  {
+    "id": "mw9hubzqa6msrm",
+    "type": "e",
+    "amount": 60,
+    "date": "2026-11-09",
+    "description": "לאוולין",
+    "createdAt": 1794242809142
   }
 ]
