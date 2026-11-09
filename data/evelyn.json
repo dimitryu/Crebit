@@ -526,5 +526,13 @@
     "date": "2026-11-09",
     "description": "כרדיטכארד",
     "createdAt": 1794241167529
+  },
+  {
+    "id": "mw9hungi6gro0s",
+    "type": "i",
+    "amount": 60,
+    "date": "2026-11-09",
+    "description": "מלאון",
+    "createdAt": 1794242824002
   }
 ]
