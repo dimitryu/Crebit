@@ -510,5 +510,13 @@
     "date": "2026-11-05",
     "description": "כרטיס",
     "createdAt": 1793891068061
+  },
+  {
+    "id": "mw9gun06v6l196",
+    "type": "i",
+    "amount": 60,
+    "date": "2026-11-09",
+    "description": "מקולט",
+    "createdAt": 1794241143798
   }
 ]
