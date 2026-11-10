@@ -890,5 +890,13 @@
     "date": "2026-11-09",
     "description": "לאוולין",
     "createdAt": 1794242809142
+  },
+  {
+    "id": "mwaupxglnyi8ym",
+    "type": "i",
+    "amount": 933,
+    "date": "2026-11-10",
+    "description": "Whitepool",
+    "createdAt": 1794324904869
   }
 ]
