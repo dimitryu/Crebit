@@ -542,5 +542,13 @@
     "date": "2026-11-15",
     "description": "כרטיס",
     "createdAt": 1794764692206
+  },
+  {
+    "id": "mwi4tsjbjfs36t",
+    "type": "e",
+    "amount": 15,
+    "date": "2026-11-15",
+    "description": "ללאון",
+    "createdAt": 1794765144503
   }
 ]
