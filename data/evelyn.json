@@ -550,5 +550,13 @@
     "date": "2026-11-15",
     "description": "ללאון",
     "createdAt": 1794765144503
+  },
+  {
+    "id": "mwkceefvrvfcjk",
+    "type": "i",
+    "amount": 40,
+    "date": "2026-11-17",
+    "description": "מקולט",
+    "createdAt": 1794898795675
   }
 ]
