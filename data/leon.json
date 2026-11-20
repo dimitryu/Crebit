@@ -914,5 +914,13 @@
     "date": "2026-11-15",
     "description": "מאוולין",
     "createdAt": 1794765079825
+  },
+  {
+    "id": "mwow415g65jwya",
+    "type": "i",
+    "amount": 200,
+    "date": "2026-11-20",
+    "description": "כרטיס",
+    "createdAt": 1795173768917
   }
 ]
