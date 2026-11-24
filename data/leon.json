@@ -922,5 +922,13 @@
     "date": "2026-11-20",
     "description": "כרטיס",
     "createdAt": 1795173768917
+  },
+  {
+    "id": "mwv38u4h2n5hpt",
+    "type": "e",
+    "amount": 90,
+    "date": "2026-11-24",
+    "description": "מתנת פרידה",
+    "createdAt": 1795548547457
   }
 ]
