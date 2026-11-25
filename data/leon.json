@@ -930,5 +930,13 @@
     "date": "2026-11-24",
     "description": "מתנת פרידה",
     "createdAt": 1795548547457
+  },
+  {
+    "id": "mwvvn3nfd36uvw",
+    "type": "e",
+    "amount": 22,
+    "date": "2026-11-25",
+    "description": "לאוולין",
+    "createdAt": 1795596242235
   }
 ]
