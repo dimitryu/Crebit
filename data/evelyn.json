@@ -566,5 +566,13 @@
     "date": "2026-11-17",
     "description": "מקולט",
     "createdAt": 1794943134284
+  },
+  {
+    "id": "mwvvndo9fvrauj",
+    "type": "i",
+    "amount": 22,
+    "date": "2026-11-25",
+    "description": "מלאון",
+    "createdAt": 1795596255225
   }
 ]
