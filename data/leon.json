@@ -938,5 +938,13 @@
     "date": "2026-11-25",
     "description": "לאוולין",
     "createdAt": 1795596242235
+  },
+  {
+    "id": "mwwe7m4pedak4u",
+    "type": "e",
+    "amount": 200,
+    "date": "2026-11-25",
+    "description": "כרטיס",
+    "createdAt": 1795627432393
   }
 ]
