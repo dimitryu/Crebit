@@ -574,5 +574,13 @@
     "date": "2026-11-25",
     "description": "מלאון",
     "createdAt": 1795596255225
+  },
+  {
+    "id": "mwwe7wvhq8kh3p",
+    "type": "e",
+    "amount": 100,
+    "date": "2026-11-25",
+    "description": "כרטיס",
+    "createdAt": 1795627446317
   }
 ]
