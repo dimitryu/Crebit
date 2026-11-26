@@ -598,5 +598,13 @@
     "date": "2026-11-26",
     "description": "כרטיס",
     "createdAt": 1795704972624
+  },
+  {
+    "id": "mwxx5ic795pgdo",
+    "type": "i",
+    "amount": 40,
+    "date": "2026-11-26",
+    "description": "מקולט",
+    "createdAt": 1795719713047
   }
 ]
