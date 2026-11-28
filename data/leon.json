@@ -954,5 +954,13 @@
     "date": "2026-11-25",
     "description": "מקולט",
     "createdAt": 1795633299510
+  },
+  {
+    "id": "mx0jefgw0iaa03",
+    "type": "e",
+    "amount": 37,
+    "date": "2026-11-28",
+    "description": "חולצה",
+    "createdAt": 1795878013137
   }
 ]
