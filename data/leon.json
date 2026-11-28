@@ -962,5 +962,13 @@
     "date": "2026-11-28",
     "description": "חולצה",
     "createdAt": 1795878013137
+  },
+  {
+    "id": "mx0s1xqd3udash",
+    "type": "e",
+    "amount": 200,
+    "date": "2026-11-28",
+    "description": "מזומן",
+    "createdAt": 1795892546821
   }
 ]
